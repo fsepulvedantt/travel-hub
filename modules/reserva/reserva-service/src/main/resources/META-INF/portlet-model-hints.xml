@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.ntt.travelhub.reserva.model.Reserva">
+		<field name="uuid" type="String" />
+		<field name="reservaId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="origen" type="String" />
+		<field name="destino" type="String" />
+		<field name="fechaSalida" type="Date" />
+		<field name="fechaLlegada" type="Date" />
+		<field name="mail" type="String" />
+		<field name="dni" type="String" />
+		<field name="idViaje" type="long" />
+	</model>
+</model-hints>

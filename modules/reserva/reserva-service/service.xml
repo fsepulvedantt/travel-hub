@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.ntt.travelhub.reserva">
+	<namespace>Reserva</namespace>
+	<entity local-service="true" name="Reserva" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="reservaId" primary="true" type="long" />
+
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="origen" type="String" />
+		<column name="destino" type="String" />
+		<column name="fechaSalida" type="Date" />
+		<column name="fechaLlegada" type="Date" />
+		<column name="mail" type="String" />
+		<column name="dni" type="String" />
+		<column name="idViaje" type="long" />
+
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="createDate" />
+		</order>
+
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="IdViaje" return-type="Collection">
+			<finder-column name="idViaje" />
+		</finder>
+		<finder name="Dni" return-type="Collection">
+			<finder-column name="dni" />
+		</finder>
+	</entity>
+</service-builder>

@@ -1,0 +1,8 @@
+Bundle-Name: reserva-api
+Bundle-SymbolicName: com.ntt.travelhub.reserva.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.ntt.travelhub.reserva.exception,\
+	com.ntt.travelhub.reserva.model,\
+	com.ntt.travelhub.reserva.service,\
+	com.ntt.travelhub.reserva.service.persistence

@@ -1,0 +1,33 @@
+<div class="viajes-container">
+  <h2>Viajes Disponibles</h2>
+  
+  <div class="filters-section mb-4">
+    <div class="row">
+      <div class="col-md-4">
+        <input type="text" id="filtroOrigen" class="form-control" placeholder="Origen">
+      </div>
+      <div class="col-md-4">
+        <input type="text" id="filtroDestino" class="form-control" placeholder="Destino">
+      </div>
+      <div class="col-md-4">
+        <button id="btnBuscar" class="btn btn-primary w-100">Buscar Viajes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loadingSpinner" class="text-center d-none">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <div id="errorMessage" class="alert alert-danger d-none" role="alert"></div>
+
+  <div id="viajesGrid" class="row g-4">
+    <!-- Las tarjetas se generarán dinámicamente aquí -->
+  </div>
+
+  <div id="noResultados" class="alert alert-info d-none">
+    No se encontraron viajes disponibles.
+  </div>
+</div>

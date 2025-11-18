@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.ntt.travelhub.viaje">
+	<namespace>Viaje</namespace>
+	<entity local-service="true" name="Viaje" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="viajeId" primary="true" type="long" />
+
+		<!-- Group instance -->
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="origen" type="String" />
+		<column name="destino" type="String" />
+		<column name="fechaSalida" type="Date" />
+		<column name="fechaLlegada" type="Date" />
+		<column name="empresa" type="String" />
+		<column name="precio" type="double" />
+		<column name="asientosDisponibles" type="int" />
+
+		<!-- Order -->
+		<order by="asc">
+			<order-column name="fechaSalida" />
+		</order>
+
+		<!-- Finder methods -->
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="Origen" return-type="Collection">
+			<finder-column name="origen" />
+		</finder>
+		<finder name="Destino" return-type="Collection">
+			<finder-column name="destino" />
+		</finder>
+		<finder name="OrigenDestino" return-type="Collection">
+			<finder-column name="origen" />
+			<finder-column name="destino" />
+		</finder>
+		<finder name="Empresa" return-type="Collection">
+			<finder-column name="empresa" />
+		</finder>
+	</entity>
+</service-builder>

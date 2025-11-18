@@ -1,0 +1,8 @@
+Bundle-Name: viaje-api
+Bundle-SymbolicName: com.ntt.travelhub.viaje.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.ntt.travelhub.viaje.exception,\
+	com.ntt.travelhub.viaje.model,\
+	com.ntt.travelhub.viaje.service,\
+	com.ntt.travelhub.viaje.service.persistence

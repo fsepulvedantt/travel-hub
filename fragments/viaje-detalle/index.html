@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<div class="viaje-detalle-container">
+  <!-- Loading Spinner -->
+  <div id="loadingSpinner" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+
+  <!-- Viaje Details -->
+  <div id="viajeDetalle" style="display: none;">
+    <!-- Header con imagen y empresa -->
+    <div class="viaje-header">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="ruta-principal">
+            <h1><i class="fas fa-map-marker-alt text-primary"></i> <span id="origenDestino"></span></h1>
+          </div>
+          <div class="empresa-badge">
+            <i class="fas fa-bus"></i> <span id="empresa"></span>
+          </div>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="precio-principal">
+            <div class="precio-label">Precio por pasajero</div>
+            <div class="precio-valor" id="precio"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información del viaje -->
+    <div class="viaje-info-card">
+      <div class="row">
+        <!-- Salida -->
+        <div class="col-md-6 mb-4">
+          <div class="info-section">
+            <h5><i class="fas fa-calendar-check text-success"></i> Salida</h5>
+            <div class="info-content">
+              <p><strong>Origen:</strong> <span id="origenDetalle"></span></p>
+              <p><strong>Fecha y Hora:</strong> <span id="fechaSalida"></span></p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Llegada -->
+        <div class="col-md-6 mb-4">
+          <div class="info-section">
+            <h5><i class="fas fa-calendar-check text-danger"></i> Llegada</h5>
+            <div class="info-content">
+              <p><strong>Destino:</strong> <span id="destinoDetalle"></span></p>
+              <p><strong>Fecha y Hora:</strong> <span id="fechaLlegada"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Asientos disponibles -->
+      <div class="row">
+        <div class="col-12">
+          <div class="asientos-info">
+            <i class="fas fa-chair"></i>
+            <span id="asientosDisponibles"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Servicios incluidos -->
+    <div class="servicios-card">
+      <h5><i class="fas fa-check-circle text-success"></i> Servicios Incluidos</h5>
+      <div class="row mt-3">
+        <div class="col-md-3 col-6 mb-3">
+          <div class="servicio-item">
+            <i class="fas fa-wifi"></i>
+            <span>Wi-Fi</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="servicio-item">
+            <i class="fas fa-plug"></i>
+            <span>Enchufes</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="servicio-item">
+            <i class="fas fa-snowflake"></i>
+            <span>Aire Acondicionado</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 mb-3">
+          <div class="servicio-item">
+            <i class="fas fa-toilet"></i>
+            <span>Baño a Bordo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de compra -->
+    <div class="compra-section">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="resumen-compra">
+            <h6>Total a Pagar</h6>
+            <div class="total-precio" id="precioTotal"></div>
+            <small class="text-muted">Precio final por 1 pasajero</small>
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <button id="btnComprar" class="btn btn-comprar btn-lg">
+            <i class="fas fa-shopping-cart"></i> Continuar con la Compra
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

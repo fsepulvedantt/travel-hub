@@ -1,0 +1,260 @@
+.viaje-detalle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header del viaje */
+.viaje-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+}
+
+.ruta-principal h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.empresa-badge {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.precio-principal {
+  text-align: right;
+}
+
+.precio-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.precio-valor {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Card de información */
+.viaje-info-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.info-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  height: 100%;
+}
+
+.info-section h5 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-content p {
+  margin-bottom: 0.75rem;
+  color: #555;
+}
+
+.info-content p:last-child {
+  margin-bottom: 0;
+}
+
+.asientos-info {
+  background: #e3f2fd;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.asientos-info i {
+  margin-right: 0.5rem;
+}
+
+/* Servicios */
+.servicios-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.servicios-card h5 {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.servicio-item {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.servicio-item:hover {
+  background: #e9ecef;
+  transform: translateY(-3px);
+}
+
+.servicio-item i {
+  font-size: 2rem;
+  color: #667eea;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.servicio-item span {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Sección de compra */
+.compra-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  bottom: 1rem;
+}
+
+.resumen-compra h6 {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.total-precio {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.btn-comprar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-comprar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.btn-comprar:active {
+  transform: translateY(-1px);
+}
+
+.btn-comprar.btn-disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-comprar.btn-disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loading y errores */
+#loadingSpinner {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+#errorMessage {
+  margin: 2rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .viaje-detalle-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .viaje-header {
+    padding: 1.5rem;
+  }
+
+  .ruta-principal h1 {
+    font-size: 1.75rem;
+  }
+
+  .precio-valor {
+    font-size: 2rem;
+  }
+
+  .precio-principal {
+    text-align: left;
+    margin-top: 1rem;
+  }
+
+  .viaje-info-card,
+  .servicios-card {
+    padding: 1.5rem;
+  }
+
+  .compra-section {
+    padding: 1.5rem;
+  }
+
+  .compra-section .row {
+    flex-direction: column;
+  }
+
+  .compra-section .text-end {
+    text-align: left !important;
+    margin-top: 1rem;
+  }
+
+  .btn-comprar {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .total-precio {
+    font-size: 1.75rem;
+  }
+}

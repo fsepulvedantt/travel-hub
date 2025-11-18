@@ -1,0 +1,8 @@
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly project(":modules:viaje:viaje-api")
+}
+
+buildService {
+	apiDir = "../viaje-api/src/main/java"
+}
