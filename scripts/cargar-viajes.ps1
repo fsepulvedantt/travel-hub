@@ -13,7 +13,22 @@ $viajes = @(
     @{origen="Mendoza"; destino="Buenos Aires"; fechaSalida="2025-12-20T22:00:00"; fechaLlegada="2025-12-21T14:00:00"; empresa="Andesmar"; precio=22500.00; asientosDisponibles=12}
 )
 
+# Verificar que el endpoint esté disponible
+Write-Host "🔍 Verificando endpoint REST..." -ForegroundColor Cyan
+try {
+    $testResponse = Invoke-WebRequest -Uri "http://localhost:8080/o/viajes/" -Method Get -UseBasicParsing -ErrorAction Stop
+    Write-Host "✓ Endpoint disponible`n" -ForegroundColor Green
+} catch {
+    Write-Host "❌ Error: El endpoint http://localhost:8080/o/viajes/ no está disponible." -ForegroundColor Red
+    Write-Host "   Por favor, verifica que:" -ForegroundColor Yellow
+    Write-Host "   1. Liferay esté corriendo" -ForegroundColor Yellow
+    Write-Host "   2. El módulo viaje-rest esté desplegado y activo" -ForegroundColor Yellow
+    Write-Host "   3. Ejecuta: .\gradlew :modules:viaje-rest:deploy`n" -ForegroundColor Yellow
+    exit 1
+}
+
 $contador = 0
+$errores = 0
 foreach ($viaje in $viajes) {
     $body = @{
         origen = $viaje.origen
@@ -25,10 +40,22 @@ foreach ($viaje in $viajes) {
         asientosDisponibles = $viaje.asientosDisponibles
     } | ConvertTo-Json
 
-    $response = Invoke-RestMethod -Uri "http://localhost:32772/o/viajes/" -Method Post -Body $body -ContentType "application/json"
-    $contador++
-    Write-Host "✓ Viaje $contador creado: $($viaje.origen) → $($viaje.destino)" -ForegroundColor Green
-    Start-Sleep -Milliseconds 200
+    try {
+        $response = Invoke-RestMethod -Uri "http://localhost:8080/o/viajes/" -Method Post -Body $body -ContentType "application/json" -ErrorAction Stop
+        $contador++
+        Write-Host "✓ Viaje $contador creado: $($viaje.origen) → $($viaje.destino)" -ForegroundColor Green
+    } catch {
+        $errores++
+        Write-Host "✗ Error al crear viaje: $($viaje.origen) → $($viaje.destino)" -ForegroundColor Red
+        Write-Host "  Detalle: $($_.Exception.Message)" -ForegroundColor Yellow
+    }
+    
+    Start-Sleep -Milliseconds 300
 }
 
-Write-Host "`n✅ Se han cargado $contador viajes exitosamente!" -ForegroundColor Cyan
+Write-Host ""
+if ($errores -eq 0) {
+    Write-Host "✅ Se han cargado $contador viajes exitosamente!" -ForegroundColor Green
+} else {
+    Write-Host "⚠️  Se cargaron $contador viajes con $errores errores." -ForegroundColor Yellow
+}

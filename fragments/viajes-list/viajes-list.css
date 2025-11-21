@@ -1,0 +1,512 @@
+.viajes-container {
+  padding: 2rem 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Paleta de azules */
+:root {
+  --azul-primario: #0066cc;
+  --azul-secundario: #0052a3;
+  --azul-claro: #e8f4fd;
+  --azul-muy-claro: #f0f7ff;
+  --gris-texto: #2c3e50;
+}
+
+/* Search Info Bar */
+.search-info-bar {
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+
+.search-params {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.search-params i {
+  font-size: 1.25rem;
+}
+
+.btn-nueva-busqueda {
+  background: white;
+  color: var(--azul-primario);
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-nueva-busqueda:hover {
+  background: var(--azul-muy-claro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.viajes-container h2 {
+  margin-bottom: 2rem;
+  color: var(--gris-texto);
+  font-weight: 700;
+  font-size: 1.75rem;
+}
+
+.filters-section {
+  background: var(--azul-muy-claro);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.1);
+  border: 1px solid var(--azul-claro);
+  position: sticky;
+  top: 1rem;
+}
+
+.filters-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--azul-primario);
+}
+
+.filters-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--azul-primario);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--gris-texto);
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-group label i {
+  color: var(--azul-primario);
+  font-size: 0.95rem;
+}
+
+.filter-group .form-control-sm,
+.filter-group select.form-control-sm {
+  border: 1px solid var(--azul-claro);
+  background: white;
+  color: var(--gris-texto);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.filter-group select.form-control-sm {
+  cursor: pointer;
+  appearance: none;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230066cc' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+}
+
+.filter-group .form-control-sm:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+  outline: none;
+}
+
+/* Price Range */
+.price-range {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--azul-claro);
+}
+
+.price-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.price-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--azul-primario);
+  margin-bottom: 0.25rem;
+}
+
+.price-input-group .form-control-sm {
+  border: 1px solid var(--azul-claro);
+  background: white;
+  color: var(--gris-texto);
+  border-radius: 0.35rem;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.5rem;
+}
+
+.price-input-group .form-control-sm:focus {
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+  outline: none;
+}
+
+.price-display {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--azul-primario);
+}
+
+/* Botones de filtros */
+.filters-section .btn {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.filters-section .btn-primary {
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+  border: none;
+  color: white;
+}
+
+.filters-section .btn-primary:hover {
+  background: linear-gradient(135deg, var(--azul-secundario) 0%, #003d7a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+  color: white;
+}
+
+.filters-section .btn-outline-secondary {
+  border: 1px solid var(--azul-claro);
+  color: var(--azul-primario);
+}
+
+.filters-section .btn-outline-secondary:hover {
+  background: var(--azul-claro);
+  border-color: var(--azul-primario);
+  color: var(--azul-primario);
+}
+
+/* Tarjetas de viajes - Diseño rectangular */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--azul-claro);
+  border-radius: 0.75rem;
+  background: white;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 102, 204, 0.15) !important;
+}
+
+.card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, var(--azul-muy-claro) 100%);
+}
+
+.card-title {
+  color: var(--azul-primario);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-title i {
+  color: var(--azul-secundario);
+}
+
+/* Información de Empresa */
+.card-body > p:first-of-type {
+  color: var(--gris-texto);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.card-body .badge {
+  background: var(--azul-primario) !important;
+  color: white !important;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Secciones de Salida y Llegada */
+.card-body > div {
+  background: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  border-left: 4px solid var(--azul-primario);
+}
+
+.card-body > div p {
+  color: var(--gris-texto);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-body > div p:first-child {
+  font-weight: 600;
+  color: var(--azul-primario);
+  margin-bottom: 0.5rem;
+}
+
+.card-body > div p:last-child {
+  margin-bottom: 0;
+}
+
+.card-body > div i {
+  color: var(--azul-secundario);
+  font-size: 1rem;
+}
+
+/* Sección de Precio y Asientos */
+.d-flex.justify-content-between {
+  background: var(--azul-muy-claro);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  border-top: 2px solid var(--azul-primario);
+}
+
+.d-flex.justify-content-between h4 {
+  color: var(--azul-primario);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.d-flex.justify-content-between .badge {
+  background: var(--azul-primario) !important;
+  color: white !important;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Botón Reservar */
+.btn-reservar {
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.btn-reservar:hover {
+  background: linear-gradient(135deg, var(--azul-secundario) 0%, #003d7a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 102, 204, 0.3);
+  color: white;
+}
+
+#loadingSpinner {
+  padding: 3rem 0;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: var(--azul-primario);
+}
+
+#errorMessage {
+  margin: 2rem 0;
+}
+
+#noResultados {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+/* Estilos para tarjetas de viaje con radio buttons */
+.viaje-option {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.viaje-option:hover {
+  background: var(--azul-muy-claro);
+  border-color: var(--azul-primario) !important;
+  transform: translateX(5px);
+}
+
+.viaje-option.selected {
+  background: var(--azul-claro);
+  border-color: var(--azul-primario) !important;
+  border-width: 2px !important;
+}
+
+.viaje-radio {
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.25rem;
+}
+
+.viaje-radio:checked {
+  background-color: var(--azul-primario);
+  border-color: var(--azul-primario);
+}
+
+.viaje-ida-card {
+  border-left: 4px solid var(--azul-primario);
+}
+
+.viaje-vuelta-card {
+  border-left: 4px solid #28a745;
+}
+
+#viajesIdaContainer,
+#viajesVueltaContainer {
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+#viajesIdaContainer::-webkit-scrollbar,
+#viajesVueltaContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+#viajesIdaContainer::-webkit-scrollbar-track,
+#viajesVueltaContainer::-webkit-scrollbar-track {
+  background: var(--azul-muy-claro);
+  border-radius: 4px;
+}
+
+#viajesIdaContainer::-webkit-scrollbar-thumb,
+#viajesVueltaContainer::-webkit-scrollbar-thumb {
+  background: var(--azul-primario);
+  border-radius: 4px;
+}
+
+#viajesIdaContainer::-webkit-scrollbar-thumb:hover,
+#viajesVueltaContainer::-webkit-scrollbar-thumb:hover {
+  background: var(--azul-secundario);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .viajes-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .filters-section {
+    margin-bottom: 2rem;
+    position: static;
+  }
+
+  .card {
+    min-height: auto;
+  }
+  
+  #viajesIdaContainer,
+  #viajesVueltaContainer {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .viajes-container {
+    padding: 0.5rem;
+  }
+
+  .search-info-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .btn-nueva-busqueda {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .viajes-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filters-section {
+    padding: 1rem;
+  }
+
+  .filter-group {
+    margin-bottom: 1rem;
+  }
+
+  .filter-group label {
+    font-size: 0.9rem;
+  }
+
+  .filters-section .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-body > div {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .d-flex.justify-content-between h4 {
+    font-size: 1.25rem;
+  }
+}

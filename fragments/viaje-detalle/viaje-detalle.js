@@ -88,7 +88,7 @@
     } else {
       btnComprar.addEventListener('click', () => {
         // Redirigir a formulario de reserva
-        window.location.href = `/formulario-reserva?viajeId=${viaje.viajeId}&origen=${encodeURIComponent(viaje.origen)}&destino=${encodeURIComponent(viaje.destino)}&precio=${viaje.precio}`;
+        window.location.href = `/web/travelhub/formulario-reserva?viajeId=${viaje.viajeId}&origen=${encodeURIComponent(viaje.origen)}&destino=${encodeURIComponent(viaje.destino)}&precio=${viaje.precio}`;
       });
     }
   }

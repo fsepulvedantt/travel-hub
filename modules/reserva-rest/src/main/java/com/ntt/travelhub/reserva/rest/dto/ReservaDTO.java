@@ -12,6 +12,9 @@ public class ReservaDTO {
     private String mail;
     private String dni;
     private long idViaje;
+    private long idViajeIda;
+    private long idViajeVuelta;
+    private String tipoReserva; // "IDA" o "IDA_VUELTA"
 
     public ReservaDTO() {
     }
@@ -78,5 +81,29 @@ public class ReservaDTO {
 
     public void setIdViaje(long idViaje) {
         this.idViaje = idViaje;
+    }
+
+    public long getIdViajeIda() {
+        return idViajeIda;
+    }
+
+    public void setIdViajeIda(long idViajeIda) {
+        this.idViajeIda = idViajeIda;
+    }
+
+    public long getIdViajeVuelta() {
+        return idViajeVuelta;
+    }
+
+    public void setIdViajeVuelta(long idViajeVuelta) {
+        this.idViajeVuelta = idViajeVuelta;
+    }
+
+    public String getTipoReserva() {
+        return tipoReserva;
+    }
+
+    public void setTipoReserva(String tipoReserva) {
+        this.tipoReserva = tipoReserva;
     }
 }

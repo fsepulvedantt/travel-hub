@@ -13,5 +13,8 @@ create table Reserva_Reserva (
 	fechaLlegada DATE null,
 	mail VARCHAR(75) null,
 	dni VARCHAR(75) null,
-	idViaje LONG
+	idViaje LONG,
+	idViajeIda LONG,
+	idViajeVuelta LONG,
+	tipoReserva VARCHAR(75) null
 );

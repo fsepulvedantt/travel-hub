@@ -17,5 +17,8 @@
 		<field name="mail" type="String" />
 		<field name="dni" type="String" />
 		<field name="idViaje" type="long" />
+		<field name="idViajeIda" type="long" />
+		<field name="idViajeVuelta" type="long" />
+		<field name="tipoReserva" type="String" />
 	</model>
 </model-hints>

@@ -96,6 +96,11 @@ public interface ViajeLocalService
 		throws PortalException;
 
 	/**
+	 * Decrementa los asientos disponibles de un viaje
+	 */
+	public Viaje decrementarAsientos(long viajeId) throws PortalException;
+
+	/**
 	 * @throws PortalException
 	 */
 	@Override
@@ -307,6 +312,17 @@ public interface ViajeLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getViajesCount();
+
+	/**
+	 * Incrementa los asientos disponibles de un viaje (para cancelaciones)
+	 */
+	public Viaje incrementarAsientos(long viajeId) throws PortalException;
+
+	/**
+	 * Verifica si un viaje tiene asientos disponibles
+	 */
+	public boolean tieneAsientosDisponibles(long viajeId)
+		throws PortalException;
 
 	/**
 	 * Updates the viaje in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

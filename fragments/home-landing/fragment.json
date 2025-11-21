@@ -1,0 +1,7 @@
+{
+  "cssPath": "home-landing.css",
+  "htmlPath": "home-landing.html",
+  "jsPath": "home-landing.js",
+  "name": "Home Landing",
+  "type": "component"
+}

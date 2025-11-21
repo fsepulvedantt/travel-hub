@@ -68,7 +68,23 @@ public class ReservaLocalServiceWrapper
 	}
 
 	/**
-	 * Crea una nueva reserva con los datos proporcionados
+	 * Crea una nueva reserva con soporte para ida y vuelta
+	 */
+	@Override
+	public com.ntt.travelhub.reserva.model.Reserva createReserva(
+			String origen, String destino, java.util.Date fechaSalida,
+			java.util.Date fechaLlegada, String mail, String dni, long idViaje,
+			long idViajeIda, long idViajeVuelta, String tipoReserva,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _reservaLocalService.createReserva(
+			origen, destino, fechaSalida, fechaLlegada, mail, dni, idViaje,
+			idViajeIda, idViajeVuelta, tipoReserva, serviceContext);
+	}
+
+	/**
+	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
 	 */
 	@Override
 	public com.ntt.travelhub.reserva.model.Reserva createReserva(

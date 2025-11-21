@@ -296,6 +296,49 @@ public interface ReservaModel
 	 */
 	public void setIdViaje(long idViaje);
 
+	/**
+	 * Returns the id viaje ida of this reserva.
+	 *
+	 * @return the id viaje ida of this reserva
+	 */
+	public long getIdViajeIda();
+
+	/**
+	 * Sets the id viaje ida of this reserva.
+	 *
+	 * @param idViajeIda the id viaje ida of this reserva
+	 */
+	public void setIdViajeIda(long idViajeIda);
+
+	/**
+	 * Returns the id viaje vuelta of this reserva.
+	 *
+	 * @return the id viaje vuelta of this reserva
+	 */
+	public long getIdViajeVuelta();
+
+	/**
+	 * Sets the id viaje vuelta of this reserva.
+	 *
+	 * @param idViajeVuelta the id viaje vuelta of this reserva
+	 */
+	public void setIdViajeVuelta(long idViajeVuelta);
+
+	/**
+	 * Returns the tipo reserva of this reserva.
+	 *
+	 * @return the tipo reserva of this reserva
+	 */
+	@AutoEscape
+	public String getTipoReserva();
+
+	/**
+	 * Sets the tipo reserva of this reserva.
+	 *
+	 * @param tipoReserva the tipo reserva of this reserva
+	 */
+	public void setTipoReserva(String tipoReserva);
+
 	@Override
 	public Reserva cloneWithOriginalValues();
 

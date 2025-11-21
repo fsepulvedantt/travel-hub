@@ -87,7 +87,17 @@ public interface ReservaLocalService
 	public Reserva createReserva(long reservaId);
 
 	/**
-	 * Crea una nueva reserva con los datos proporcionados
+	 * Crea una nueva reserva con soporte para ida y vuelta
+	 */
+	public Reserva createReserva(
+			String origen, String destino, Date fechaSalida, Date fechaLlegada,
+			String mail, String dni, long idViaje, long idViajeIda,
+			long idViajeVuelta, String tipoReserva,
+			ServiceContext serviceContext)
+		throws PortalException;
+
+	/**
+	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
 	 */
 	public Reserva createReserva(
 			String origen, String destino, Date fechaSalida, Date fechaLlegada,

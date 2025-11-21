@@ -73,7 +73,22 @@ public class ReservaLocalServiceUtil {
 	}
 
 	/**
-	 * Crea una nueva reserva con los datos proporcionados
+	 * Crea una nueva reserva con soporte para ida y vuelta
+	 */
+	public static Reserva createReserva(
+			String origen, String destino, java.util.Date fechaSalida,
+			java.util.Date fechaLlegada, String mail, String dni, long idViaje,
+			long idViajeIda, long idViajeVuelta, String tipoReserva,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().createReserva(
+			origen, destino, fechaSalida, fechaLlegada, mail, dni, idViaje,
+			idViajeIda, idViajeVuelta, tipoReserva, serviceContext);
+	}
+
+	/**
+	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
 	 */
 	public static Reserva createReserva(
 			String origen, String destino, java.util.Date fechaSalida,

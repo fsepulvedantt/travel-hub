@@ -53,6 +53,12 @@ public class ReservaTable extends BaseTable<ReservaTable> {
 		"dni", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReservaTable, Long> idViaje = createColumn(
 		"idViaje", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReservaTable, Long> idViajeIda = createColumn(
+		"idViajeIda", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReservaTable, Long> idViajeVuelta = createColumn(
+		"idViajeVuelta", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReservaTable, String> tipoReserva = createColumn(
+		"tipoReserva", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 
 	private ReservaTable() {
 		super("Reserva_Reserva", ReservaTable::new);

@@ -6,10 +6,8 @@
   function obtenerParametrosURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return {
-      viajeId: urlParams.get('viajeId'),
-      origen: urlParams.get('origen'),
-      destino: urlParams.get('destino'),
-      precio: urlParams.get('precio')
+      viajeIdIda: urlParams.get('viajeIdIda'),
+      viajeIdVuelta: urlParams.get('viajeIdVuelta')
     };
   }
 
@@ -20,6 +18,19 @@
       currency: 'ARS',
       minimumFractionDigits: 2
     }).format(precio);
+  }
+
+  // Formatear fecha completa
+  function formatearFechaCompleta(fechaString) {
+    const timestamp = typeof fechaString === 'string' ? parseInt(fechaString) : fechaString;
+    const fecha = new Date(timestamp);
+    return fecha.toLocaleDateString('es-AR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   }
 
   // Formatear número de tarjeta (agregar espacios)
@@ -51,18 +62,98 @@
 
   // Inicializar formulario
   function inicializarFormulario() {
-    viajeInfo = obtenerParametrosURL();
+    const urlParams = obtenerParametrosURL();
 
-    if (!viajeInfo.viajeId) {
+    if (!urlParams.viajeIdIda) {
       mostrarError('No se encontró información del viaje. Por favor, seleccione un viaje desde la lista.');
       return;
     }
 
+    // Obtener viajes de sessionStorage
+    const viajeIda = JSON.parse(sessionStorage.getItem('viajeIda'));
+    const viajeVuelta = urlParams.viajeIdVuelta ? JSON.parse(sessionStorage.getItem('viajeVuelta')) : null;
+    const tipoReserva = sessionStorage.getItem('tipoReserva') || 'IDA';
+
+    if (!viajeIda) {
+      mostrarError('No se encontró información del viaje de ida.');
+      return;
+    }
+
+    // Guardar en viajeInfo
+    viajeInfo = {
+      viajeIdIda: viajeIda.viajeId,
+      viajeIdVuelta: viajeVuelta ? viajeVuelta.viajeId : null,
+      tipoReserva: tipoReserva,
+      viajeIda: viajeIda,
+      viajeVuelta: viajeVuelta
+    };
+
     // Mostrar resumen
-    document.getElementById('rutaResumen').textContent = 
-      `${viajeInfo.origen} → ${viajeInfo.destino}`;
-    document.getElementById('precioResumen').textContent = 
-      formatearPrecio(parseFloat(viajeInfo.precio));
+    let resumenHTML = `
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h6 class="mb-0"><i class="fas fa-ticket-alt"></i> Resumen de tu Viaje</h6>
+        </div>
+        <div class="card-body p-0">
+          <!-- Viaje de Ida -->
+          <div class="p-3 border-bottom">
+            <div class="d-flex align-items-center mb-2">
+              <span class="badge bg-primary text-white me-2">Ida</span>
+              <small class="text-muted">${formatearFechaCompleta(viajeIda.fechaSalida)}</small>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-1">${viajeIda.origen} <i class="fas fa-arrow-right text-primary"></i> ${viajeIda.destino}</h6>
+                <small class="text-muted"><i class="fas fa-building"></i> ${viajeIda.empresa}</small>
+              </div>
+              <div class="text-end">
+                <h6 class="mb-0">${formatearPrecio(viajeIda.precio)}</h6>
+              </div>
+            </div>
+          </div>
+    `;
+
+    if (viajeVuelta) {
+      resumenHTML += `
+          <!-- Viaje de Vuelta -->
+          <div class="p-3 border-bottom">
+            <div class="d-flex align-items-center mb-2">
+              <span class="badge bg-success me-2 text-white">Vuelta</span>
+              <small class="text-muted">${formatearFechaCompleta(viajeVuelta.fechaSalida)}</small>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-1">${viajeVuelta.origen} <i class="fas fa-arrow-right text-success"></i> ${viajeVuelta.destino}</h6>
+                <small class="text-muted"><i class="fas fa-building"></i> ${viajeVuelta.empresa}</small>
+              </div>
+              <div class="text-end">
+                <h6 class="mb-0">${formatearPrecio(viajeVuelta.precio)}</h6>
+              </div>
+            </div>
+          </div>
+      `;
+    }
+
+    const precioTotal = viajeIda.precio + (viajeVuelta ? viajeVuelta.precio : 0);
+    resumenHTML += `
+          <!-- Total -->
+          <div class="p-3 bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Total a Pagar:</h5>
+              <h4 class="mb-0 text-success fw-bold">${formatearPrecio(precioTotal)}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('rutaResumen').innerHTML = resumenHTML;
+    
+    // Ocultar el elemento precioResumen ya que ahora lo mostramos en rutaResumen
+    const precioResumenElement = document.getElementById('precioResumen');
+    if (precioResumenElement) {
+      precioResumenElement.style.display = 'none';
+    }
 
     // Formateo automático de campos
     const inputTarjeta = document.getElementById('numeroTarjeta');
@@ -76,7 +167,8 @@
       this.value = this.value.replace(/\D/g, '');
     });
 
-    document.getElementById('cvv').addEventListener('input', function(e) {
+    const inputCVV = document.getElementById('cvv');
+    inputCVV.addEventListener('input', function(e) {
       this.value = this.value.replace(/\D/g, '');
     });
 
@@ -98,7 +190,7 @@
 
     // Botón volver al inicio en modal
     document.getElementById('btnVolverInicio').addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/web/travelhub';
     });
 
     // Cerrar modal al hacer click fuera
@@ -123,7 +215,7 @@
     const modal = document.getElementById('modalExito');
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
-    window.location.href = '/';
+    window.location.href = '/web/travelhub';
   }
 
   // Procesar reserva
@@ -157,12 +249,17 @@
 
     try {
       // Crear reserva
+      const viajeIda = viajeInfo.viajeIda;
+      const viajeVuelta = viajeInfo.viajeVuelta;
+      
       const reservaData = {
-        idViaje: parseInt(viajeInfo.viajeId),
-        origen: viajeInfo.origen,
-        destino: viajeInfo.destino,
-        fechaSalida: new Date().toISOString(), // En producción vendría del viaje
-        fechaLlegada: new Date().toISOString(), // En producción vendría del viaje
+        idViajeIda: parseInt(viajeInfo.viajeIdIda),
+        idViajeVuelta: viajeInfo.viajeIdVuelta ? parseInt(viajeInfo.viajeIdVuelta) : 0,
+        tipoReserva: viajeInfo.tipoReserva,
+        origen: viajeIda.origen,
+        destino: viajeIda.destino,
+        fechaSalida: new Date(typeof viajeIda.fechaSalida === 'string' ? parseInt(viajeIda.fechaSalida) : viajeIda.fechaSalida).toISOString(),
+        fechaLlegada: new Date(typeof viajeIda.fechaLlegada === 'string' ? parseInt(viajeIda.fechaLlegada) : viajeIda.fechaLlegada).toISOString(),
         mail: mail,
         dni: dni
       };

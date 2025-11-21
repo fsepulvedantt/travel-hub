@@ -52,7 +52,7 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -84,6 +84,12 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 		sb.append(dni);
 		sb.append(", idViaje=");
 		sb.append(idViaje);
+		sb.append(", idViajeIda=");
+		sb.append(idViajeIda);
+		sb.append(", idViajeVuelta=");
+		sb.append(idViajeVuelta);
+		sb.append(", tipoReserva=");
+		sb.append(tipoReserva);
 		sb.append("}");
 
 		return sb.toString();
@@ -169,6 +175,15 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 		}
 
 		reservaImpl.setIdViaje(idViaje);
+		reservaImpl.setIdViajeIda(idViajeIda);
+		reservaImpl.setIdViajeVuelta(idViajeVuelta);
+
+		if (tipoReserva == null) {
+			reservaImpl.setTipoReserva("");
+		}
+		else {
+			reservaImpl.setTipoReserva(tipoReserva);
+		}
 
 		reservaImpl.resetOriginalValues();
 
@@ -197,6 +212,11 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 		dni = objectInput.readUTF();
 
 		idViaje = objectInput.readLong();
+
+		idViajeIda = objectInput.readLong();
+
+		idViajeVuelta = objectInput.readLong();
+		tipoReserva = objectInput.readUTF();
 	}
 
 	@Override
@@ -258,6 +278,17 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 		}
 
 		objectOutput.writeLong(idViaje);
+
+		objectOutput.writeLong(idViajeIda);
+
+		objectOutput.writeLong(idViajeVuelta);
+
+		if (tipoReserva == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(tipoReserva);
+		}
 	}
 
 	public String uuid;
@@ -275,5 +306,8 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 	public String mail;
 	public String dni;
 	public long idViaje;
+	public long idViajeIda;
+	public long idViajeVuelta;
+	public String tipoReserva;
 
 }

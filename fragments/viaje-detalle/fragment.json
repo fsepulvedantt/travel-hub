@@ -1,7 +1,7 @@
 {
-  "cssPath": "styles.css",
-  "htmlPath": "index.html",
-  "jsPath": "main.js",
+  "cssPath": "viaje-detalle.css",
+  "htmlPath": "viaje-detalle.html",
+  "jsPath": "viaje-detalle.js",
   "name": "Viaje Detalle",
   "type": "component"
 }

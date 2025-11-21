@@ -58,4 +58,40 @@ public class ViajeLocalServiceImpl extends ViajeLocalServiceBaseImpl {
 		// Persistir
 		return viajePersistence.update(viaje);
 	}
+
+	/**
+	 * Verifica si un viaje tiene asientos disponibles
+	 */
+	public boolean tieneAsientosDisponibles(long viajeId) throws PortalException {
+		Viaje viaje = viajePersistence.findByPrimaryKey(viajeId);
+		return viaje.getAsientosDisponibles() > 0;
+	}
+
+	/**
+	 * Decrementa los asientos disponibles de un viaje
+	 */
+	public Viaje decrementarAsientos(long viajeId) throws PortalException {
+		Viaje viaje = viajePersistence.findByPrimaryKey(viajeId);
+		
+		if (viaje.getAsientosDisponibles() <= 0) {
+			throw new PortalException("No hay asientos disponibles para este viaje");
+		}
+
+		viaje.setAsientosDisponibles(viaje.getAsientosDisponibles() - 1);
+		viaje.setModifiedDate(new Date());
+
+		return viajePersistence.update(viaje);
+	}
+
+	/**
+	 * Incrementa los asientos disponibles de un viaje (para cancelaciones)
+	 */
+	public Viaje incrementarAsientos(long viajeId) throws PortalException {
+		Viaje viaje = viajePersistence.findByPrimaryKey(viajeId);
+		
+		viaje.setAsientosDisponibles(viaje.getAsientosDisponibles() + 1);
+		viaje.setModifiedDate(new Date());
+
+		return viajePersistence.update(viaje);
+	}
 }

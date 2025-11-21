@@ -25,11 +25,24 @@ import java.util.Date;
 public class ReservaLocalServiceImpl extends ReservaLocalServiceBaseImpl {
 
 	/**
-	 * Crea una nueva reserva con los datos proporcionados
+	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
 	 */
 	public Reserva createReserva(
 			String origen, String destino, Date fechaSalida, Date fechaLlegada,
 			String mail, String dni, long idViaje, ServiceContext serviceContext)
+			throws PortalException {
+
+		return createReserva(origen, destino, fechaSalida, fechaLlegada, mail, dni, 
+				idViaje, idViaje, 0L, "IDA", serviceContext);
+	}
+
+	/**
+	 * Crea una nueva reserva con soporte para ida y vuelta
+	 */
+	public Reserva createReserva(
+			String origen, String destino, Date fechaSalida, Date fechaLlegada,
+			String mail, String dni, long idViaje, long idViajeIda, long idViajeVuelta,
+			String tipoReserva, ServiceContext serviceContext)
 			throws PortalException {
 
 		// Generar ID único usando el counter
@@ -54,6 +67,9 @@ public class ReservaLocalServiceImpl extends ReservaLocalServiceBaseImpl {
 		reserva.setMail(mail);
 		reserva.setDni(dni);
 		reserva.setIdViaje(idViaje);
+		reserva.setIdViajeIda(idViajeIda);
+		reserva.setIdViajeVuelta(idViajeVuelta);
+		reserva.setTipoReserva(tipoReserva);
 
 		// Persistir
 		return reservaPersistence.update(reserva);

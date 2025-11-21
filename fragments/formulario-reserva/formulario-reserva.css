@@ -1,57 +1,37 @@
+:root {
+  --azul-primario: #0066cc;
+  --azul-secundario: #0052a3;
+  --azul-claro: #e8f4fd;
+  --azul-muy-claro: #f0f7ff;
+  --gris-texto: #2c3e50;
+}
+
 .formulario-reserva-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-/* Resumen del viaje */
-.resumen-viaje-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 2rem;
-  border-radius: 1rem;
+/* ===== RESUMEN DE VIAJE ===== */
+#rutaResumen {
   margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  width: 100%;
 }
 
-.resumen-viaje-card h4 {
+#rutaResumen .card {
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.15);
+}
+
+#rutaResumen .card-header {
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+  border: none;
+  padding: 1.25rem 1.5rem;
+}
+
+#rutaResumen .card-header h6 {
+  color: white;
   font-weight: 600;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.resumen-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.ruta-resumen {
-  font-size: 1.5rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.precio-resumen {
-  text-align: right;
-}
-
-.precio-label {
-  display: block;
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-bottom: 0.25rem;
-}
-
-.precio-valor {
-  font-size: 2rem;
-  font-weight: 700;
 }
 
 /* Formulario */
@@ -59,11 +39,12 @@
   background: white;
   padding: 2.5rem;
   border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.15);
+  border: 1px solid rgba(0, 102, 204, 0.1);
 }
 
 .formulario-card h4 {
-  color: #2c3e50;
+  color: var(--gris-texto);
   font-weight: 600;
   margin-bottom: 2rem;
   display: flex;
@@ -71,9 +52,13 @@
   gap: 0.5rem;
 }
 
+.formulario-card h4 i {
+  color: var(--azul-primario);
+}
+
 .form-label {
   font-weight: 600;
-  color: #2c3e50;
+  color: var(--gris-texto);
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
@@ -81,7 +66,7 @@
 }
 
 .form-label i {
-  color: #667eea;
+  color: var(--azul-primario);
 }
 
 .form-control-lg {
@@ -90,35 +75,38 @@
   border: 2px solid #e9ecef;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
+  color: var(--gris-texto);
 }
 
 .form-control-lg:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.15);
 }
 
 .form-control {
   border: 2px solid #e9ecef;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
+  color: var(--gris-texto);
 }
 
 .form-control:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+  border-color: var(--azul-primario);
+  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.15);
 }
 
 /* Pasarela de pago */
 .pasarela-pago-card {
-  background: #f8f9fa;
+  background: white;
   padding: 2rem;
   border-radius: 0.75rem;
   margin: 2rem 0;
-  border: 2px dashed #dee2e6;
+  border: 2px solid rgba(0, 102, 204, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.08);
 }
 
 .pasarela-pago-card h5 {
-  color: #2c3e50;
+  color: var(--gris-texto);
   font-weight: 600;
   margin-bottom: 1.5rem;
   display: flex;
@@ -127,25 +115,36 @@
 }
 
 .pasarela-pago-card h5 i {
-  color: #667eea;
+  color: var(--azul-primario);
 }
 
 /* Términos y condiciones */
 .form-check-input {
   width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid #667eea;
+  border: 2px solid var(--azul-primario);
   border-radius: 0.25rem;
 }
 
 .form-check-input:checked {
-  background-color: #667eea;
-  border-color: #667eea;
+  background-color: var(--azul-primario);
+  border-color: var(--azul-primario);
 }
 
 .form-check-label {
   margin-left: 0.5rem;
-  color: #555;
+  color: var(--gris-texto);
+  font-weight: 500;
+}
+
+.form-check-label a {
+  color: var(--azul-primario);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-check-label a:hover {
+  text-decoration: underline;
 }
 
 /* Botones */
@@ -178,14 +177,15 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
   border: none;
+  color: white;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+  background: linear-gradient(135deg, var(--azul-secundario) 0%, var(--azul-primario) 100%);
 }
 
 .btn-primary:disabled {
@@ -198,15 +198,19 @@
 #procesandoMsg {
   display: flex;
   align-items: center;
-  background: #d1ecf1;
-  border-color: #bee5eb;
-  color: #0c5460;
+  background: rgba(0, 102, 204, 0.1);
+  border: 2px solid rgba(0, 102, 204, 0.3);
+  color: var(--azul-secundario);
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
 
 #errorMsg {
   background: #f8d7da;
-  border-color: #f5c6cb;
+  border: 2px solid #f5c6cb;
   color: #721c24;
+  border-radius: 0.5rem;
+  padding: 1rem;
 }
 
 /* Modal personalizado */
@@ -222,37 +226,16 @@
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .modal-content-custom {
   background: white;
   border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 102, 204, 0.3);
   max-width: 500px;
   width: 100%;
   position: relative;
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  border: 2px solid rgba(0, 102, 204, 0.2);
 }
 
 .btn-close-custom {
@@ -288,7 +271,7 @@
 }
 
 .modal-body-custom h3 {
-  color: #2c3e50;
+  color: var(--gris-texto);
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -303,13 +286,18 @@
   margin-top: 1.5rem;
 }
 
+.email-info i {
+  color: var(--azul-primario);
+  margin-right: 0.5rem;
+}
+
 .modal-body-custom .btn {
   margin-top: 1rem;
 }
 
 .success-icon {
   font-size: 5rem;
-  color: #28a745;
+  color: var(--azul-primario);
   animation: scaleIn 0.5s ease-out;
 }
 
@@ -326,32 +314,35 @@
 }
 
 .codigo-reserva {
-  background: #f8f9fa;
+  background: linear-gradient(135deg, var(--azul-muy-claro) 0%, var(--azul-claro) 100%);
   padding: 1.5rem;
   border-radius: 0.75rem;
   margin: 1.5rem 0;
+  border: 2px solid var(--azul-claro);
 }
 
 .codigo-reserva small {
   display: block;
-  color: #6c757d;
+  color: var(--gris-texto);
   font-size: 0.85rem;
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .codigo-reserva h4 {
-  color: #667eea;
+  color: var(--azul-primario);
   font-weight: 700;
   font-size: 2rem;
-  margin: 0;
-  font-family: 'Courier New', monospace;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .formulario-reserva-container {
+.codigo-reserva {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin: 1.5rem 0;
+  border: 2px solid rgba(0, 102, 204, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.08);
+} .formulario-reserva-container {
     padding: 1rem 0.5rem;
   }
 

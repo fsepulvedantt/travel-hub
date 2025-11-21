@@ -49,6 +49,9 @@ public class ReservaWrapper
 		attributes.put("mail", getMail());
 		attributes.put("dni", getDni());
 		attributes.put("idViaje", getIdViaje());
+		attributes.put("idViajeIda", getIdViajeIda());
+		attributes.put("idViajeVuelta", getIdViajeVuelta());
+		attributes.put("tipoReserva", getTipoReserva());
 
 		return attributes;
 	}
@@ -144,6 +147,24 @@ public class ReservaWrapper
 		if (idViaje != null) {
 			setIdViaje(idViaje);
 		}
+
+		Long idViajeIda = (Long)attributes.get("idViajeIda");
+
+		if (idViajeIda != null) {
+			setIdViajeIda(idViajeIda);
+		}
+
+		Long idViajeVuelta = (Long)attributes.get("idViajeVuelta");
+
+		if (idViajeVuelta != null) {
+			setIdViajeVuelta(idViajeVuelta);
+		}
+
+		String tipoReserva = (String)attributes.get("tipoReserva");
+
+		if (tipoReserva != null) {
+			setTipoReserva(tipoReserva);
+		}
 	}
 
 	@Override
@@ -232,6 +253,26 @@ public class ReservaWrapper
 	}
 
 	/**
+	 * Returns the id viaje ida of this reserva.
+	 *
+	 * @return the id viaje ida of this reserva
+	 */
+	@Override
+	public long getIdViajeIda() {
+		return model.getIdViajeIda();
+	}
+
+	/**
+	 * Returns the id viaje vuelta of this reserva.
+	 *
+	 * @return the id viaje vuelta of this reserva
+	 */
+	@Override
+	public long getIdViajeVuelta() {
+		return model.getIdViajeVuelta();
+	}
+
+	/**
 	 * Returns the mail of this reserva.
 	 *
 	 * @return the mail of this reserva
@@ -279,6 +320,16 @@ public class ReservaWrapper
 	@Override
 	public long getReservaId() {
 		return model.getReservaId();
+	}
+
+	/**
+	 * Returns the tipo reserva of this reserva.
+	 *
+	 * @return the tipo reserva of this reserva
+	 */
+	@Override
+	public String getTipoReserva() {
+		return model.getTipoReserva();
 	}
 
 	/**
@@ -407,6 +458,26 @@ public class ReservaWrapper
 	}
 
 	/**
+	 * Sets the id viaje ida of this reserva.
+	 *
+	 * @param idViajeIda the id viaje ida of this reserva
+	 */
+	@Override
+	public void setIdViajeIda(long idViajeIda) {
+		model.setIdViajeIda(idViajeIda);
+	}
+
+	/**
+	 * Sets the id viaje vuelta of this reserva.
+	 *
+	 * @param idViajeVuelta the id viaje vuelta of this reserva
+	 */
+	@Override
+	public void setIdViajeVuelta(long idViajeVuelta) {
+		model.setIdViajeVuelta(idViajeVuelta);
+	}
+
+	/**
 	 * Sets the mail of this reserva.
 	 *
 	 * @param mail the mail of this reserva
@@ -454,6 +525,16 @@ public class ReservaWrapper
 	@Override
 	public void setReservaId(long reservaId) {
 		model.setReservaId(reservaId);
+	}
+
+	/**
+	 * Sets the tipo reserva of this reserva.
+	 *
+	 * @param tipoReserva the tipo reserva of this reserva
+	 */
+	@Override
+	public void setTipoReserva(String tipoReserva) {
+		model.setTipoReserva(tipoReserva);
 	}
 
 	/**

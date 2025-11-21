@@ -73,7 +73,8 @@ public class ReservaModelImpl
 		{"origen", Types.VARCHAR}, {"destino", Types.VARCHAR},
 		{"fechaSalida", Types.TIMESTAMP}, {"fechaLlegada", Types.TIMESTAMP},
 		{"mail", Types.VARCHAR}, {"dni", Types.VARCHAR},
-		{"idViaje", Types.BIGINT}
+		{"idViaje", Types.BIGINT}, {"idViajeIda", Types.BIGINT},
+		{"idViajeVuelta", Types.BIGINT}, {"tipoReserva", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -95,10 +96,13 @@ public class ReservaModelImpl
 		TABLE_COLUMNS_MAP.put("mail", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("dni", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("idViaje", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("idViajeIda", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("idViajeVuelta", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("tipoReserva", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Reserva_Reserva (uuid_ VARCHAR(75) null,reservaId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,origen VARCHAR(75) null,destino VARCHAR(75) null,fechaSalida DATE null,fechaLlegada DATE null,mail VARCHAR(75) null,dni VARCHAR(75) null,idViaje LONG)";
+		"create table Reserva_Reserva (uuid_ VARCHAR(75) null,reservaId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,origen VARCHAR(75) null,destino VARCHAR(75) null,fechaSalida DATE null,fechaLlegada DATE null,mail VARCHAR(75) null,dni VARCHAR(75) null,idViaje LONG,idViajeIda LONG,idViajeVuelta LONG,tipoReserva VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Reserva_Reserva";
 
@@ -276,6 +280,11 @@ public class ReservaModelImpl
 			attributeGetterFunctions.put("mail", Reserva::getMail);
 			attributeGetterFunctions.put("dni", Reserva::getDni);
 			attributeGetterFunctions.put("idViaje", Reserva::getIdViaje);
+			attributeGetterFunctions.put("idViajeIda", Reserva::getIdViajeIda);
+			attributeGetterFunctions.put(
+				"idViajeVuelta", Reserva::getIdViajeVuelta);
+			attributeGetterFunctions.put(
+				"tipoReserva", Reserva::getTipoReserva);
 
 			_attributeGetterFunctions = Collections.unmodifiableMap(
 				attributeGetterFunctions);
@@ -326,6 +335,15 @@ public class ReservaModelImpl
 				"dni", (BiConsumer<Reserva, String>)Reserva::setDni);
 			attributeSetterBiConsumers.put(
 				"idViaje", (BiConsumer<Reserva, Long>)Reserva::setIdViaje);
+			attributeSetterBiConsumers.put(
+				"idViajeIda",
+				(BiConsumer<Reserva, Long>)Reserva::setIdViajeIda);
+			attributeSetterBiConsumers.put(
+				"idViajeVuelta",
+				(BiConsumer<Reserva, Long>)Reserva::setIdViajeVuelta);
+			attributeSetterBiConsumers.put(
+				"tipoReserva",
+				(BiConsumer<Reserva, String>)Reserva::setTipoReserva);
 
 			_attributeSetterBiConsumers = Collections.unmodifiableMap(
 				(Map)attributeSetterBiConsumers);
@@ -656,6 +674,56 @@ public class ReservaModelImpl
 		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("idViaje"));
 	}
 
+	@JSON
+	@Override
+	public long getIdViajeIda() {
+		return _idViajeIda;
+	}
+
+	@Override
+	public void setIdViajeIda(long idViajeIda) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_idViajeIda = idViajeIda;
+	}
+
+	@JSON
+	@Override
+	public long getIdViajeVuelta() {
+		return _idViajeVuelta;
+	}
+
+	@Override
+	public void setIdViajeVuelta(long idViajeVuelta) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_idViajeVuelta = idViajeVuelta;
+	}
+
+	@JSON
+	@Override
+	public String getTipoReserva() {
+		if (_tipoReserva == null) {
+			return "";
+		}
+		else {
+			return _tipoReserva;
+		}
+	}
+
+	@Override
+	public void setTipoReserva(String tipoReserva) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_tipoReserva = tipoReserva;
+	}
+
 	@Override
 	public StagedModelType getStagedModelType() {
 		return new StagedModelType(
@@ -733,6 +801,9 @@ public class ReservaModelImpl
 		reservaImpl.setMail(getMail());
 		reservaImpl.setDni(getDni());
 		reservaImpl.setIdViaje(getIdViaje());
+		reservaImpl.setIdViajeIda(getIdViajeIda());
+		reservaImpl.setIdViajeVuelta(getIdViajeVuelta());
+		reservaImpl.setTipoReserva(getTipoReserva());
 
 		reservaImpl.resetOriginalValues();
 
@@ -765,6 +836,12 @@ public class ReservaModelImpl
 		reservaImpl.setMail(this.<String>getColumnOriginalValue("mail"));
 		reservaImpl.setDni(this.<String>getColumnOriginalValue("dni"));
 		reservaImpl.setIdViaje(this.<Long>getColumnOriginalValue("idViaje"));
+		reservaImpl.setIdViajeIda(
+			this.<Long>getColumnOriginalValue("idViajeIda"));
+		reservaImpl.setIdViajeVuelta(
+			this.<Long>getColumnOriginalValue("idViajeVuelta"));
+		reservaImpl.setTipoReserva(
+			this.<String>getColumnOriginalValue("tipoReserva"));
 
 		return reservaImpl;
 	}
@@ -934,6 +1011,18 @@ public class ReservaModelImpl
 
 		reservaCacheModel.idViaje = getIdViaje();
 
+		reservaCacheModel.idViajeIda = getIdViajeIda();
+
+		reservaCacheModel.idViajeVuelta = getIdViajeVuelta();
+
+		reservaCacheModel.tipoReserva = getTipoReserva();
+
+		String tipoReserva = reservaCacheModel.tipoReserva;
+
+		if ((tipoReserva != null) && (tipoReserva.length() == 0)) {
+			reservaCacheModel.tipoReserva = null;
+		}
+
 		return reservaCacheModel;
 	}
 
@@ -1011,6 +1100,9 @@ public class ReservaModelImpl
 	private String _mail;
 	private String _dni;
 	private long _idViaje;
+	private long _idViajeIda;
+	private long _idViajeVuelta;
+	private String _tipoReserva;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1057,6 +1149,9 @@ public class ReservaModelImpl
 		_columnOriginalValues.put("mail", _mail);
 		_columnOriginalValues.put("dni", _dni);
 		_columnOriginalValues.put("idViaje", _idViaje);
+		_columnOriginalValues.put("idViajeIda", _idViajeIda);
+		_columnOriginalValues.put("idViajeVuelta", _idViajeVuelta);
+		_columnOriginalValues.put("tipoReserva", _tipoReserva);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1109,6 +1204,12 @@ public class ReservaModelImpl
 		columnBitmasks.put("dni", 8192L);
 
 		columnBitmasks.put("idViaje", 16384L);
+
+		columnBitmasks.put("idViajeIda", 32768L);
+
+		columnBitmasks.put("idViajeVuelta", 65536L);
+
+		columnBitmasks.put("tipoReserva", 131072L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

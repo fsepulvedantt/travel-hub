@@ -88,6 +88,15 @@ public class ViajeLocalServiceUtil {
 	}
 
 	/**
+	 * Decrementa los asientos disponibles de un viaje
+	 */
+	public static Viaje decrementarAsientos(long viajeId)
+		throws PortalException {
+
+		return getService().decrementarAsientos(viajeId);
+	}
+
+	/**
 	 * @throws PortalException
 	 */
 	public static PersistedModel deletePersistedModel(
@@ -343,6 +352,24 @@ public class ViajeLocalServiceUtil {
 	 */
 	public static int getViajesCount() {
 		return getService().getViajesCount();
+	}
+
+	/**
+	 * Incrementa los asientos disponibles de un viaje (para cancelaciones)
+	 */
+	public static Viaje incrementarAsientos(long viajeId)
+		throws PortalException {
+
+		return getService().incrementarAsientos(viajeId);
+	}
+
+	/**
+	 * Verifica si un viaje tiene asientos disponibles
+	 */
+	public static boolean tieneAsientosDisponibles(long viajeId)
+		throws PortalException {
+
+		return getService().tieneAsientosDisponibles(viajeId);
 	}
 
 	/**

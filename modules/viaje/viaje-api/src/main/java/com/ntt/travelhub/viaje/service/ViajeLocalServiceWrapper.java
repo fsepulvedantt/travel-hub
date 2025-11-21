@@ -82,6 +82,16 @@ public class ViajeLocalServiceWrapper
 	}
 
 	/**
+	 * Decrementa los asientos disponibles de un viaje
+	 */
+	@Override
+	public com.ntt.travelhub.viaje.model.Viaje decrementarAsientos(long viajeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _viajeLocalService.decrementarAsientos(viajeId);
+	}
+
+	/**
 	 * @throws PortalException
 	 */
 	@Override
@@ -383,6 +393,26 @@ public class ViajeLocalServiceWrapper
 	@Override
 	public int getViajesCount() {
 		return _viajeLocalService.getViajesCount();
+	}
+
+	/**
+	 * Incrementa los asientos disponibles de un viaje (para cancelaciones)
+	 */
+	@Override
+	public com.ntt.travelhub.viaje.model.Viaje incrementarAsientos(long viajeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _viajeLocalService.incrementarAsientos(viajeId);
+	}
+
+	/**
+	 * Verifica si un viaje tiene asientos disponibles
+	 */
+	@Override
+	public boolean tieneAsientosDisponibles(long viajeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _viajeLocalService.tieneAsientosDisponibles(viajeId);
 	}
 
 	/**
