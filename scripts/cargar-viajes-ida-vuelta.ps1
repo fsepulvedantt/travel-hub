@@ -1,94 +1,202 @@
-# Script para cargar viajes de ida y vuelta para pruebas
+# Script para cargar viajes de prueba (ida y vuelta)
+# Para probar el sistema de reservas con múltiples opciones por ruta
 
-$viajes = @(
-    # Buenos Aires → Córdoba (Ida - 2025-12-25)
-    @{origen="Buenos Aires"; destino="Córdoba"; fechaSalida="2025-12-25T08:00:00"; fechaLlegada="2025-12-25T18:00:00"; empresa="Chevallier"; precio=15000.00; asientosDisponibles=40},
-    @{origen="Buenos Aires"; destino="Córdoba"; fechaSalida="2025-12-25T10:00:00"; fechaLlegada="2025-12-25T20:00:00"; empresa="Andesmar"; precio=16500.00; asientosDisponibles=35},
-    @{origen="Buenos Aires"; destino="Córdoba"; fechaSalida="2025-12-25T14:00:00"; fechaLlegada="2025-12-26T00:00:00"; empresa="Via Bariloche"; precio=14500.00; asientosDisponibles=28},
-    @{origen="Buenos Aires"; destino="Córdoba"; fechaSalida="2025-12-25T22:00:00"; fechaLlegada="2025-12-26T08:00:00"; empresa="Flecha Bus"; precio=13500.00; asientosDisponibles=45},
+Write-Host "=== CARGAR VIAJES DE PRUEBA - IDA Y VUELTA ===" -ForegroundColor Cyan
+Write-Host "Limpiando base de datos..." -ForegroundColor Yellow
+
+# URL de la API
+$API_URL = "http://localhost:8080/o/viajes"
+
+# Limpiar viajes existentes
+try {
+    $viajesExistentes = Invoke-RestMethod -Uri $API_URL -Method GET
+    foreach ($viaje in $viajesExistentes) {
+        Invoke-RestMethod -Uri "$API_URL/$($viaje.viajeId)" -Method DELETE | Out-Null
+    }
+    Write-Host "✓ Base de datos limpia ($($viajesExistentes.Count) viajes eliminados)`n" -ForegroundColor Green
+} catch {
+    Write-Host "⚠ No se pudieron eliminar viajes existentes`n" -ForegroundColor Yellow
+}
+
+# Definir rutas con múltiples opciones de ida y vuelta
+$rutas = @(
+    # ========== Buenos Aires <-> Córdoba ==========
+    @{
+        nombre = "Buenos Aires ↔ Córdoba"
+        fechaIda = "2025-12-15"
+        fechaVuelta = "2025-12-16"
+        viajesIda = @(
+            @{ hora = "08:00"; duracion = 8; empresa = "Plusmar"; precio = 25000; asientos = 40 },
+            @{ hora = "10:00"; duracion = 8; empresa = "Flechabus"; precio = 23000; asientos = 35 },
+            @{ hora = "14:00"; duracion = 8; empresa = "Chevallier"; precio = 24500; asientos = 42 },
+            @{ hora = "20:00"; duracion = 8; empresa = "Andesmar"; precio = 22000; asientos = 38 }
+        )
+        viajesVuelta = @(
+            @{ hora = "09:00"; duracion = 8; empresa = "Plusmar"; precio = 25000; asientos = 40 },
+            @{ hora = "11:00"; duracion = 8; empresa = "Flechabus"; precio = 23500; asientos = 36 },
+            @{ hora = "15:00"; duracion = 8; empresa = "Chevallier"; precio = 24000; asientos = 41 },
+            @{ hora = "21:00"; duracion = 8; empresa = "Andesmar"; precio = 22500; asientos = 37 }
+        )
+    },
     
-    # Córdoba → Buenos Aires (Vuelta - 2025-12-28)
-    @{origen="Córdoba"; destino="Buenos Aires"; fechaSalida="2025-12-28T08:00:00"; fechaLlegada="2025-12-28T18:00:00"; empresa="Chevallier"; precio=15500.00; asientosDisponibles=38},
-    @{origen="Córdoba"; destino="Buenos Aires"; fechaSalida="2025-12-28T12:00:00"; fechaLlegada="2025-12-28T22:00:00"; empresa="Andesmar"; precio=17000.00; asientosDisponibles=30},
-    @{origen="Córdoba"; destino="Buenos Aires"; fechaSalida="2025-12-28T16:00:00"; fechaLlegada="2025-12-29T02:00:00"; empresa="Via Bariloche"; precio=14800.00; asientosDisponibles=25},
-    @{origen="Córdoba"; destino="Buenos Aires"; fechaSalida="2025-12-28T20:00:00"; fechaLlegada="2025-12-29T06:00:00"; empresa="Flecha Bus"; precio=13800.00; asientosDisponibles=42},
+    # ========== Buenos Aires <-> Mendoza ==========
+    @{
+        nombre = "Buenos Aires ↔ Mendoza"
+        fechaIda = "2025-12-18"
+        fechaVuelta = "2025-12-19"
+        viajesIda = @(
+            @{ hora = "22:00"; duracion = 12; empresa = "Andesmar"; precio = 35000; asientos = 35 },
+            @{ hora = "23:00"; duracion = 12; empresa = "Cata Internacional"; precio = 38000; asientos = 30 },
+            @{ hora = "01:00"; duracion = 12; empresa = "TAC"; precio = 33000; asientos = 32 }
+        )
+        viajesVuelta = @(
+            @{ hora = "20:00"; duracion = 12; empresa = "Andesmar"; precio = 35000; asientos = 33 },
+            @{ hora = "21:00"; duracion = 12; empresa = "Cata Internacional"; precio = 37000; asientos = 28 },
+            @{ hora = "22:30"; duracion = 12; empresa = "TAC"; precio = 34000; asientos = 31 }
+        )
+    },
     
-    # Buenos Aires → Mendoza (Ida - 2025-12-25)
-    @{origen="Buenos Aires"; destino="Mendoza"; fechaSalida="2025-12-25T09:00:00"; fechaLlegada="2025-12-26T01:00:00"; empresa="Andesmar"; precio=22000.00; asientosDisponibles=35},
-    @{origen="Buenos Aires"; destino="Mendoza"; fechaSalida="2025-12-25T15:00:00"; fechaLlegada="2025-12-26T07:00:00"; empresa="Chevallier"; precio=23500.00; asientosDisponibles=30},
-    @{origen="Buenos Aires"; destino="Mendoza"; fechaSalida="2025-12-25T21:00:00"; fechaLlegada="2025-12-26T13:00:00"; empresa="Via Bariloche"; precio=21500.00; asientosDisponibles=25},
+    # ========== Buenos Aires <-> Rosario ==========
+    @{
+        nombre = "Buenos Aires ↔ Rosario"
+        fechaIda = "2025-12-20"
+        fechaVuelta = "2025-12-21"
+        viajesIda = @(
+            @{ hora = "07:00"; duracion = 4; empresa = "Flechabus"; precio = 15000; asientos = 45 },
+            @{ hora = "09:00"; duracion = 4; empresa = "Chevallier"; precio = 16000; asientos = 42 },
+            @{ hora = "11:00"; duracion = 4; empresa = "Plusmar"; precio = 14500; asientos = 48 },
+            @{ hora = "17:00"; duracion = 4; empresa = "Flechabus"; precio = 15500; asientos = 44 }
+        )
+        viajesVuelta = @(
+            @{ hora = "08:00"; duracion = 4; empresa = "Flechabus"; precio = 15000; asientos = 44 },
+            @{ hora = "10:00"; duracion = 4; empresa = "Chevallier"; precio = 15500; asientos = 41 },
+            @{ hora = "12:00"; duracion = 4; empresa = "Plusmar"; precio = 14800; asientos = 47 },
+            @{ hora = "18:00"; duracion = 4; empresa = "Flechabus"; precio = 15200; asientos = 43 }
+        )
+    },
     
-    # Mendoza → Buenos Aires (Vuelta - 2025-12-30)
-    @{origen="Mendoza"; destino="Buenos Aires"; fechaSalida="2025-12-30T10:00:00"; fechaLlegada="2025-12-31T02:00:00"; empresa="Andesmar"; precio=22500.00; asientosDisponibles=32},
-    @{origen="Mendoza"; destino="Buenos Aires"; fechaSalida="2025-12-30T16:00:00"; fechaLlegada="2025-12-31T08:00:00"; empresa="Chevallier"; precio=24000.00; asientosDisponibles=28},
-    @{origen="Mendoza"; destino="Buenos Aires"; fechaSalida="2025-12-30T22:00:00"; fechaLlegada="2025-12-31T14:00:00"; empresa="Via Bariloche"; precio=22000.00; asientosDisponibles=20},
+    # ========== Buenos Aires <-> Mar del Plata ==========
+    @{
+        nombre = "Buenos Aires ↔ Mar del Plata"
+        fechaIda = "2025-12-22"
+        fechaVuelta = "2025-12-23"
+        viajesIda = @(
+            @{ hora = "06:00"; duracion = 5; empresa = "Plusmar"; precio = 22000; asientos = 50 },
+            @{ hora = "08:00"; duracion = 5; empresa = "Chevallier"; precio = 21000; asientos = 48 },
+            @{ hora = "14:00"; duracion = 5; empresa = "Rio de la Plata"; precio = 23000; asientos = 45 }
+        )
+        viajesVuelta = @(
+            @{ hora = "10:00"; duracion = 5; empresa = "Plusmar"; precio = 22000; asientos = 48 },
+            @{ hora = "16:00"; duracion = 5; empresa = "Chevallier"; precio = 21500; asientos = 46 },
+            @{ hora = "20:00"; duracion = 5; empresa = "Rio de la Plata"; precio = 22500; asientos = 44 }
+        )
+    },
     
-    # Buenos Aires → Rosario (Ida - 2025-12-26)
-    @{origen="Buenos Aires"; destino="Rosario"; fechaSalida="2025-12-26T07:00:00"; fechaLlegada="2025-12-26T11:30:00"; empresa="Flecha Bus"; precio=8500.00; asientosDisponibles=45},
-    @{origen="Buenos Aires"; destino="Rosario"; fechaSalida="2025-12-26T11:00:00"; fechaLlegada="2025-12-26T15:30:00"; empresa="Chevallier"; precio=9000.00; asientosDisponibles=40},
-    @{origen="Buenos Aires"; destino="Rosario"; fechaSalida="2025-12-26T15:00:00"; fechaLlegada="2025-12-26T19:30:00"; empresa="Andesmar"; precio=8800.00; asientosDisponibles=38},
+    # ========== Córdoba <-> Mendoza ==========
+    @{
+        nombre = "Córdoba ↔ Mendoza"
+        fechaIda = "2025-12-25"
+        fechaVuelta = "2025-12-26"
+        viajesIda = @(
+            @{ hora = "08:00"; duracion = 10; empresa = "Chevallier"; precio = 28000; asientos = 38 },
+            @{ hora = "20:00"; duracion = 10; empresa = "TAC"; precio = 27000; asientos = 35 }
+        )
+        viajesVuelta = @(
+            @{ hora = "09:00"; duracion = 10; empresa = "Chevallier"; precio = 28000; asientos = 37 },
+            @{ hora = "21:00"; duracion = 10; empresa = "TAC"; precio = 27500; asientos = 34 }
+        )
+    },
     
-    # Rosario → Buenos Aires (Vuelta - 2025-12-27)
-    @{origen="Rosario"; destino="Buenos Aires"; fechaSalida="2025-12-27T08:00:00"; fechaLlegada="2025-12-27T12:30:00"; empresa="Flecha Bus"; precio=8700.00; asientosDisponibles=42},
-    @{origen="Rosario"; destino="Buenos Aires"; fechaSalida="2025-12-27T13:00:00"; fechaLlegada="2025-12-27T17:30:00"; empresa="Chevallier"; precio=9200.00; asientosDisponibles=38},
-    @{origen="Rosario"; destino="Buenos Aires"; fechaSalida="2025-12-27T18:00:00"; fechaLlegada="2025-12-27T22:30:00"; empresa="Andesmar"; precio=9000.00; asientosDisponibles=35}
+    # ========== Buenos Aires <-> Bariloche ==========
+    @{
+        nombre = "Buenos Aires ↔ Bariloche"
+        fechaIda = "2025-12-28"
+        fechaVuelta = "2025-12-29"
+        viajesIda = @(
+            @{ hora = "19:00"; duracion = 19; empresa = "Via Bariloche"; precio = 55000; asientos = 30 },
+            @{ hora = "20:00"; duracion = 19; empresa = "Andesmar"; precio = 53000; asientos = 28 }
+        )
+        viajesVuelta = @(
+            @{ hora = "18:00"; duracion = 19; empresa = "Via Bariloche"; precio = 55000; asientos = 28 },
+            @{ hora = "19:00"; duracion = 19; empresa = "Andesmar"; precio = 54000; asientos = 26 }
+        )
+    }
 )
 
-# Verificar que el endpoint esté disponible
-Write-Host "🔍 Verificando endpoint REST..." -ForegroundColor Cyan
-try {
-    $testResponse = Invoke-WebRequest -Uri "http://localhost:8080/o/viajes/" -Method Get -UseBasicParsing -ErrorAction Stop
-    Write-Host "✓ Endpoint disponible`n" -ForegroundColor Green
-} catch {
-    Write-Host "❌ Error: El endpoint http://localhost:8080/o/viajes/ no está disponible." -ForegroundColor Red
-    Write-Host "   Por favor, verifica que Liferay y el módulo viaje-rest estén activos`n" -ForegroundColor Yellow
-    exit 1
-}
-
-Write-Host "📦 Cargando $($viajes.Count) viajes de ida y vuelta..." -ForegroundColor Cyan
-Write-Host ""
-
+# Crear viajes
 $contador = 0
-$errores = 0
-foreach ($viaje in $viajes) {
-    $body = @{
-        origen = $viaje.origen
-        destino = $viaje.destino
-        fechaSalida = $viaje.fechaSalida
-        fechaLlegada = $viaje.fechaLlegada
-        empresa = $viaje.empresa
-        precio = $viaje.precio
-        asientosDisponibles = $viaje.asientosDisponibles
-    } | ConvertTo-Json
 
-    try {
-        $response = Invoke-RestMethod -Uri "http://localhost:8080/o/viajes/" -Method Post -Body $body -ContentType "application/json" -ErrorAction Stop
-        $contador++
-        Write-Host "✓ Viaje $contador creado: $($viaje.origen) → $($viaje.destino) | $($viaje.fechaSalida.Substring(0,10))" -ForegroundColor Green
-    } catch {
-        $errores++
-        Write-Host "✗ Error al crear viaje: $($viaje.origen) → $($viaje.destino)" -ForegroundColor Red
-        Write-Host "  Detalle: $($_.Exception.Message)" -ForegroundColor Yellow
+Write-Host "Creando viajes..`n" -ForegroundColor Cyan
+
+foreach ($ruta in $rutas) {
+    Write-Host "━━━ $($ruta.nombre) ━━━" -ForegroundColor Magenta
+    
+    # Extraer origen y destino
+    $ciudades = $ruta.nombre -split " ↔ "
+    $origen = $ciudades[0]
+    $destino = $ciudades[1]
+    
+    # Crear viajes de IDA
+    Write-Host "  IDA ($($ruta.fechaIda)):" -ForegroundColor Cyan
+    foreach ($viaje in $ruta.viajesIda) {
+        $fechaSalida = "$($ruta.fechaIda)T$($viaje.hora):00Z"
+        $fechaLlegada = (Get-Date $fechaSalida).AddHours($viaje.duracion).ToString("yyyy-MM-ddTHH:mm:ssZ")
+        
+        $body = @{
+            origen = $origen
+            destino = $destino
+            fechaSalida = $fechaSalida
+            fechaLlegada = $fechaLlegada
+            empresa = $viaje.empresa
+            precio = $viaje.precio
+            asientosDisponibles = $viaje.asientos
+        } | ConvertTo-Json
+        
+        try {
+            Invoke-RestMethod -Uri $API_URL -Method POST -ContentType "application/json" -Body $body | Out-Null
+            $contador++
+            Write-Host "    ✓ $($viaje.hora) | $($viaje.empresa) | `$$($viaje.precio)" -ForegroundColor Green
+        } catch {
+            Write-Host "    ✗ Error: $($viaje.empresa)" -ForegroundColor Red
+        }
     }
     
-    Start-Sleep -Milliseconds 200
+    # Crear viajes de VUELTA
+    Write-Host "  VUELTA ($($ruta.fechaVuelta)):" -ForegroundColor Yellow
+    foreach ($viaje in $ruta.viajesVuelta) {
+        $fechaSalida = "$($ruta.fechaVuelta)T$($viaje.hora):00Z"
+        $fechaLlegada = (Get-Date $fechaSalida).AddHours($viaje.duracion).ToString("yyyy-MM-ddTHH:mm:ssZ")
+        
+        $body = @{
+            origen = $destino  # Invertido
+            destino = $origen  # Invertido
+            fechaSalida = $fechaSalida
+            fechaLlegada = $fechaLlegada
+            empresa = $viaje.empresa
+            precio = $viaje.precio
+            asientosDisponibles = $viaje.asientos
+        } | ConvertTo-Json
+        
+        try {
+            Invoke-RestMethod -Uri $API_URL -Method POST -ContentType "application/json" -Body $body | Out-Null
+            $contador++
+            Write-Host "    ✓ $($viaje.hora) | $($viaje.empresa) | `$$($viaje.precio)" -ForegroundColor Green
+        } catch {
+            Write-Host "    ✗ Error: $($viaje.empresa)" -ForegroundColor Red
+        }
+    }
+    
+    Write-Host ""
 }
 
-Write-Host ""
-if ($errores -eq 0) {
-    Write-Host "✅ Se han cargado $contador viajes exitosamente!" -ForegroundColor Green
-    Write-Host ""
-    Write-Host "🎯 URLs para probar:" -ForegroundColor Cyan
-    Write-Host ""
-    Write-Host "📍 Buenos Aires → Córdoba (ida: 25/12, vuelta: 28/12)" -ForegroundColor Yellow
-    Write-Host "   http://localhost:8080/web/travelhub/viajes-list?origen=Buenos%20Aires&destino=Córdoba&fechaPartida=2025-12-25&fechaRegreso=2025-12-28&pasajeros=1" -ForegroundColor White
-    Write-Host ""
-    Write-Host "📍 Buenos Aires → Mendoza (ida: 25/12, vuelta: 30/12)" -ForegroundColor Yellow
-    Write-Host "   http://localhost:8080/web/travelhub/viajes-list?origen=Buenos%20Aires&destino=Mendoza&fechaPartida=2025-12-25&fechaRegreso=2025-12-30&pasajeros=1" -ForegroundColor White
-    Write-Host ""
-    Write-Host "📍 Buenos Aires → Rosario (ida: 26/12, vuelta: 27/12)" -ForegroundColor Yellow
-    Write-Host "   http://localhost:8080/web/travelhub/viajes-list?origen=Buenos%20Aires&destino=Rosario&fechaPartida=2025-12-26&fechaRegreso=2025-12-27&pasajeros=1" -ForegroundColor White
-    Write-Host ""
-} else {
-    Write-Host "⚠️  Se cargaron $contador viajes con $errores errores." -ForegroundColor Yellow
-}
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
+Write-Host "✅ Total de viajes creados: $contador" -ForegroundColor Green
+Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`n" -ForegroundColor Cyan
+
+Write-Host "📋 Rutas disponibles para probar:" -ForegroundColor Yellow
+Write-Host "  1. Buenos Aires ↔ Córdoba (15-16 Dic) - 4 opciones ida, 4 vuelta" -ForegroundColor White
+Write-Host "  2. Buenos Aires ↔ Mendoza (18-19 Dic) - 3 opciones ida, 3 vuelta" -ForegroundColor White
+Write-Host "  3. Buenos Aires ↔ Rosario (20-21 Dic) - 4 opciones ida, 4 vuelta" -ForegroundColor White
+Write-Host "  4. Buenos Aires ↔ Mar del Plata (22-23 Dic) - 3 opciones ida, 3 vuelta" -ForegroundColor White
+Write-Host "  5. Córdoba ↔ Mendoza (25-26 Dic) - 2 opciones ida, 2 vuelta" -ForegroundColor White
+Write-Host "  6. Buenos Aires ↔ Bariloche (28-29 Dic) - 2 opciones ida, 2 vuelta" -ForegroundColor White

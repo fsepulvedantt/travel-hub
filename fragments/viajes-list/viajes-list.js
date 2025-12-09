@@ -1,5 +1,11 @@
 const API_BASE_URL = window.location.origin + '/o/viajes';
 
+// Función para normalizar texto (quitar acentos, convertir a minúsculas)
+function normalizarTexto(texto) {
+  if (!texto) return '';
+  return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+
 // Parámetros de búsqueda
 let searchParams = {};
 
@@ -30,15 +36,6 @@ function obtenerParametrosURL() {
     pasajeros: urlParams.get('pasajeros') || '1',
     tipoReserva: urlParams.get('tipoReserva') || (urlParams.get('fechaRegreso') ? 'IDA_VUELTA' : 'IDA')
   };
-}
-
-// Función para normalizar texto (remover acentos)
-function normalizarTexto(texto) {
-  return texto
-    .toLowerCase()
-    .trim()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
 }
 
 // Función para ordenar viajes
@@ -273,8 +270,8 @@ async function cargarViajes() {
 
     // Filtrar viajes de ida
     const viajesIda = viajes.filter(viaje => {
-      const coincideOrigen = !searchParams.origen || viaje.origen === searchParams.origen;
-      const coincideDestino = !searchParams.destino || viaje.destino === searchParams.destino;
+      const coincideOrigen = !searchParams.origen || normalizarTexto(viaje.origen) === normalizarTexto(searchParams.origen);
+      const coincideDestino = !searchParams.destino || normalizarTexto(viaje.destino) === normalizarTexto(searchParams.destino);
       const empresaSeleccionada = filtroEmpresa.value;
       const coincideEmpresa = !empresaSeleccionada || viaje.empresa === empresaSeleccionada;
       const precioDesde = parseFloat(filtroPrecioDesde.value) || 0;
@@ -312,8 +309,8 @@ async function cargarViajes() {
     if (tipoReserva === 'IDA_VUELTA' && searchParams.fechaRegreso) {
       viajesVuelta = viajes.filter(viaje => {
         // Invertir origen y destino para vuelta
-        const coincideOrigen = !searchParams.destino || viaje.origen === searchParams.destino;
-        const coincideDestino = !searchParams.origen || viaje.destino === searchParams.origen;
+        const coincideOrigen = !searchParams.destino || normalizarTexto(viaje.origen) === normalizarTexto(searchParams.destino);
+        const coincideDestino = !searchParams.origen || normalizarTexto(viaje.destino) === normalizarTexto(searchParams.origen);
         const empresaSeleccionada = filtroEmpresa.value;
         const coincideEmpresa = !empresaSeleccionada || viaje.empresa === empresaSeleccionada;
         const precioDesde = parseFloat(filtroPrecioDesde.value) || 0;
