@@ -44,24 +44,24 @@ function normalizarTexto(texto) {
 // Función para ordenar viajes
 function ordenarViajes(viajes, tipoOrdenamiento) {
   const viajesCopia = [...viajes];
-  
-  switch(tipoOrdenamiento) {
+
+  switch (tipoOrdenamiento) {
     case 'precio-asc':
       return viajesCopia.sort((a, b) => a.precio - b.precio);
-    
+
     case 'precio-desc':
       return viajesCopia.sort((a, b) => b.precio - a.precio);
-    
+
     case 'asientos':
       return viajesCopia.sort((a, b) => b.asientosDisponibles - a.asientosDisponibles);
-    
+
     case 'horario-salida':
       return viajesCopia.sort((a, b) => {
         const timestampA = typeof a.fechaSalida === 'string' ? parseInt(a.fechaSalida) : a.fechaSalida;
         const timestampB = typeof b.fechaSalida === 'string' ? parseInt(b.fechaSalida) : b.fechaSalida;
         return timestampA - timestampB;
       });
-    
+
     case 'relevancia':
     default:
       return viajesCopia;
@@ -142,19 +142,19 @@ async function cargarFiltrosDisponibles() {
 // Mostrar información de búsqueda
 function mostrarInfoBusqueda() {
   searchParams = obtenerParametrosURL();
-  
+
   let infoText = `${searchParams.origen} → ${searchParams.destino}`;
-  
+
   if (searchParams.fechaPartida) {
     const [year, month, day] = searchParams.fechaPartida.split('-');
     const fechaLocal = new Date(year, parseInt(month) - 1, day);
     infoText += ` | ${fechaLocal.toLocaleDateString('es-AR')}`;
   }
-  
+
   if (searchParams.tipoReserva === 'IDA_VUELTA' && searchParams.fechaRegreso) {
     infoText += ` | Ida y Vuelta`;
   }
-  
+
   rutaBusqueda.textContent = infoText;
   rutaBusqueda.style.fontSize = '1.1rem';
   rutaBusqueda.style.fontWeight = '600';
@@ -185,7 +185,7 @@ function crearTarjetaViaje(viaje, tipo) {
   const tipoClase = tipo === 'ida' ? 'viaje-ida-card' : 'viaje-vuelta-card';
   const tipoLabel = tipo === 'ida' ? 'Ida' : 'Vuelta';
   const colorAccent = tipo === 'ida' ? 'primary' : 'success';
-  
+
   return `
     <div class="${tipoClase} p-3 border rounded mb-2 viaje-option" data-viaje-id="${viaje.viajeId}" data-tipo="${tipo}">
       <div class="d-flex align-items-start">
@@ -259,7 +259,7 @@ async function cargarViajes() {
     const viajes = await response.json();
     console.log('✅ Viajes obtenidos del API:', viajes.length);
     console.log('Parámetros de búsqueda:', searchParams);
-    
+
     mostrarLoading(false);
 
     if (!viajes || viajes.length === 0) {
@@ -270,7 +270,7 @@ async function cargarViajes() {
 
     const tipoReserva = searchParams.tipoReserva;
     console.log('Tipo de reserva:', tipoReserva);
-    
+
     // Filtrar viajes de ida
     const viajesIda = viajes.filter(viaje => {
       const coincideOrigen = !searchParams.origen || viaje.origen === searchParams.origen;
@@ -280,31 +280,31 @@ async function cargarViajes() {
       const precioDesde = parseFloat(filtroPrecioDesde.value) || 0;
       const precioHasta = parseFloat(filtroPrecioHasta.value) || 100000;
       const coincidePrecio = viaje.precio >= precioDesde && viaje.precio <= precioHasta;
-      
+
       let coincideFecha = true;
       if (searchParams.fechaPartida) {
-        const [year, month, day] = searchParams.fechaPartida.split('-');
-        const fechaBuscadaDate = new Date(year, parseInt(month) - 1, day);
+        // Fecha buscada ya viene como string "yyyy-MM-dd" del formulario
+        const fechaBuscada = searchParams.fechaPartida;
+
+        // Convertir timestamp del viaje a string "yyyy-MM-dd" usando toISOString (UTC)
         const timestampSalida = typeof viaje.fechaSalida === 'string' ? parseInt(viaje.fechaSalida) : viaje.fechaSalida;
         const fechaViaje = new Date(timestampSalida);
-        const fechaBuscadaUTC = new Date(Date.UTC(fechaBuscadaDate.getFullYear(), fechaBuscadaDate.getMonth(), fechaBuscadaDate.getDate()));
-        const fechaViajeUTC = new Date(Date.UTC(fechaViaje.getUTCFullYear(), fechaViaje.getUTCMonth(), fechaViaje.getUTCDate()));
-        coincideFecha = fechaViajeUTC.getUTCFullYear() === fechaBuscadaUTC.getUTCFullYear() &&
-          fechaViajeUTC.getUTCMonth() === fechaBuscadaUTC.getUTCMonth() &&
-          fechaViajeUTC.getUTCDate() === fechaBuscadaUTC.getUTCDate();
-        
+        const fechaViajeStr = fechaViaje.toISOString().split('T')[0];
+
+        coincideFecha = fechaBuscada === fechaViajeStr;
+
         if (!coincideFecha) {
-          console.log('❌ Viaje ' + viaje.origen + '→' + viaje.destino + ' no coincide en fecha. Buscada: ' + fechaBuscadaUTC.toISOString() + ', Viaje: ' + fechaViajeUTC.toISOString());
+          console.log('❌ Viaje ' + viaje.origen + '→' + viaje.destino + ' no coincide en fecha. Buscada: ' + fechaBuscada + ', Viaje: ' + fechaViajeStr);
         }
       }
-      
+
       const resultado = coincideOrigen && coincideDestino && coincideEmpresa && coincidePrecio && coincideFecha;
       if (!resultado && viaje.origen === searchParams.origen && viaje.destino === searchParams.destino) {
         console.log('❌ Viaje filtrado:', { viaje: viaje.origen + '→' + viaje.destino, coincideOrigen, coincideDestino, coincideEmpresa, coincidePrecio, coincideFecha });
       }
       return resultado;
     });
-    
+
     console.log('📊 Viajes de ida filtrados: ' + viajesIda.length);
 
     // Si es ida y vuelta, también filtrar viajes de vuelta
@@ -319,23 +319,27 @@ async function cargarViajes() {
         const precioDesde = parseFloat(filtroPrecioDesde.value) || 0;
         const precioHasta = parseFloat(filtroPrecioHasta.value) || 100000;
         const coincidePrecio = viaje.precio >= precioDesde && viaje.precio <= precioHasta;
-        
+
         let coincideFecha = true;
         if (searchParams.fechaRegreso) {
-          const [year, month, day] = searchParams.fechaRegreso.split('-');
-          const fechaBuscadaDate = new Date(year, parseInt(month) - 1, day);
+          // Fecha buscada ya viene como string "yyyy-MM-dd" del formulario
+          const fechaBuscada = searchParams.fechaRegreso;
+
+          // Convertir timestamp del viaje a string "yyyy-MM-dd" usando toISOString (UTC)
           const timestampSalida = typeof viaje.fechaSalida === 'string' ? parseInt(viaje.fechaSalida) : viaje.fechaSalida;
           const fechaViaje = new Date(timestampSalida);
-          const fechaBuscadaUTC = new Date(Date.UTC(fechaBuscadaDate.getFullYear(), fechaBuscadaDate.getMonth(), fechaBuscadaDate.getDate()));
-          const fechaViajeUTC = new Date(Date.UTC(fechaViaje.getUTCFullYear(), fechaViaje.getUTCMonth(), fechaViaje.getUTCDate()));
-          coincideFecha = fechaViajeUTC.getUTCFullYear() === fechaBuscadaUTC.getUTCFullYear() &&
-            fechaViajeUTC.getUTCMonth() === fechaBuscadaUTC.getUTCMonth() &&
-            fechaViajeUTC.getUTCDate() === fechaBuscadaUTC.getUTCDate();
+          const fechaViajeStr = fechaViaje.toISOString().split('T')[0];
+
+          coincideFecha = fechaBuscada === fechaViajeStr;
+
+          if (!coincideFecha) {
+            console.log('❌ Viaje vuelta ' + viaje.origen + '→' + viaje.destino + ' no coincide en fecha. Buscada: ' + fechaBuscada + ', Viaje: ' + fechaViajeStr);
+          }
         }
-        
+
         return coincideOrigen && coincideDestino && coincideEmpresa && coincidePrecio && coincideFecha;
       });
-      
+
       console.log('📊 Viajes de vuelta filtrados: ' + viajesVuelta.length);
     }
 
@@ -361,7 +365,7 @@ async function cargarViajes() {
           </div>
         </div>
       `).join('');
-      
+
       // Event listeners para solo ida
       const radiosIda = viajesGrid.querySelectorAll('input[name="viajeida"]');
       radiosIda.forEach(radio => {
@@ -413,15 +417,15 @@ async function cargarViajes() {
           </div>
         </div>
       `;
-      
+
       // Event listeners para ida y vuelta
       let viajeIdaSeleccionado = null;
       let viajeVueltaSeleccionado = null;
-      
+
       const radiosIda = viajesGrid.querySelectorAll('input[name="viajeida"]');
       const radiosVuelta = viajesGrid.querySelectorAll('input[name="viajevuelta"]');
       const btnContinuar = document.getElementById('btnContinuarReserva');
-      
+
       radiosIda.forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
@@ -432,7 +436,7 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       radiosVuelta.forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
@@ -443,7 +447,7 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       btnContinuar.addEventListener('click', () => {
         if (viajeIdaSeleccionado && viajeVueltaSeleccionado) {
           sessionStorage.setItem('viajeIda', JSON.stringify(viajeIdaSeleccionado));
