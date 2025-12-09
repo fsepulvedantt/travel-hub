@@ -1,0 +1,43 @@
+<div class="fragment_105 m-4 p-4">
+    <form id="formBusquedaViaje">
+        <div>
+            <legend>
+                Buscá tus pasajes en micro
+            </legend>
+        </div>
+
+        <div class="d-flex flex-column form-inputs">
+            <div class="mb-3">
+                <label for="inputOrigen" class="form-label">Origen*</label>
+                <input type="text" class="form-control travel-hub_input" id="inputOrigen" required>
+            </div>
+            <div class="mb-3">
+                <label for="inputDestino" class="form-label">Destino*</label>
+                <input type="text" class="form-control travel-hub_input" id="inputDestino" required>
+            </div>
+
+            <div class="d-flex justify-content-around">
+                <div class="mb-3 flex-fill mr-2">
+                    <label for="inputPartida" class="form-label">Partida*</label>
+                    <input type="date" class="form-control travel-hub_input" id="inputPartida" style="color: #BFC4C8;" required>
+                </div>
+
+                <div class="mb-3 flex-fill">
+                    <label for="inputRegreso" class="form-label">Regreso</label>
+                    <input type="date" class="form-control travel-hub_input" id="inputRegreso" style="color: #BFC4C8;">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="inputPasajeros" class="form-label">Pasajeros*</label>
+                <input type="number" class="form-control travel-hub_input" id="inputPasajeros" min="1" value="1" required>
+            </div>
+        </div>
+        <button type="submit" class="btn-buscar btn">
+            Buscar Pasajes
+        </button>
+    </form>
+
+    <!-- Contenedor para mensajes de validación -->
+    <div id="mensajesAlerta" class="mt-3"></div>
+</div>

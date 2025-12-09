@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="formulario-reserva-container">
+  <!-- Resumen del viaje -->
+  <div id="rutaResumen"></div>
+
+  <!-- Formulario de Pasajero -->
+  <div class="formulario-card">
+    <h4><i class="fas fa-user-check"></i> Datos del Pasajero</h4>
+    
+    <form id="formReserva">
+      <!-- Nombre -->
+      <div class="mb-4">
+        <label for="nombre" class="form-label">
+          <i class="fas fa-user"></i> Nombre Completo *
+        </label>
+        <input 
+          type="text" 
+          class="form-control form-control-lg" 
+          id="nombre" 
+          name="nombre"
+          placeholder="Ingrese su nombre completo"
+          required
+        >
+      </div>
+
+      <!-- DNI -->
+      <div class="mb-4">
+        <label for="dni" class="form-label">
+          <i class="fas fa-id-card"></i> DNI *
+        </label>
+        <input 
+          type="text" 
+          class="form-control form-control-lg" 
+          id="dni" 
+          name="dni"
+          placeholder="12345678"
+          pattern="[0-9]{7,8}"
+          maxlength="8"
+          required
+        >
+        <small class="form-text text-muted">Sin puntos ni espacios</small>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="mail" class="form-label">
+          <i class="fas fa-envelope"></i> Email *
+        </label>
+        <input 
+          type="email" 
+          class="form-control form-control-lg" 
+          id="mail" 
+          name="mail"
+          placeholder="ejemplo@correo.com"
+          required
+        >
+        <small class="form-text text-muted">Recibirás tu ticket por email</small>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="mb-4">
+        <label for="telefono" class="form-label">
+          <i class="fas fa-phone"></i> Teléfono
+        </label>
+        <input 
+          type="tel" 
+          class="form-control form-control-lg" 
+          id="telefono" 
+          name="telefono"
+          placeholder="+54 9 11 1234-5678"
+        >
+      </div>
+
+      <!-- Simulación de Pasarela de Pago -->
+      <div class="pasarela-pago-card">
+        <h5><i class="fas fa-credit-card"></i> Información de Pago</h5>
+        
+        <!-- Número de tarjeta -->
+        <div class="mb-3">
+          <label for="numeroTarjeta" class="form-label">Número de Tarjeta *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="numeroTarjeta"
+            placeholder="1234 5678 9012 3456"
+            pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}"
+            maxlength="19"
+            required
+          >
+        </div>
+
+        <div class="row">
+          <!-- Vencimiento -->
+          <div class="col-md-6 mb-3">
+            <label for="vencimiento" class="form-label">Vencimiento *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="vencimiento"
+              placeholder="MM/AA"
+              pattern="[0-9]{2}/[0-9]{2}"
+              maxlength="5"
+              required
+            >
+          </div>
+
+          <!-- CVV -->
+          <div class="col-md-6 mb-3">
+            <label for="cvv" class="form-label">CVV *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="cvv"
+              placeholder="123"
+              pattern="[0-9]{3,4}"
+              maxlength="4"
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Titular -->
+        <div class="mb-3">
+          <label for="titular" class="form-label">Titular de la Tarjeta *</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="titular"
+            placeholder="Nombre como aparece en la tarjeta"
+            required
+          >
+        </div>
+      </div>
+
+      <!-- Términos y condiciones -->
+      <div class="mb-4">
+        <div class="form-check">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            id="terminos" 
+            required
+          >
+          <label class="form-check-label" for="terminos">
+            Acepto los <a href="#" class="text-primary">términos y condiciones</a> *
+          </label>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="botones-form">
+        <button type="button" class="btn btn-secondary btn-lg" id="btnCancelar">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary btn-lg" id="btnConfirmar">
+          <i class="fas fa-check-circle"></i> Confirmar Compra
+        </button>
+      </div>
+
+      <!-- Mensaje de procesamiento -->
+      <div id="procesandoMsg" class="alert alert-info mt-4" style="display: none;">
+        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+        Procesando su reserva...
+      </div>
+
+      <!-- Mensaje de error -->
+      <div id="errorMsg" class="alert alert-danger mt-4" style="display: none;"></div>
+    </form>
+  </div>
+
+  <!-- Modal de Confirmación -->
+  <div class="modal-overlay" id="modalExito">
+    <div class="modal-content-custom">
+      <button type="button" class="btn-close-custom" id="btnCerrarModal">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-body-custom">
+        <div class="success-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>¡Reserva Confirmada!</h3>
+        <p>Tu reserva ha sido procesada exitosamente.</p>
+        <div class="codigo-reserva">
+          <small>Código de Reserva</small>
+          <h4 id="codigoReserva"></h4>
+        </div>
+        <p class="email-info">
+          <i class="fas fa-envelope"></i> 
+          Recibirás un email con los detalles de tu viaje
+        </p>
+        <button type="button" class="btn btn-primary btn-lg" id="btnVolverInicio">
+          Volver al Inicio
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "cssPath": "formulario-reserva.css",
+  "htmlPath": "formulario-reserva.html",
+  "jsPath": "formulario-reserva.js",
+  "name": "Formulario Reserva",
+  "type": "component"
+}
