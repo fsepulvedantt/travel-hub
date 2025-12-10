@@ -374,7 +374,7 @@ async function cargarViajes() {
             const viajeId = e.target.value;
             const viaje = viajesIdaOrdenados.find(v => v.viajeId == viajeId);
             sessionStorage.setItem('viajeIda', JSON.stringify(viaje));
-            window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeId}`;
+            window.location.href = `/detalle-viaje?viajeIdIda=${viajeId}`;
           }
         });
       });
@@ -560,7 +560,7 @@ async function cargarViajes() {
         if (viajeIdaSeleccionado && viajeVueltaSeleccionado) {
           sessionStorage.setItem('viajeIda', JSON.stringify(viajeIdaSeleccionado));
           sessionStorage.setItem('viajeVuelta', JSON.stringify(viajeVueltaSeleccionado));
-          window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
+          window.location.href = `/detalle-viaje?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
         }
       });
     }

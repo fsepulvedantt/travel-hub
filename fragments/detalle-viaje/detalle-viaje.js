@@ -65,7 +65,6 @@
         try {
             var viajeIdaJson = sessionStorage.getItem('viajeIda');
             var viajeVueltaJson = sessionStorage.getItem('viajeVuelta');
-
             if (!viajeIdaJson) {
                 throw new Error('No se encontró información del viaje de ida en sessionStorage');
             }
@@ -103,4 +102,16 @@
     } else {
         await loadTravelDetails();
     }
+
+    const btnContinuar = document.getElementById('btnContinuarReserva');
+
+    btnContinuar.addEventListener('click', () => {
+	var viajeIdaId = sessionStorage.getItem('viajeIda');
+       var viajeVueltaId = sessionStorage.getItem('viajeVuelta');
+       if (viajeIdaId && viajeVueltaId) {
+        window.location.href = `/formulario-reserva?viajeIdIda=${viajeIdaId.viajeId}&viajeIdVuelta=${viajeVueltaId.viajeId}`;
+       }else{
+            console.log("Error")
+       }
+    });
 })();

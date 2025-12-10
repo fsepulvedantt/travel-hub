@@ -190,7 +190,7 @@
 
     // Botón volver al inicio en modal
     document.getElementById('btnVolverInicio').addEventListener('click', () => {
-      window.location.href = '/web/travelhub';
+      window.location.href = '/';
     });
 
     // Cerrar modal al hacer click fuera
@@ -215,7 +215,7 @@
     const modal = document.getElementById('modalExito');
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
-    window.location.href = '/web/travelhub';
+    window.location.href = '/';
   }
 
   // Procesar reserva
