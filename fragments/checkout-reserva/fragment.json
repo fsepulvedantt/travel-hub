@@ -1,7 +1,7 @@
 {
-  "cssPath": "formulario-busqueda.css",
-  "htmlPath": "formulario-busqueda.html",
-  "jsPath": "formulario-busqueda.js",
-  "name": "Formulario Búsqueda",
+  "cssPath": "checkout-reserva.css",
+  "htmlPath": "checkout-reserva.html",
+  "jsPath": "checkout-reserva.js",
+  "name": "Checkout Reserva",
   "type": "component"
 }

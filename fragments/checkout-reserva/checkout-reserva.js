@@ -1,114 +1,144 @@
+// JavaScript
 (function() {
-    'use strict';
-    const RESULTADOS_PAGE_URL = '/resultado-de-viajes';
-    const form = document.getElementById('formBusquedaViaje');
-    const inputOrigen = document.getElementById('inputOrigen');
-    const inputDestino = document.getElementById('inputDestino');
-    const inputPartida = document.getElementById('inputPartida');
-    const inputRegreso = document.getElementById('inputRegreso');
-    const inputPasajeros = document.getElementById('inputPasajeros');
-    const mensajesAlerta = document.getElementById('mensajesAlerta');
+  'use strict';
 
-
-    function mostrarMensaje(mensaje, tipo = 'warning') {
-        const alertClass = {
-            'success': 'alert-success',
-            'error': 'alert-danger',
-            'warning': 'alert-warning',
-            'info': 'alert-info'
-        };
-
-        mensajesAlerta.innerHTML = `
-            <div class="alert ${alertClass[tipo]} alert-dismissible fade show" role="alert">
-                ${mensaje}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        `;
-
-        setTimeout(() => {
-            mensajesAlerta.innerHTML = '';
-        }, 5000);
+  // Datos de ejemplo para la confirmación
+  const datosReserva = {
+    pasajero: {
+      nombre: 'Juan Carlos',
+      apellido: 'García Rodríguez',
+      tipoDocumento: 'DNI',
+      numeroDocumento: '12.345.678',
+      fechaNacimiento: '15/03/1985',
+      genero: 'Masculino'
+    },
+    contacto: {
+      email: 'juancarlos@email.com',
+      telefono: '+54 11 1234-5678',
+      nacionalidad: 'Argentina'
+    },
+    reserva: {
+      codigo: 'TH-2025-001234',
+      fecha: '10/12/2025 14:30'
     }
+  };
 
-    function validarFormulario() {
-        const origen = inputOrigen.value.trim();
-        const destino = inputDestino.value.trim();
-        const fechaPartida = inputPartida.value;
-        const pasajeros = parseInt(inputPasajeros.value);
+  // Función para cargar los datos de la reserva
+  function cargarDatosReserva() {
+    // Cargar datos del pasajero
+    const nombreElem = document.getElementById('nombrePasajero');
+    if (nombreElem) nombreElem.textContent = datosReserva.pasajero.nombre;
 
-        if (!origen || !destino || !fechaPartida || !pasajeros) {
-            mostrarMensaje('Por favor, completa todos los campos obligatorios.');
-            return false;
-        }
+    const apellidoElem = document.getElementById('apellidoPasajero');
+    if (apellidoElem) apellidoElem.textContent = datosReserva.pasajero.apellido;
 
-        if (pasajeros < 1) {
-            mostrarMensaje('El número de pasajeros debe ser al menos 1.');
-            return false;
-        }
+    const tipoDocElem = document.getElementById('tipoDocumento');
+    if (tipoDocElem) tipoDocElem.textContent = datosReserva.pasajero.tipoDocumento;
 
-        // Validar que la fecha de partida no sea pasada
-        const hoy = new Date();
-        hoy.setHours(0, 0, 0, 0);
-        const fechaSeleccionada = new Date(fechaPartida);
+    const numDocElem = document.getElementById('numeroDocumento');
+    if (numDocElem) numDocElem.textContent = datosReserva.pasajero.numeroDocumento;
 
-        if (fechaSeleccionada < hoy) {
-            mostrarMensaje('La fecha de partida no puede ser anterior a hoy.');
-            return false;
-        }
+    const fechaNacElem = document.getElementById('fechaNacimiento');
+    if (fechaNacElem) fechaNacElem.textContent = datosReserva.pasajero.fechaNacimiento;
 
-        // Validar fecha de regreso si existe
-        const fechaRegreso = inputRegreso.value;
-        if (fechaRegreso) {
-            const fechaRegresoDate = new Date(fechaRegreso);
-            if (fechaRegresoDate < fechaSeleccionada) {
-                mostrarMensaje('La fecha de regreso debe ser posterior a la fecha de partida.');
-                return false;
-            }
-        }
+    const generoElem = document.getElementById('genero');
+    if (generoElem) generoElem.textContent = datosReserva.pasajero.genero;
 
-        return true;
-    }
+    // Cargar datos de contacto
+    const emailElem = document.getElementById('email');
+    if (emailElem) emailElem.textContent = datosReserva.contacto.email;
 
-    function construirURLConParametros() {
-        const params = new URLSearchParams();
+    const telefonoElem = document.getElementById('telefono');
+    if (telefonoElem) telefonoElem.textContent = datosReserva.contacto.telefono;
 
-        params.append('origen', inputOrigen.value.trim());
-        params.append('destino', inputDestino.value.trim());
-        params.append('fechaPartida', inputPartida.value);
-        params.append('pasajeros', inputPasajeros.value);
+    const nacionalidadElem = document.getElementById('nacionalidad');
+    if (nacionalidadElem) nacionalidadElem.textContent = datosReserva.contacto.nacionalidad;
 
-        // Solo agregar fecha de regreso si se completó
-        if (inputRegreso.value) {
-            params.append('fechaRegreso', inputRegreso.value);
-        }
+    // Cargar datos de la reserva
+    const codigoReservaElem = document.getElementById('codigoReserva');
+    if (codigoReservaElem) codigoReservaElem.textContent = datosReserva.reserva.codigo;
 
-        return `${RESULTADOS_PAGE_URL}?${params.toString()}`;
-    }
+    const fechaReservaElem = document.getElementById('fechaReserva');
+    if (fechaReservaElem) fechaReservaElem.textContent = datosReserva.reserva.fecha;
+  }
 
-    form.addEventListener('submit', function(e) {
+  // Función para manejar el botón de volver al inicio
+  function configurarBotonVolverHome() {
+    const botonesVolver = document.querySelectorAll('.travel-hub-btn-volver-home, .travel-hub-btn-volver-home-large');
+
+    botonesVolver.forEach(function(boton) {
+      boton.addEventListener('click', function(e) {
         e.preventDefault();
-
-        if (!validarFormulario()) {
-            return;
-        }
-
-        const url = construirURLConParametros();
-        console.log('Redirigiendo a:', url);
-        window.location.href = url;
+        window.location.href = '/';
+        console.log('Redirigiendo al inicio...');
+      });
     });
+  }
 
-    // Establecer fecha mínima en los inputs de fecha
-    const hoy = new Date().toISOString().split('T')[0];
-    inputPartida.setAttribute('min', hoy);
-    inputRegreso.setAttribute('min', hoy);
+  // Función para copiar el código de reserva al portapapeles
+  function configurarCopiaCodigo() {
+    const codigoReservaElem = document.getElementById('codigoReserva');
 
-    // Actualizar fecha mínima de regreso cuando cambia la fecha de partida
-    inputPartida.addEventListener('change', function() {
-        if (inputRegreso.value && inputRegreso.value < this.value) {
-            inputRegreso.value = '';
+    if (codigoReservaElem) {
+      codigoReservaElem.title = 'Haz clic para copiar el código';
+
+      codigoReservaElem.addEventListener('click', function() {
+        const codigo = this.textContent;
+
+        // Copiar al portapapeles
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(codigo).then(function() {
+            mostrarMensajeCopiado(codigoReservaElem);
+          }).catch(function(err) {
+            console.error('Error al copiar:', err);
+          });
+        } else {
+          // Fallback para navegadores antiguos
+          const textarea = document.createElement('textarea');
+          textarea.value = codigo;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          try {
+            document.execCommand('copy');
+            mostrarMensajeCopiado(codigoReservaElem);
+          } catch (err) {
+            console.error('Error al copiar:', err);
+          }
+          document.body.removeChild(textarea);
         }
-    });
+      });
+    }
+  }
+
+  // Función para mostrar mensaje de copiado
+  function mostrarMensajeCopiado(elemento) {
+    const textoOriginal = elemento.textContent;
+    elemento.textContent = '✓ Copiado!';
+    elemento.style.color = '#10b981';
+
+    setTimeout(function() {
+      elemento.textContent = textoOriginal;
+      elemento.style.color = '';
+    }, 2000);
+  }
+
+
+  // Inicialización
+  function inicializar() {
+    cargarDatosReserva();
+    configurarBotonVolverHome();
+    configurarCopiaCodigo();
+
+    console.log('Página de confirmación de reserva cargada correctamente');
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializar);
+  } else {
+    inicializar();
+  }
 
 })();
