@@ -184,9 +184,9 @@ function crearTarjetaViaje(viaje, tipo) {
   const colorAccent = tipo === 'ida' ? 'primary' : 'success';
 
   return `
-    <div class="${tipoClase} p-3 border rounded mb-2 viaje-option" data-viaje-id="${viaje.viajeId}" data-tipo="${tipo}">
-      <div class="d-flex align-items-start">
-        <div class="form-check me-3">
+    <div class="${tipoClase} p-3 border rounded mb-2 viaje-option" data-viaje-id="${viaje.viajeId}" data-tipo="${tipo}" style="cursor: pointer; transition: all 0.2s;">
+      <div class="d-flex align-items-center">
+        <div class="form-check me-1 mr-2">
           <input class="form-check-input viaje-radio" type="radio" name="viaje${tipo}" id="viaje${tipo}_${viaje.viajeId}" value="${viaje.viajeId}">
         </div>
         <div class="flex-grow-1">
@@ -365,6 +365,9 @@ async function cargarViajes() {
 
       // Event listeners para solo ida
       const radiosIda = viajesGrid.querySelectorAll('input[name="viajeida"]');
+      const tarjetasIda = viajesGrid.querySelectorAll('.viaje-ida-card');
+      
+      // Click en el radio button
       radiosIda.forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
@@ -372,6 +375,34 @@ async function cargarViajes() {
             const viaje = viajesIdaOrdenados.find(v => v.viajeId == viajeId);
             sessionStorage.setItem('viajeIda', JSON.stringify(viaje));
             window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeId}`;
+          }
+        });
+      });
+      
+      // Click en toda la tarjeta
+      tarjetasIda.forEach(tarjeta => {
+        tarjeta.addEventListener('click', (e) => {
+          // No hacer nada si se clickeó directamente el radio button
+          if (e.target.classList.contains('viaje-radio')) return;
+          
+          const radio = tarjeta.querySelector('.viaje-radio');
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change'));
+        });
+        
+        // Efecto hover
+        tarjeta.addEventListener('mouseenter', () => {
+          tarjeta.style.backgroundColor = '#f8f9fa';
+          tarjeta.style.borderColor = '#0d6efd';
+          tarjeta.style.borderWidth = '2px';
+        });
+        
+        tarjeta.addEventListener('mouseleave', () => {
+          const radio = tarjeta.querySelector('.viaje-radio');
+          if (!radio.checked) {
+            tarjeta.style.backgroundColor = '';
+            tarjeta.style.borderColor = '';
+            tarjeta.style.borderWidth = '';
           }
         });
       });
@@ -421,8 +452,11 @@ async function cargarViajes() {
 
       const radiosIda = viajesGrid.querySelectorAll('input[name="viajeida"]');
       const radiosVuelta = viajesGrid.querySelectorAll('input[name="viajevuelta"]');
+      const tarjetasIda = viajesGrid.querySelectorAll('.viaje-ida-card');
+      const tarjetasVuelta = viajesGrid.querySelectorAll('.viaje-vuelta-card');
       const btnContinuar = document.getElementById('btnContinuarReserva');
 
+      // Event listeners para radios de ida
       radiosIda.forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
@@ -430,10 +464,21 @@ async function cargarViajes() {
             if (viajeIdaSeleccionado && viajeVueltaSeleccionado) {
               btnContinuar.disabled = false;
             }
+            // Resaltar tarjeta seleccionada
+            tarjetasIda.forEach(t => {
+              t.style.backgroundColor = '';
+              t.style.borderColor = '';
+              t.style.borderWidth = '';
+            });
+            const tarjetaSeleccionada = e.target.closest('.viaje-ida-card');
+            tarjetaSeleccionada.style.backgroundColor = '#e7f3ff';
+            tarjetaSeleccionada.style.borderColor = '#0d6efd';
+            tarjetaSeleccionada.style.borderWidth = '2px';
           }
         });
       });
 
+      // Event listeners para radios de vuelta
       radiosVuelta.forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
@@ -441,6 +486,72 @@ async function cargarViajes() {
             if (viajeIdaSeleccionado && viajeVueltaSeleccionado) {
               btnContinuar.disabled = false;
             }
+            // Resaltar tarjeta seleccionada
+            tarjetasVuelta.forEach(t => {
+              t.style.backgroundColor = '';
+              t.style.borderColor = '';
+              t.style.borderWidth = '';
+            });
+            const tarjetaSeleccionada = e.target.closest('.viaje-vuelta-card');
+            tarjetaSeleccionada.style.backgroundColor = '#e7f7e7';
+            tarjetaSeleccionada.style.borderColor = '#198754';
+            tarjetaSeleccionada.style.borderWidth = '2px';
+          }
+        });
+      });
+      
+      // Click en toda la tarjeta de ida
+      tarjetasIda.forEach(tarjeta => {
+        tarjeta.addEventListener('click', (e) => {
+          if (e.target.classList.contains('viaje-radio')) return;
+          const radio = tarjeta.querySelector('.viaje-radio');
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change'));
+        });
+        
+        tarjeta.addEventListener('mouseenter', () => {
+          const radio = tarjeta.querySelector('.viaje-radio');
+          if (!radio.checked) {
+            tarjeta.style.backgroundColor = '#f8f9fa';
+            tarjeta.style.borderColor = '#0d6efd';
+            tarjeta.style.borderWidth = '2px';
+          }
+        });
+        
+        tarjeta.addEventListener('mouseleave', () => {
+          const radio = tarjeta.querySelector('.viaje-radio');
+          if (!radio.checked) {
+            tarjeta.style.backgroundColor = '';
+            tarjeta.style.borderColor = '';
+            tarjeta.style.borderWidth = '';
+          }
+        });
+      });
+      
+      // Click en toda la tarjeta de vuelta
+      tarjetasVuelta.forEach(tarjeta => {
+        tarjeta.addEventListener('click', (e) => {
+          if (e.target.classList.contains('viaje-radio')) return;
+          const radio = tarjeta.querySelector('.viaje-radio');
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change'));
+        });
+        
+        tarjeta.addEventListener('mouseenter', () => {
+          const radio = tarjeta.querySelector('.viaje-radio');
+          if (!radio.checked) {
+            tarjeta.style.backgroundColor = '#f8f9fa';
+            tarjeta.style.borderColor = '#198754';
+            tarjeta.style.borderWidth = '2px';
+          }
+        });
+        
+        tarjeta.addEventListener('mouseleave', () => {
+          const radio = tarjeta.querySelector('.viaje-radio');
+          if (!radio.checked) {
+            tarjeta.style.backgroundColor = '';
+            tarjeta.style.borderColor = '';
+            tarjeta.style.borderWidth = '';
           }
         });
       });
