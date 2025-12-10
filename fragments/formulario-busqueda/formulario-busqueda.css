@@ -1,3 +1,11 @@
+:root {
+  --azul-primario: #0066cc;
+  --azul-secundario: #0052a3;
+  --azul-claro: #e8f4fd;
+  --azul-muy-claro: #f0f7ff;
+  --gris-texto: #2c3e50;
+}
+
 .fragment_105 {
 	background-color: white;
 	border-radius: 2rem;
@@ -8,16 +16,17 @@
 }
 
 .form-label{
-  color: #9A9A9A;
+  color: var(--gris-texto);
 }
 
 .btn-buscar{
 	color: white;
-  background-color: #0074D9;
+  background-color: var(--azul-primario);
 	border-radius: 3rem;
 	width: 100%;
 }
 
 .btn-buscar:hover{
-  color: white;
+	color: white;
+  background-color: var(--azul-secundario);
 }

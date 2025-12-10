@@ -1,7 +1,7 @@
 {
-  "cssPath": "formulario-reserva.css",
-  "htmlPath": "formulario-reserva.html",
-  "jsPath": "formulario-reserva.js",
-  "name": "Formulario Reserva",
+  "cssPath": "home-carousel.css",
+  "htmlPath": "home-carousel.html",
+  "jsPath": "home-carousel.js",
+  "name": "Home Carousel",
   "type": "component"
 }

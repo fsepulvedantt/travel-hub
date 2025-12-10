@@ -1,0 +1,205 @@
+.fragment_216 {
+}
+
+.travel-detail-fragment {
+  background: #f0f7ff;
+  padding: 24px;
+  color: #1a1a1a;
+}
+
+.travel-detail-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  color: #1a1a1a;
+}
+
+/* Información del viaje */
+.trip-info-section {
+  background: #f0f7ff;
+  margin-bottom: 20px;
+}
+
+.trip-route-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.route-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.route-city {
+  font-size: 18px;
+  font-weight: 700px;
+  color: #1a1a1a;
+}
+
+.trip-schedule-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.schedule-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.schedule-date {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+.schedule-time {
+  font-size: 15px;
+  color: #333;
+}
+
+.trip-service-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 16px;
+  border-top: 1px solid #d0e4f7;
+}
+
+.service-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.service-type {
+  font-size: 14px;
+  color: #666;
+}
+
+.service-duration {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.duration-text {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.view-route-link {
+  font-size: 14px;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.view-route-link:hover {
+  text-decoration: underline;
+}
+
+/* Detalle de la compra */
+.purchase-detail-section {
+  background: #fff;
+  padding: 20px 24px;
+  margin: 0 -24px -24px -24px;
+}
+
+.purchase-detail-section-total {
+  background: #fff;
+  padding: 20px 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+}
+
+.price-list {
+  margin-bottom: 16px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.price-row:last-child {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.price-label {
+  font-size: 15px;
+  color: #333;
+}
+
+.price-value {
+  font-size: 15px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.total-label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.total-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.currency {
+  font-size: 14px;
+  color: #666;
+}
+
+.amount {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.text-right {
+  align-items: flex-end;
+  text-align: right;
+}
