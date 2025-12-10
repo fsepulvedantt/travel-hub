@@ -1,0 +1,23 @@
+.fragment_105 {
+	background-color: white;
+	border-radius: 2rem;
+}
+
+.travel-hub_input{
+  background-color: white;
+}
+
+.form-label{
+  color: #9A9A9A;
+}
+
+.btn-buscar{
+	color: white;
+  background-color: #0074D9;
+	border-radius: 3rem;
+	width: 100%;
+}
+
+.btn-buscar:hover{
+  color: white;
+}

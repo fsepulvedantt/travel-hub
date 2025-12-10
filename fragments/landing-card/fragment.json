@@ -1,0 +1,7 @@
+{
+  "cssPath": "checkout-reserva.css",
+  "htmlPath": "checkout-reserva.html",
+  "jsPath": "checkout-reserva.js",
+  "name": "Checkout Reserva",
+  "type": "component"
+}
