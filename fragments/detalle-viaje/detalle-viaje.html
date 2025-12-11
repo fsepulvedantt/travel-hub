@@ -1,121 +1,147 @@
 <div class="fragment_215">
+
   <!-- Loading state -->
-  <div class="loading-state" id="loadingState">
+  <div class="message-state" id="loadingState">
     <p>Cargando información del viaje...</p>
   </div>
 
   <!-- Error state -->
-  <div id="errorState" style="display: none;">
+  <div class="message-state error-state" id="errorState" style="display: none;">
     <p>Error al cargar la información del viaje. Por favor, intente nuevamente.</p>
   </div>
 
-  <!-- Viaje de Ida -->
-  <div class="travel-detail-fragment" id="viajeIdaFragment" style="display: none;">
-    <h2 class="travel-detail-title">Detalle Viaje - Ida</h2>
 
-    <div class="trip-info-section">
-      <div class="trip-route-header">
-        <div class="route-column">
-          <span class="route-label">ORIGEN</span>
-          <strong class="route-city" id="origenIda">-</strong>
+  <!-- Contenedor principal -->
+  <!-- Contiene el/los detalles de viaje y el boton continuar -->
+  <div class="travel-main-fragment" id="idTravelMainFragment">
+
+    <!-- Contenedor Viajes -->
+    <div class="travel-card-container">
+
+      <!-- Viaje de Ida -->
+      <div class="travel-detail-fragment" id="viajeIdaFragment" style="display: none;">
+        <h2 class="travel-detail-title">Detalle Viaje - Ida</h2>
+
+        <div class="trip-info-section">
+          <div class="trip-route-header">
+
+            <div class="route-column">
+              <span class="route-label">ORIGEN</span>
+              <strong class="route-city" id="origenIda">-</strong>
+            </div>
+
+            <div class="route-column text-right">
+              <span class="route-label">DESTINO</span>
+              <strong class="route-city" id="destinoIda">-</strong>
+            </div>
+          </div>
+
+          <div class="trip-schedule-header">
+
+            <div class="schedule-column">
+              <span class="schedule-label">SALIDA</span>
+              <strong class="schedule-date" id="fechaSalidaIda">-</strong>
+              <span class="schedule-time" id="horaSalidaIda">-</span>
+            </div>
+
+            <div class="schedule-column text-right">
+              <span class="schedule-label">LLEGADA</span>
+              <strong class="schedule-date" id="fechaLlegadaIda">-</strong>
+              <span class="schedule-time" id="horaLlegadaIda">-</span>
+            </div>
+          </div>
+
+          <div class="trip-service-info">
+            <div class="service-details">
+              <strong class="service-name" id="empresaIda">-</strong>
+              <span class="service-type">Común</span>
+            </div>
+            <div class="service-duration">
+              <span class="duration-text" id="duracionIda">Duración: -</span>
+            </div>
+          </div>
         </div>
-        <div class="route-column text-right">
-          <span class="route-label">DESTINO</span>
-          <strong class="route-city" id="destinoIda">-</strong>
+
+        <div class="purchase-detail-section">
+          <div class="price-list">
+            <div class="price-row">
+              <span class="price-value" id="precioPasajesIda">ARS 0,00</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="trip-schedule-header">
-        <div class="schedule-column">
-          <span class="schedule-label">SALIDA</span>
-          <strong class="schedule-date" id="fechaSalidaIda">-</strong>
-          <span class="schedule-time" id="horaSalidaIda">-</span>
+      <!-- Viaje de Vuelta -->
+      <div class="travel-detail-fragment" id="viajeVueltaFragment" style="display: none;">
+        <h2 class="travel-detail-title">Detalle Viaje - Vuelta</h2>
+
+        <div class="trip-info-section">
+          <div class="trip-route-header">
+            <div class="route-column">
+              <span class="route-label">ORIGEN</span>
+              <strong class="route-city" id="origenVuelta">-</strong>
+            </div>
+            <div class="route-column text-right">
+              <span class="route-label">DESTINO</span>
+              <strong class="route-city" id="destinoVuelta">-</strong>
+            </div>
+          </div>
+
+          <div class="trip-schedule-header">
+            <div class="schedule-column">
+              <span class="schedule-label">SALIDA</span>
+              <strong class="schedule-date" id="fechaSalidaVuelta">-</strong>
+              <span class="schedule-time" id="horaSalidaVuelta">-</span>
+            </div>
+            <div class="schedule-column text-right">
+              <span class="schedule-label">LLEGADA</span>
+              <strong class="schedule-date" id="fechaLlegadaVuelta">-</strong>
+              <span class="schedule-time" id="horaLlegadaVuelta">-</span>
+            </div>
+          </div>
+
+          <div class="trip-service-info">
+            <div class="service-details">
+              <strong class="service-name" id="empresaVuelta">-</strong>
+              <span class="service-type">Común</span>
+            </div>
+            <div class="service-duration">
+              <span class="duration-text" id="duracionVuelta">Duración: -</span>
+            </div>
+          </div>
         </div>
-        <div class="schedule-column text-right">
-          <span class="schedule-label">LLEGADA</span>
-          <strong class="schedule-date" id="fechaLlegadaIda">-</strong>
-          <span class="schedule-time" id="horaLlegadaIda">-</span>
+
+        <div class="purchase-detail-section">
+          <div class="price-list">
+            <div class="price-row">
+              <span class="price-value" id="precioPasajesVuelta">ARS 0,00</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="trip-service-info">
-        <div class="service-details">
-          <strong class="service-name" id="empresaIda">-</strong>
-          <span class="service-type">Común</span>
-        </div>
-        <div class="service-duration">
-          <span class="duration-text" id="duracionIda">Duración: -</span>
-        </div>
-      </div>
     </div>
 
-    <div class="purchase-detail-section">
-      <div class="price-list">
-        <div class="price-row">
-          <span class="price-label">Pasaje</span>
-          <span class="price-value" id="precioPasajesIda">ARS 0,00</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Viaje de Vuelta -->
-  <div class="travel-detail-fragment" id="viajeVueltaFragment" style="display: none;">
-    <h2 class="travel-detail-title">Detalle Viaje - Vuelta</h2>
-
-    <div class="trip-info-section">
-      <div class="trip-route-header">
-        <div class="route-column">
-          <span class="route-label">ORIGEN</span>
-          <strong class="route-city" id="origenVuelta">-</strong>
-        </div>
-        <div class="route-column text-right">
-          <span class="route-label">DESTINO</span>
-          <strong class="route-city" id="destinoVuelta">-</strong>
-        </div>
+    <!-- Contenedor Compra -->
+    <div class="travel-purchase-container">
+      <!-- Total de la compra -->
+      <div class="purchase-detail-section-total">
+        <h1 class="travel-detail-title">Detalle de la compra</h3>
+          <div class="total-row">
+            <strong class="total-label">Total</strong>
+            <div class="total-amount">
+              <strong class="amount" id="totalAmount">0,00</strong>
+            </div>
+          </div>
       </div>
 
-      <div class="trip-schedule-header">
-        <div class="schedule-column">
-          <span class="schedule-label">SALIDA</span>
-          <strong class="schedule-date" id="fechaSalidaVuelta">-</strong>
-          <span class="schedule-time" id="horaSalidaVuelta">-</span>
-        </div>
-        <div class="schedule-column text-right">
-          <span class="schedule-label">LLEGADA</span>
-          <strong class="schedule-date" id="fechaLlegadaVuelta">-</strong>
-          <span class="schedule-time" id="horaLlegadaVuelta">-</span>
-        </div>
-      </div>
-
-      <div class="trip-service-info">
-        <div class="service-details">
-          <strong class="service-name" id="empresaVuelta">-</strong>
-          <span class="service-type">Común</span>
-        </div>
-        <div class="service-duration">
-          <span class="duration-text" id="duracionVuelta">Duración: -</span>
-        </div>
-      </div>
+      <!-- Boton Continuar -->
+      
+        <button id="btnContinuarReserva" class="btn btn-primary btn-lg">
+          <i class="bi bi-check-circle"></i> Continuar
+        </button>
+      
     </div>
 
-    <div class="purchase-detail-section">
-      <div class="price-list">
-        <div class="price-row">
-          <span class="price-label">Pasaje</span>
-          <span class="price-value" id="precioPasajesVuelta">ARS 0,00</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="purchase-detail-section-total">
-    <h1 class="travel-detail-title">Detalle de la compra</h3>
-    <div class="total-row">
-      <strong class="total-label">Total</strong>
-      <div class="total-amount">
-        <span class="currency">ARS</span>
-        <strong class="amount" id="totalAmount">0,00</strong>
-      </div>
-    </div>
   </div>
 </div>
