@@ -61,6 +61,7 @@
         var errorState = document.getElementById('errorState');
         var viajeIdaFragment = document.getElementById('viajeIdaFragment');
         var viajeVueltaFragment = document.getElementById('viajeVueltaFragment');
+        var travelMainFragment = document.getElementById('idTravelMainFragment');
 
         try {
             var viajeIdaJson = sessionStorage.getItem('viajeIda');
@@ -91,7 +92,8 @@
         } catch (error) {
             console.error('Error:', error);
             loadingState.style.display = 'none';
-					  viajeIdaFragment.style.display = 'none';
+            viajeIdaFragment.style.display = 'none';
+            travelMainFragment.style.display = 'none';
             errorState.style.display = 'block';
         }
     }
@@ -106,12 +108,12 @@
     const btnContinuar = document.getElementById('btnContinuarReserva');
 
     btnContinuar.addEventListener('click', () => {
-	var viajeIdaId = sessionStorage.getItem('viajeIda');
-       var viajeVueltaId = sessionStorage.getItem('viajeVuelta');
-       if (viajeIdaId && viajeVueltaId) {
-        window.location.href = `/formulario-reserva?viajeIdIda=${viajeIdaId.viajeId}&viajeIdVuelta=${viajeVueltaId.viajeId}`;
-       }else{
+        var viajeIdaId = sessionStorage.getItem('viajeIda');
+        var viajeVueltaId = sessionStorage.getItem('viajeVuelta');
+        if (viajeIdaId && viajeVueltaId) {
+            window.location.href = `/formulario-reserva?viajeIdIda=${viajeIdaId.viajeId}&viajeIdVuelta=${viajeVueltaId.viajeId}`;
+        } else {
             console.log("Error")
-       }
+        }
     });
 })();
