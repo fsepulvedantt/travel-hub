@@ -522,149 +522,6 @@ public interface ReservaPersistence extends BasePersistence<Reserva> {
 	public int countByGroupId(long groupId);
 
 	/**
-	 * Returns all the reservas where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @return the matching reservas
-	 */
-	public java.util.List<Reserva> findByIdViaje(long idViaje);
-
-	/**
-	 * Returns a range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @return the range of matching reservas
-	 */
-	public java.util.List<Reserva> findByIdViaje(
-		long idViaje, int start, int end);
-
-	/**
-	 * Returns an ordered range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching reservas
-	 */
-	public java.util.List<Reserva> findByIdViaje(
-		long idViaje, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-			orderByComparator);
-
-	/**
-	 * Returns an ordered range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching reservas
-	 */
-	public java.util.List<Reserva> findByIdViaje(
-		long idViaje, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-			orderByComparator,
-		boolean useFinderCache);
-
-	/**
-	 * Returns the first reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching reserva
-	 * @throws NoSuchReservaException if a matching reserva could not be found
-	 */
-	public Reserva findByIdViaje_First(
-			long idViaje,
-			com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-				orderByComparator)
-		throws NoSuchReservaException;
-
-	/**
-	 * Returns the first reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching reserva, or <code>null</code> if a matching reserva could not be found
-	 */
-	public Reserva fetchByIdViaje_First(
-		long idViaje,
-		com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-			orderByComparator);
-
-	/**
-	 * Returns the last reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching reserva
-	 * @throws NoSuchReservaException if a matching reserva could not be found
-	 */
-	public Reserva findByIdViaje_Last(
-			long idViaje,
-			com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-				orderByComparator)
-		throws NoSuchReservaException;
-
-	/**
-	 * Returns the last reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching reserva, or <code>null</code> if a matching reserva could not be found
-	 */
-	public Reserva fetchByIdViaje_Last(
-		long idViaje,
-		com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-			orderByComparator);
-
-	/**
-	 * Returns the reservas before and after the current reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param reservaId the primary key of the current reserva
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next reserva
-	 * @throws NoSuchReservaException if a reserva with the primary key could not be found
-	 */
-	public Reserva[] findByIdViaje_PrevAndNext(
-			long reservaId, long idViaje,
-			com.liferay.portal.kernel.util.OrderByComparator<Reserva>
-				orderByComparator)
-		throws NoSuchReservaException;
-
-	/**
-	 * Removes all the reservas where idViaje = &#63; from the database.
-	 *
-	 * @param idViaje the id viaje
-	 */
-	public void removeByIdViaje(long idViaje);
-
-	/**
-	 * Returns the number of reservas where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @return the number of matching reservas
-	 */
-	public int countByIdViaje(long idViaje);
-
-	/**
 	 * Returns all the reservas where dni = &#63;.
 	 *
 	 * @param dni the dni
@@ -805,6 +662,51 @@ public interface ReservaPersistence extends BasePersistence<Reserva> {
 	 * @return the number of matching reservas
 	 */
 	public int countByDni(String dni);
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or throws a <code>NoSuchReservaException</code> if it could not be found.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the matching reserva
+	 * @throws NoSuchReservaException if a matching reserva could not be found
+	 */
+	public Reserva findByCodigoReserva(String codigoReserva)
+		throws NoSuchReservaException;
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the matching reserva, or <code>null</code> if a matching reserva could not be found
+	 */
+	public Reserva fetchByCodigoReserva(String codigoReserva);
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching reserva, or <code>null</code> if a matching reserva could not be found
+	 */
+	public Reserva fetchByCodigoReserva(
+		String codigoReserva, boolean useFinderCache);
+
+	/**
+	 * Removes the reserva where codigoReserva = &#63; from the database.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the reserva that was removed
+	 */
+	public Reserva removeByCodigoReserva(String codigoReserva)
+		throws NoSuchReservaException;
+
+	/**
+	 * Returns the number of reservas where codigoReserva = &#63;.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the number of matching reservas
+	 */
+	public int countByCodigoReserva(String codigoReserva);
 
 	/**
 	 * Caches the reserva in the entity cache if it is enabled.

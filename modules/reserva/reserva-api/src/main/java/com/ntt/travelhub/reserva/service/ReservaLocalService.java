@@ -91,17 +91,8 @@ public interface ReservaLocalService
 	 */
 	public Reserva createReserva(
 			String origen, String destino, Date fechaSalida, Date fechaLlegada,
-			String mail, String dni, long idViaje, long idViajeIda,
+			String mail, String dni, String nombre, long idViajeIda,
 			long idViajeVuelta, String tipoReserva,
-			ServiceContext serviceContext)
-		throws PortalException;
-
-	/**
-	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
-	 */
-	public Reserva createReserva(
-			String origen, String destino, Date fechaSalida, Date fechaLlegada,
-			String mail, String dni, long idViaje,
 			ServiceContext serviceContext)
 		throws PortalException;
 
@@ -210,6 +201,12 @@ public interface ReservaLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long dynamicQueryCount(
 		DynamicQuery dynamicQuery, Projection projection);
+
+	/**
+	 * Busca una reserva por su código único
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Reserva fetchByCodigoReserva(String codigoReserva);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Reserva fetchReserva(long reservaId);

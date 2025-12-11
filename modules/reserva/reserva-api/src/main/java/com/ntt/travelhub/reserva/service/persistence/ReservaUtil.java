@@ -684,171 +684,6 @@ public class ReservaUtil {
 	}
 
 	/**
-	 * Returns all the reservas where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @return the matching reservas
-	 */
-	public static List<Reserva> findByIdViaje(long idViaje) {
-		return getPersistence().findByIdViaje(idViaje);
-	}
-
-	/**
-	 * Returns a range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @return the range of matching reservas
-	 */
-	public static List<Reserva> findByIdViaje(
-		long idViaje, int start, int end) {
-
-		return getPersistence().findByIdViaje(idViaje, start, end);
-	}
-
-	/**
-	 * Returns an ordered range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching reservas
-	 */
-	public static List<Reserva> findByIdViaje(
-		long idViaje, int start, int end,
-		OrderByComparator<Reserva> orderByComparator) {
-
-		return getPersistence().findByIdViaje(
-			idViaje, start, end, orderByComparator);
-	}
-
-	/**
-	 * Returns an ordered range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching reservas
-	 */
-	public static List<Reserva> findByIdViaje(
-		long idViaje, int start, int end,
-		OrderByComparator<Reserva> orderByComparator, boolean useFinderCache) {
-
-		return getPersistence().findByIdViaje(
-			idViaje, start, end, orderByComparator, useFinderCache);
-	}
-
-	/**
-	 * Returns the first reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching reserva
-	 * @throws NoSuchReservaException if a matching reserva could not be found
-	 */
-	public static Reserva findByIdViaje_First(
-			long idViaje, OrderByComparator<Reserva> orderByComparator)
-		throws com.ntt.travelhub.reserva.exception.NoSuchReservaException {
-
-		return getPersistence().findByIdViaje_First(idViaje, orderByComparator);
-	}
-
-	/**
-	 * Returns the first reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching reserva, or <code>null</code> if a matching reserva could not be found
-	 */
-	public static Reserva fetchByIdViaje_First(
-		long idViaje, OrderByComparator<Reserva> orderByComparator) {
-
-		return getPersistence().fetchByIdViaje_First(
-			idViaje, orderByComparator);
-	}
-
-	/**
-	 * Returns the last reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching reserva
-	 * @throws NoSuchReservaException if a matching reserva could not be found
-	 */
-	public static Reserva findByIdViaje_Last(
-			long idViaje, OrderByComparator<Reserva> orderByComparator)
-		throws com.ntt.travelhub.reserva.exception.NoSuchReservaException {
-
-		return getPersistence().findByIdViaje_Last(idViaje, orderByComparator);
-	}
-
-	/**
-	 * Returns the last reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching reserva, or <code>null</code> if a matching reserva could not be found
-	 */
-	public static Reserva fetchByIdViaje_Last(
-		long idViaje, OrderByComparator<Reserva> orderByComparator) {
-
-		return getPersistence().fetchByIdViaje_Last(idViaje, orderByComparator);
-	}
-
-	/**
-	 * Returns the reservas before and after the current reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param reservaId the primary key of the current reserva
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next reserva
-	 * @throws NoSuchReservaException if a reserva with the primary key could not be found
-	 */
-	public static Reserva[] findByIdViaje_PrevAndNext(
-			long reservaId, long idViaje,
-			OrderByComparator<Reserva> orderByComparator)
-		throws com.ntt.travelhub.reserva.exception.NoSuchReservaException {
-
-		return getPersistence().findByIdViaje_PrevAndNext(
-			reservaId, idViaje, orderByComparator);
-	}
-
-	/**
-	 * Removes all the reservas where idViaje = &#63; from the database.
-	 *
-	 * @param idViaje the id viaje
-	 */
-	public static void removeByIdViaje(long idViaje) {
-		getPersistence().removeByIdViaje(idViaje);
-	}
-
-	/**
-	 * Returns the number of reservas where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @return the number of matching reservas
-	 */
-	public static int countByIdViaje(long idViaje) {
-		return getPersistence().countByIdViaje(idViaje);
-	}
-
-	/**
 	 * Returns all the reservas where dni = &#63;.
 	 *
 	 * @param dni the dni
@@ -1007,6 +842,65 @@ public class ReservaUtil {
 	 */
 	public static int countByDni(String dni) {
 		return getPersistence().countByDni(dni);
+	}
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or throws a <code>NoSuchReservaException</code> if it could not be found.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the matching reserva
+	 * @throws NoSuchReservaException if a matching reserva could not be found
+	 */
+	public static Reserva findByCodigoReserva(String codigoReserva)
+		throws com.ntt.travelhub.reserva.exception.NoSuchReservaException {
+
+		return getPersistence().findByCodigoReserva(codigoReserva);
+	}
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the matching reserva, or <code>null</code> if a matching reserva could not be found
+	 */
+	public static Reserva fetchByCodigoReserva(String codigoReserva) {
+		return getPersistence().fetchByCodigoReserva(codigoReserva);
+	}
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching reserva, or <code>null</code> if a matching reserva could not be found
+	 */
+	public static Reserva fetchByCodigoReserva(
+		String codigoReserva, boolean useFinderCache) {
+
+		return getPersistence().fetchByCodigoReserva(
+			codigoReserva, useFinderCache);
+	}
+
+	/**
+	 * Removes the reserva where codigoReserva = &#63; from the database.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the reserva that was removed
+	 */
+	public static Reserva removeByCodigoReserva(String codigoReserva)
+		throws com.ntt.travelhub.reserva.exception.NoSuchReservaException {
+
+		return getPersistence().removeByCodigoReserva(codigoReserva);
+	}
+
+	/**
+	 * Returns the number of reservas where codigoReserva = &#63;.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the number of matching reservas
+	 */
+	public static int countByCodigoReserva(String codigoReserva) {
+		return getPersistence().countByCodigoReserva(codigoReserva);
 	}
 
 	/**

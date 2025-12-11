@@ -14,6 +14,7 @@ import com.ntt.travelhub.reserva.service.base.ReservaLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author Brian Wing Shun Chan
@@ -25,15 +26,29 @@ import java.util.Date;
 public class ReservaLocalServiceImpl extends ReservaLocalServiceBaseImpl {
 
 	/**
-	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
+	 * Genera un código de reserva alfanumérico único de 6 caracteres
 	 */
-	public Reserva createReserva(
-			String origen, String destino, Date fechaSalida, Date fechaLlegada,
-			String mail, String dni, long idViaje, ServiceContext serviceContext)
-			throws PortalException {
-
-		return createReserva(origen, destino, fechaSalida, fechaLlegada, mail, dni, 
-				idViaje, idViaje, 0L, "IDA", serviceContext);
+	private String generarCodigoReserva() {
+		String caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Sin O, I, 0, 1 para evitar confusión
+		Random random = new Random();
+		StringBuilder codigo = new StringBuilder(6);
+		
+		for (int i = 0; i < 6; i++) {
+			int index = random.nextInt(caracteres.length());
+			codigo.append(caracteres.charAt(index));
+		}
+		
+		// Verificar que no exista el código (aunque es muy poco probable)
+		try {
+			Reserva existente = reservaPersistence.fetchByCodigoReserva(codigo.toString());
+			if (existente != null) {
+				return generarCodigoReserva(); // Recursivo si existe
+			}
+		} catch (Exception e) {
+			// Si hay error, continuamos con el código generado
+		}
+		
+		return codigo.toString();
 	}
 
 	/**
@@ -41,7 +56,7 @@ public class ReservaLocalServiceImpl extends ReservaLocalServiceBaseImpl {
 	 */
 	public Reserva createReserva(
 			String origen, String destino, Date fechaSalida, Date fechaLlegada,
-			String mail, String dni, long idViaje, long idViajeIda, long idViajeVuelta,
+			String mail, String dni, String nombre, long idViajeIda, long idViajeVuelta,
 			String tipoReserva, ServiceContext serviceContext)
 			throws PortalException {
 
@@ -59,6 +74,9 @@ public class ReservaLocalServiceImpl extends ReservaLocalServiceBaseImpl {
 		reserva.setCreateDate(new Date());
 		reserva.setModifiedDate(new Date());
 
+		// Generar código de reserva único
+		String codigoReserva = generarCodigoReserva();
+
 		// Setear campos de negocio
 		reserva.setOrigen(origen);
 		reserva.setDestino(destino);
@@ -66,12 +84,20 @@ public class ReservaLocalServiceImpl extends ReservaLocalServiceBaseImpl {
 		reserva.setFechaLlegada(fechaLlegada);
 		reserva.setMail(mail);
 		reserva.setDni(dni);
-		reserva.setIdViaje(idViaje);
+		reserva.setNombre(nombre);
+		reserva.setCodigoReserva(codigoReserva);
 		reserva.setIdViajeIda(idViajeIda);
 		reserva.setIdViajeVuelta(idViajeVuelta);
 		reserva.setTipoReserva(tipoReserva);
 
 		// Persistir
 		return reservaPersistence.update(reserva);
+	}
+
+	/**
+	 * Busca una reserva por su código único
+	 */
+	public Reserva fetchByCodigoReserva(String codigoReserva) {
+		return reservaPersistence.fetchByCodigoReserva(codigoReserva);
 	}
 }
