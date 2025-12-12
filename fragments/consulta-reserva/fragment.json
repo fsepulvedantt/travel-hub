@@ -1,0 +1,7 @@
+{
+  "cssPath": "consulta-reserva.css",
+  "htmlPath": "consulta-reserva.html",
+  "jsPath": "consulta-reserva.js",
+  "name": "Consulta de Reserva",
+  "type": "component"
+}

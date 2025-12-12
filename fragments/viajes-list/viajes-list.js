@@ -16,8 +16,6 @@ const errorMessage = fragmentElement.querySelector('#errorMessage');
 const noResultados = fragmentElement.querySelector('#noResultados');
 const btnBuscar = fragmentElement.querySelector('#btnBuscar');
 const btnLimpiarFiltros = fragmentElement.querySelector('#btnLimpiarFiltros');
-const filtroOrigen = fragmentElement.querySelector('#filtroOrigen');
-const filtroDestino = fragmentElement.querySelector('#filtroDestino');
 const filtroEmpresa = fragmentElement.querySelector('#filtroEmpresa');
 const filtroPrecioDesde = fragmentElement.querySelector('#filtroPrecioDesde');
 const filtroPrecioHasta = fragmentElement.querySelector('#filtroPrecioHasta');
@@ -82,14 +80,10 @@ async function cargarFiltrosDisponibles() {
     const viajes = await response.json();
 
     // Obtener valores únicos
-    const origenesSet = new Set();
-    const destinosSet = new Set();
     const empresasSet = new Set();
     let precioMaximo = 0;
 
     viajes.forEach(viaje => {
-      origenesSet.add(viaje.origen);
-      destinosSet.add(viaje.destino);
       empresasSet.add(viaje.empresa);
       if (viaje.precio > precioMaximo) {
         precioMaximo = viaje.precio;
@@ -97,25 +91,7 @@ async function cargarFiltrosDisponibles() {
     });
 
     // Convertir a arrays y ordenar
-    const origenes = Array.from(origenesSet).sort();
-    const destinos = Array.from(destinosSet).sort();
     const empresas = Array.from(empresasSet).sort();
-
-    // Poblar select de origen
-    origenes.forEach(origen => {
-      const option = document.createElement('option');
-      option.value = origen;
-      option.textContent = origen;
-      filtroOrigen.appendChild(option);
-    });
-
-    // Poblar select de destino
-    destinos.forEach(destino => {
-      const option = document.createElement('option');
-      option.value = destino;
-      option.textContent = destino;
-      filtroDestino.appendChild(option);
-    });
 
     // Poblar select de empresa
     empresas.forEach(empresa => {
@@ -130,7 +106,7 @@ async function cargarFiltrosDisponibles() {
     filtroPrecioHasta.value = precioMaximo;
     precioMaximoDisponible.textContent = precioMaximo.toLocaleString('es-AR');
 
-    console.log('Filtros cargados:', { origenes, destinos, empresas, precioMaximo });
+    console.log('Filtros cargados:', { empresas, precioMaximo });
   } catch (error) {
     console.error('Error al cargar filtros:', error);
   }
@@ -374,7 +350,8 @@ async function cargarViajes() {
             const viajeId = e.target.value;
             const viaje = viajesIdaOrdenados.find(v => v.viajeId == viajeId);
             sessionStorage.setItem('viajeIda', JSON.stringify(viaje));
-            window.location.href = `/detalle-viaje?viajeIdIda=${viajeId}`;
+            sessionStorage.setItem('tipoReserva', 'IDA');
+            window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeId}`;
           }
         });
       });
@@ -560,7 +537,8 @@ async function cargarViajes() {
         if (viajeIdaSeleccionado && viajeVueltaSeleccionado) {
           sessionStorage.setItem('viajeIda', JSON.stringify(viajeIdaSeleccionado));
           sessionStorage.setItem('viajeVuelta', JSON.stringify(viajeVueltaSeleccionado));
-          window.location.href = `/detalle-viaje?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
+          sessionStorage.setItem('tipoReserva', 'IDA_VUELTA');
+          window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
         }
       });
     }
@@ -577,8 +555,6 @@ btnBuscar.addEventListener('click', cargarViajes);
 
 // Event listener para limpiar filtros
 btnLimpiarFiltros.addEventListener('click', () => {
-  filtroOrigen.value = '';
-  filtroDestino.value = '';
   filtroEmpresa.value = '';
   filtroPrecioDesde.value = '0';
   filtroPrecioHasta.value = parseFloat(filtroPrecioHasta.max) || 100000;
@@ -607,10 +583,6 @@ cargarFiltrosDisponibles().then(() => {
   mostrarInfoBusqueda();
   cargarViajes();
 });
-
-// Búsqueda al presionar Enter
-filtroOrigen.addEventListener('change', cargarViajes);
-filtroDestino.addEventListener('change', cargarViajes);
 
 // Event listener para cambiar ordenamiento
 ordenamiento.addEventListener('change', cargarViajes);

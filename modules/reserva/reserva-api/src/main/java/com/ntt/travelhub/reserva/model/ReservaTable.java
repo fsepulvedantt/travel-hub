@@ -51,8 +51,10 @@ public class ReservaTable extends BaseTable<ReservaTable> {
 		"mail", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReservaTable, String> dni = createColumn(
 		"dni", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
-	public final Column<ReservaTable, Long> idViaje = createColumn(
-		"idViaje", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<ReservaTable, String> nombre = createColumn(
+		"nombre", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<ReservaTable, String> codigoReserva = createColumn(
+		"codigoReserva", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<ReservaTable, Long> idViajeIda = createColumn(
 		"idViajeIda", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
 	public final Column<ReservaTable, Long> idViajeVuelta = createColumn(

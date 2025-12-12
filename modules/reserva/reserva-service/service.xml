@@ -25,7 +25,8 @@
 		<column name="fechaLlegada" type="Date" />
 		<column name="mail" type="String" />
 		<column name="dni" type="String" />
-		<column name="idViaje" type="long" />
+		<column name="nombre" type="String" />
+		<column name="codigoReserva" type="String" />
 		<column name="idViajeIda" type="long" />
 		<column name="idViajeVuelta" type="long" />
 		<column name="tipoReserva" type="String" />
@@ -39,11 +40,11 @@
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		<finder name="IdViaje" return-type="Collection">
-			<finder-column name="idViaje" />
-		</finder>
 		<finder name="Dni" return-type="Collection">
 			<finder-column name="dni" />
+		</finder>
+		<finder name="CodigoReserva" return-type="Reserva" unique="true">
+			<finder-column name="codigoReserva" />
 		</finder>
 	</entity>
 </service-builder>

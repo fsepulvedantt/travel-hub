@@ -73,29 +73,14 @@ public class ReservaLocalServiceWrapper
 	@Override
 	public com.ntt.travelhub.reserva.model.Reserva createReserva(
 			String origen, String destino, java.util.Date fechaSalida,
-			java.util.Date fechaLlegada, String mail, String dni, long idViaje,
+			java.util.Date fechaLlegada, String mail, String dni, String nombre,
 			long idViajeIda, long idViajeVuelta, String tipoReserva,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _reservaLocalService.createReserva(
-			origen, destino, fechaSalida, fechaLlegada, mail, dni, idViaje,
+			origen, destino, fechaSalida, fechaLlegada, mail, dni, nombre,
 			idViajeIda, idViajeVuelta, tipoReserva, serviceContext);
-	}
-
-	/**
-	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
-	 */
-	@Override
-	public com.ntt.travelhub.reserva.model.Reserva createReserva(
-			String origen, String destino, java.util.Date fechaSalida,
-			java.util.Date fechaLlegada, String mail, String dni, long idViaje,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _reservaLocalService.createReserva(
-			origen, destino, fechaSalida, fechaLlegada, mail, dni, idViaje,
-			serviceContext);
 	}
 
 	/**
@@ -243,6 +228,16 @@ public class ReservaLocalServiceWrapper
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return _reservaLocalService.dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	/**
+	 * Busca una reserva por su código único
+	 */
+	@Override
+	public com.ntt.travelhub.reserva.model.Reserva fetchByCodigoReserva(
+		String codigoReserva) {
+
+		return _reservaLocalService.fetchByCodigoReserva(codigoReserva);
 	}
 
 	@Override

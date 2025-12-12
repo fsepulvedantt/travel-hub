@@ -77,28 +77,14 @@ public class ReservaLocalServiceUtil {
 	 */
 	public static Reserva createReserva(
 			String origen, String destino, java.util.Date fechaSalida,
-			java.util.Date fechaLlegada, String mail, String dni, long idViaje,
+			java.util.Date fechaLlegada, String mail, String dni, String nombre,
 			long idViajeIda, long idViajeVuelta, String tipoReserva,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().createReserva(
-			origen, destino, fechaSalida, fechaLlegada, mail, dni, idViaje,
+			origen, destino, fechaSalida, fechaLlegada, mail, dni, nombre,
 			idViajeIda, idViajeVuelta, tipoReserva, serviceContext);
-	}
-
-	/**
-	 * Crea una nueva reserva con los datos proporcionados (método original para compatibilidad)
-	 */
-	public static Reserva createReserva(
-			String origen, String destino, java.util.Date fechaSalida,
-			java.util.Date fechaLlegada, String mail, String dni, long idViaje,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().createReserva(
-			origen, destino, fechaSalida, fechaLlegada, mail, dni, idViaje,
-			serviceContext);
 	}
 
 	/**
@@ -223,6 +209,13 @@ public class ReservaLocalServiceUtil {
 		com.liferay.portal.kernel.dao.orm.Projection projection) {
 
 		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
+	/**
+	 * Busca una reserva por su código único
+	 */
+	public static Reserva fetchByCodigoReserva(String codigoReserva) {
+		return getService().fetchByCodigoReserva(codigoReserva);
 	}
 
 	public static Reserva fetchReserva(long reservaId) {

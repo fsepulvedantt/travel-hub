@@ -72,7 +72,9 @@
     // Obtener viajes de sessionStorage
     const viajeIda = JSON.parse(sessionStorage.getItem('viajeIda'));
     const viajeVuelta = urlParams.viajeIdVuelta ? JSON.parse(sessionStorage.getItem('viajeVuelta')) : null;
-    const tipoReserva = sessionStorage.getItem('tipoReserva') || 'IDA';
+    
+    // Determinar tipo de reserva: si hay viajeIdVuelta en URL, es IDA_VUELTA
+    const tipoReserva = (viajeVuelta || urlParams.viajeIdVuelta) ? 'IDA_VUELTA' : 'IDA';
 
     if (!viajeIda) {
       mostrarError('No se encontró información del viaje de ida.');
@@ -82,7 +84,7 @@
     // Guardar en viajeInfo
     viajeInfo = {
       viajeIdIda: viajeIda.viajeId,
-      viajeIdVuelta: viajeVuelta ? viajeVuelta.viajeId : null,
+      viajeIdVuelta: viajeVuelta ? viajeVuelta.viajeId : (urlParams.viajeIdVuelta ? parseInt(urlParams.viajeIdVuelta) : null),
       tipoReserva: tipoReserva,
       viajeIda: viajeIda,
       viajeVuelta: viajeVuelta
@@ -169,7 +171,7 @@
 
     const inputCVV = document.getElementById('cvv');
     inputCVV.addEventListener('input', function(e) {
-      this.value = this.value.replace(/\D/g, '');
+      this.value = this.value.replace(/\D/g, '').substring(0, 3);
     });
 
     // Autocompletar titular con nombre
@@ -260,9 +262,15 @@
         destino: viajeIda.destino,
         fechaSalida: new Date(typeof viajeIda.fechaSalida === 'string' ? parseInt(viajeIda.fechaSalida) : viajeIda.fechaSalida).toISOString(),
         fechaLlegada: new Date(typeof viajeIda.fechaLlegada === 'string' ? parseInt(viajeIda.fechaLlegada) : viajeIda.fechaLlegada).toISOString(),
+        nombre: formData.get('nombre'),
         mail: mail,
         dni: dni
       };
+      
+      console.log('📤 Enviando reserva al backend:', reservaData);
+      console.log('🔍 Tipo de reserva:', viajeInfo.tipoReserva);
+      console.log('✈️ ID Viaje Ida:', viajeInfo.viajeIdIda);
+      console.log('🔙 ID Viaje Vuelta:', viajeInfo.viajeIdVuelta);
 
       const response = await fetch(API_RESERVAS, {
         method: 'POST',
@@ -282,8 +290,8 @@
       document.getElementById('procesandoMsg').style.display = 'none';
       document.getElementById('btnConfirmar').disabled = false;
 
-      // Mostrar modal de éxito
-      mostrarExito(reserva.reservaId);
+      // Mostrar modal de éxito con el código de reserva
+      mostrarExito(reserva.codigoReserva);
 
     } catch (error) {
       console.error('Error al procesar reserva:', error);
@@ -294,8 +302,8 @@
   }
 
   // Mostrar modal de éxito
-  function mostrarExito(reservaId) {
-    document.getElementById('codigoReserva').textContent = `#${reservaId}`;
+  function mostrarExito(codigoReserva) {
+    document.getElementById('codigoReserva').textContent = codigoReserva;
     
     // Mostrar modal personalizado
     const modal = document.getElementById('modalExito');

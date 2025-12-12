@@ -1878,494 +1878,6 @@ public class ReservaPersistenceImpl
 	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 =
 		"reserva.groupId = ?";
 
-	private FinderPath _finderPathWithPaginationFindByIdViaje;
-	private FinderPath _finderPathWithoutPaginationFindByIdViaje;
-	private FinderPath _finderPathCountByIdViaje;
-
-	/**
-	 * Returns all the reservas where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @return the matching reservas
-	 */
-	@Override
-	public List<Reserva> findByIdViaje(long idViaje) {
-		return findByIdViaje(
-			idViaje, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @return the range of matching reservas
-	 */
-	@Override
-	public List<Reserva> findByIdViaje(long idViaje, int start, int end) {
-		return findByIdViaje(idViaje, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching reservas
-	 */
-	@Override
-	public List<Reserva> findByIdViaje(
-		long idViaje, int start, int end,
-		OrderByComparator<Reserva> orderByComparator) {
-
-		return findByIdViaje(idViaje, start, end, orderByComparator, true);
-	}
-
-	/**
-	 * Returns an ordered range of all the reservas where idViaje = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>ReservaModelImpl</code>.
-	 * </p>
-	 *
-	 * @param idViaje the id viaje
-	 * @param start the lower bound of the range of reservas
-	 * @param end the upper bound of the range of reservas (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @param useFinderCache whether to use the finder cache
-	 * @return the ordered range of matching reservas
-	 */
-	@Override
-	public List<Reserva> findByIdViaje(
-		long idViaje, int start, int end,
-		OrderByComparator<Reserva> orderByComparator, boolean useFinderCache) {
-
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-			(orderByComparator == null)) {
-
-			if (useFinderCache) {
-				finderPath = _finderPathWithoutPaginationFindByIdViaje;
-				finderArgs = new Object[] {idViaje};
-			}
-		}
-		else if (useFinderCache) {
-			finderPath = _finderPathWithPaginationFindByIdViaje;
-			finderArgs = new Object[] {idViaje, start, end, orderByComparator};
-		}
-
-		List<Reserva> list = null;
-
-		if (useFinderCache) {
-			list = (List<Reserva>)finderCache.getResult(
-				finderPath, finderArgs, this);
-
-			if ((list != null) && !list.isEmpty()) {
-				for (Reserva reserva : list) {
-					if (idViaje != reserva.getIdViaje()) {
-						list = null;
-
-						break;
-					}
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler sb = null;
-
-			if (orderByComparator != null) {
-				sb = new StringBundler(
-					3 + (orderByComparator.getOrderByFields().length * 2));
-			}
-			else {
-				sb = new StringBundler(3);
-			}
-
-			sb.append(_SQL_SELECT_RESERVA_WHERE);
-
-			sb.append(_FINDER_COLUMN_IDVIAJE_IDVIAJE_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(
-					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
-			}
-			else {
-				sb.append(ReservaModelImpl.ORDER_BY_JPQL);
-			}
-
-			String sql = sb.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query query = session.createQuery(sql);
-
-				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(idViaje);
-
-				list = (List<Reserva>)QueryUtil.list(
-					query, getDialect(), start, end);
-
-				cacheResult(list);
-
-				if (useFinderCache) {
-					finderCache.putResult(finderPath, finderArgs, list);
-				}
-			}
-			catch (Exception exception) {
-				throw processException(exception);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching reserva
-	 * @throws NoSuchReservaException if a matching reserva could not be found
-	 */
-	@Override
-	public Reserva findByIdViaje_First(
-			long idViaje, OrderByComparator<Reserva> orderByComparator)
-		throws NoSuchReservaException {
-
-		Reserva reserva = fetchByIdViaje_First(idViaje, orderByComparator);
-
-		if (reserva != null) {
-			return reserva;
-		}
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		sb.append("idViaje=");
-		sb.append(idViaje);
-
-		sb.append("}");
-
-		throw new NoSuchReservaException(sb.toString());
-	}
-
-	/**
-	 * Returns the first reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching reserva, or <code>null</code> if a matching reserva could not be found
-	 */
-	@Override
-	public Reserva fetchByIdViaje_First(
-		long idViaje, OrderByComparator<Reserva> orderByComparator) {
-
-		List<Reserva> list = findByIdViaje(idViaje, 0, 1, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching reserva
-	 * @throws NoSuchReservaException if a matching reserva could not be found
-	 */
-	@Override
-	public Reserva findByIdViaje_Last(
-			long idViaje, OrderByComparator<Reserva> orderByComparator)
-		throws NoSuchReservaException {
-
-		Reserva reserva = fetchByIdViaje_Last(idViaje, orderByComparator);
-
-		if (reserva != null) {
-			return reserva;
-		}
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		sb.append("idViaje=");
-		sb.append(idViaje);
-
-		sb.append("}");
-
-		throw new NoSuchReservaException(sb.toString());
-	}
-
-	/**
-	 * Returns the last reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching reserva, or <code>null</code> if a matching reserva could not be found
-	 */
-	@Override
-	public Reserva fetchByIdViaje_Last(
-		long idViaje, OrderByComparator<Reserva> orderByComparator) {
-
-		int count = countByIdViaje(idViaje);
-
-		if (count == 0) {
-			return null;
-		}
-
-		List<Reserva> list = findByIdViaje(
-			idViaje, count - 1, count, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the reservas before and after the current reserva in the ordered set where idViaje = &#63;.
-	 *
-	 * @param reservaId the primary key of the current reserva
-	 * @param idViaje the id viaje
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next reserva
-	 * @throws NoSuchReservaException if a reserva with the primary key could not be found
-	 */
-	@Override
-	public Reserva[] findByIdViaje_PrevAndNext(
-			long reservaId, long idViaje,
-			OrderByComparator<Reserva> orderByComparator)
-		throws NoSuchReservaException {
-
-		Reserva reserva = findByPrimaryKey(reservaId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Reserva[] array = new ReservaImpl[3];
-
-			array[0] = getByIdViaje_PrevAndNext(
-				session, reserva, idViaje, orderByComparator, true);
-
-			array[1] = reserva;
-
-			array[2] = getByIdViaje_PrevAndNext(
-				session, reserva, idViaje, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception exception) {
-			throw processException(exception);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected Reserva getByIdViaje_PrevAndNext(
-		Session session, Reserva reserva, long idViaje,
-		OrderByComparator<Reserva> orderByComparator, boolean previous) {
-
-		StringBundler sb = null;
-
-		if (orderByComparator != null) {
-			sb = new StringBundler(
-				4 + (orderByComparator.getOrderByConditionFields().length * 3) +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			sb = new StringBundler(3);
-		}
-
-		sb.append(_SQL_SELECT_RESERVA_WHERE);
-
-		sb.append(_FINDER_COLUMN_IDVIAJE_IDVIAJE_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields =
-				orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				sb.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						sb.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(WHERE_GREATER_THAN);
-					}
-					else {
-						sb.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			sb.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				sb.append(_ORDER_BY_ENTITY_ALIAS);
-				sb.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						sb.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						sb.append(ORDER_BY_ASC);
-					}
-					else {
-						sb.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			sb.append(ReservaModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = sb.toString();
-
-		Query query = session.createQuery(sql);
-
-		query.setFirstResult(0);
-		query.setMaxResults(2);
-
-		QueryPos queryPos = QueryPos.getInstance(query);
-
-		queryPos.add(idViaje);
-
-		if (orderByComparator != null) {
-			for (Object orderByConditionValue :
-					orderByComparator.getOrderByConditionValues(reserva)) {
-
-				queryPos.add(orderByConditionValue);
-			}
-		}
-
-		List<Reserva> list = query.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Removes all the reservas where idViaje = &#63; from the database.
-	 *
-	 * @param idViaje the id viaje
-	 */
-	@Override
-	public void removeByIdViaje(long idViaje) {
-		for (Reserva reserva :
-				findByIdViaje(
-					idViaje, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
-
-			remove(reserva);
-		}
-	}
-
-	/**
-	 * Returns the number of reservas where idViaje = &#63;.
-	 *
-	 * @param idViaje the id viaje
-	 * @return the number of matching reservas
-	 */
-	@Override
-	public int countByIdViaje(long idViaje) {
-		FinderPath finderPath = _finderPathCountByIdViaje;
-
-		Object[] finderArgs = new Object[] {idViaje};
-
-		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
-
-		if (count == null) {
-			StringBundler sb = new StringBundler(2);
-
-			sb.append(_SQL_COUNT_RESERVA_WHERE);
-
-			sb.append(_FINDER_COLUMN_IDVIAJE_IDVIAJE_2);
-
-			String sql = sb.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query query = session.createQuery(sql);
-
-				QueryPos queryPos = QueryPos.getInstance(query);
-
-				queryPos.add(idViaje);
-
-				count = (Long)query.uniqueResult();
-
-				finderCache.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception exception) {
-				throw processException(exception);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_IDVIAJE_IDVIAJE_2 =
-		"reserva.idViaje = ?";
-
 	private FinderPath _finderPathWithPaginationFindByDni;
 	private FinderPath _finderPathWithoutPaginationFindByDni;
 	private FinderPath _finderPathCountByDni;
@@ -2893,6 +2405,187 @@ public class ReservaPersistenceImpl
 	private static final String _FINDER_COLUMN_DNI_DNI_3 =
 		"(reserva.dni IS NULL OR reserva.dni = '')";
 
+	private FinderPath _finderPathFetchByCodigoReserva;
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or throws a <code>NoSuchReservaException</code> if it could not be found.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the matching reserva
+	 * @throws NoSuchReservaException if a matching reserva could not be found
+	 */
+	@Override
+	public Reserva findByCodigoReserva(String codigoReserva)
+		throws NoSuchReservaException {
+
+		Reserva reserva = fetchByCodigoReserva(codigoReserva);
+
+		if (reserva == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("codigoReserva=");
+			sb.append(codigoReserva);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchReservaException(sb.toString());
+		}
+
+		return reserva;
+	}
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the matching reserva, or <code>null</code> if a matching reserva could not be found
+	 */
+	@Override
+	public Reserva fetchByCodigoReserva(String codigoReserva) {
+		return fetchByCodigoReserva(codigoReserva, true);
+	}
+
+	/**
+	 * Returns the reserva where codigoReserva = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching reserva, or <code>null</code> if a matching reserva could not be found
+	 */
+	@Override
+	public Reserva fetchByCodigoReserva(
+		String codigoReserva, boolean useFinderCache) {
+
+		codigoReserva = Objects.toString(codigoReserva, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {codigoReserva};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByCodigoReserva, finderArgs, this);
+		}
+
+		if (result instanceof Reserva) {
+			Reserva reserva = (Reserva)result;
+
+			if (!Objects.equals(codigoReserva, reserva.getCodigoReserva())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_RESERVA_WHERE);
+
+			boolean bindCodigoReserva = false;
+
+			if (codigoReserva.isEmpty()) {
+				sb.append(_FINDER_COLUMN_CODIGORESERVA_CODIGORESERVA_3);
+			}
+			else {
+				bindCodigoReserva = true;
+
+				sb.append(_FINDER_COLUMN_CODIGORESERVA_CODIGORESERVA_2);
+			}
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindCodigoReserva) {
+					queryPos.add(codigoReserva);
+				}
+
+				List<Reserva> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByCodigoReserva, finderArgs, list);
+					}
+				}
+				else {
+					Reserva reserva = list.get(0);
+
+					result = reserva;
+
+					cacheResult(reserva);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Reserva)result;
+		}
+	}
+
+	/**
+	 * Removes the reserva where codigoReserva = &#63; from the database.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the reserva that was removed
+	 */
+	@Override
+	public Reserva removeByCodigoReserva(String codigoReserva)
+		throws NoSuchReservaException {
+
+		Reserva reserva = findByCodigoReserva(codigoReserva);
+
+		return remove(reserva);
+	}
+
+	/**
+	 * Returns the number of reservas where codigoReserva = &#63;.
+	 *
+	 * @param codigoReserva the codigo reserva
+	 * @return the number of matching reservas
+	 */
+	@Override
+	public int countByCodigoReserva(String codigoReserva) {
+		Reserva reserva = fetchByCodigoReserva(codigoReserva);
+
+		if (reserva == null) {
+			return 0;
+		}
+
+		return 1;
+	}
+
+	private static final String _FINDER_COLUMN_CODIGORESERVA_CODIGORESERVA_2 =
+		"reserva.codigoReserva = ?";
+
+	private static final String _FINDER_COLUMN_CODIGORESERVA_CODIGORESERVA_3 =
+		"(reserva.codigoReserva IS NULL OR reserva.codigoReserva = '')";
+
 	public ReservaPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -2921,6 +2614,10 @@ public class ReservaPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {reserva.getUuid(), reserva.getGroupId()}, reserva);
+
+		finderCache.putResult(
+			_finderPathFetchByCodigoReserva,
+			new Object[] {reserva.getCodigoReserva()}, reserva);
 	}
 
 	private int _valueObjectFinderCacheListThreshold;
@@ -2996,6 +2693,11 @@ public class ReservaPersistenceImpl
 		};
 
 		finderCache.putResult(_finderPathFetchByUUID_G, args, reservaModelImpl);
+
+		args = new Object[] {reservaModelImpl.getCodigoReserva()};
+
+		finderCache.putResult(
+			_finderPathFetchByCodigoReserva, args, reservaModelImpl);
 	}
 
 	/**
@@ -3520,24 +3222,6 @@ public class ReservaPersistenceImpl
 			new String[] {Long.class.getName()}, new String[] {"groupId"},
 			false);
 
-		_finderPathWithPaginationFindByIdViaje = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByIdViaje",
-			new String[] {
-				Long.class.getName(), Integer.class.getName(),
-				Integer.class.getName(), OrderByComparator.class.getName()
-			},
-			new String[] {"idViaje"}, true);
-
-		_finderPathWithoutPaginationFindByIdViaje = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByIdViaje",
-			new String[] {Long.class.getName()}, new String[] {"idViaje"},
-			true);
-
-		_finderPathCountByIdViaje = new FinderPath(
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByIdViaje",
-			new String[] {Long.class.getName()}, new String[] {"idViaje"},
-			false);
-
 		_finderPathWithPaginationFindByDni = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByDni",
 			new String[] {
@@ -3553,6 +3237,11 @@ public class ReservaPersistenceImpl
 		_finderPathCountByDni = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByDni",
 			new String[] {String.class.getName()}, new String[] {"dni"}, false);
+
+		_finderPathFetchByCodigoReserva = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByCodigoReserva",
+			new String[] {String.class.getName()},
+			new String[] {"codigoReserva"}, true);
 
 		ReservaUtil.setPersistence(this);
 	}

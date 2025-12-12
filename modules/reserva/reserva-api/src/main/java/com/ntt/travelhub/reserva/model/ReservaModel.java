@@ -283,18 +283,34 @@ public interface ReservaModel
 	public void setDni(String dni);
 
 	/**
-	 * Returns the id viaje of this reserva.
+	 * Returns the nombre of this reserva.
 	 *
-	 * @return the id viaje of this reserva
+	 * @return the nombre of this reserva
 	 */
-	public long getIdViaje();
+	@AutoEscape
+	public String getNombre();
 
 	/**
-	 * Sets the id viaje of this reserva.
+	 * Sets the nombre of this reserva.
 	 *
-	 * @param idViaje the id viaje of this reserva
+	 * @param nombre the nombre of this reserva
 	 */
-	public void setIdViaje(long idViaje);
+	public void setNombre(String nombre);
+
+	/**
+	 * Returns the codigo reserva of this reserva.
+	 *
+	 * @return the codigo reserva of this reserva
+	 */
+	@AutoEscape
+	public String getCodigoReserva();
+
+	/**
+	 * Sets the codigo reserva of this reserva.
+	 *
+	 * @param codigoReserva the codigo reserva of this reserva
+	 */
+	public void setCodigoReserva(String codigoReserva);
 
 	/**
 	 * Returns the id viaje ida of this reserva.

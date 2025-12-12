@@ -52,7 +52,7 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -82,8 +82,10 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 		sb.append(mail);
 		sb.append(", dni=");
 		sb.append(dni);
-		sb.append(", idViaje=");
-		sb.append(idViaje);
+		sb.append(", nombre=");
+		sb.append(nombre);
+		sb.append(", codigoReserva=");
+		sb.append(codigoReserva);
 		sb.append(", idViajeIda=");
 		sb.append(idViajeIda);
 		sb.append(", idViajeVuelta=");
@@ -174,7 +176,20 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 			reservaImpl.setDni(dni);
 		}
 
-		reservaImpl.setIdViaje(idViaje);
+		if (nombre == null) {
+			reservaImpl.setNombre("");
+		}
+		else {
+			reservaImpl.setNombre(nombre);
+		}
+
+		if (codigoReserva == null) {
+			reservaImpl.setCodigoReserva("");
+		}
+		else {
+			reservaImpl.setCodigoReserva(codigoReserva);
+		}
+
 		reservaImpl.setIdViajeIda(idViajeIda);
 		reservaImpl.setIdViajeVuelta(idViajeVuelta);
 
@@ -210,8 +225,8 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 		fechaLlegada = objectInput.readLong();
 		mail = objectInput.readUTF();
 		dni = objectInput.readUTF();
-
-		idViaje = objectInput.readLong();
+		nombre = objectInput.readUTF();
+		codigoReserva = objectInput.readUTF();
 
 		idViajeIda = objectInput.readLong();
 
@@ -277,7 +292,19 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 			objectOutput.writeUTF(dni);
 		}
 
-		objectOutput.writeLong(idViaje);
+		if (nombre == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(nombre);
+		}
+
+		if (codigoReserva == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(codigoReserva);
+		}
 
 		objectOutput.writeLong(idViajeIda);
 
@@ -305,7 +332,8 @@ public class ReservaCacheModel implements CacheModel<Reserva>, Externalizable {
 	public long fechaLlegada;
 	public String mail;
 	public String dni;
-	public long idViaje;
+	public String nombre;
+	public String codigoReserva;
 	public long idViajeIda;
 	public long idViajeVuelta;
 	public String tipoReserva;

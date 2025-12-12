@@ -11,7 +11,8 @@ public class ReservaDTO {
     private Date fechaLlegada;
     private String mail;
     private String dni;
-    private long idViaje;
+    private String nombre;
+    private String codigoReserva;
     private long idViajeIda;
     private long idViajeVuelta;
     private String tipoReserva; // "IDA" o "IDA_VUELTA"
@@ -75,12 +76,20 @@ public class ReservaDTO {
         this.dni = dni;
     }
 
-    public long getIdViaje() {
-        return idViaje;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setIdViaje(long idViaje) {
-        this.idViaje = idViaje;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCodigoReserva() {
+        return codigoReserva;
+    }
+
+    public void setCodigoReserva(String codigoReserva) {
+        this.codigoReserva = codigoReserva;
     }
 
     public long getIdViajeIda() {

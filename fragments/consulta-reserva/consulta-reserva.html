@@ -1,0 +1,169 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="consulta-reserva-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1><i class="fas fa-search-location"></i> Consultar mi Reserva</h1>
+        <p class="hero-subtitle">Ingresa tu código de reserva y DNI para ver los detalles de tu viaje</p>
+      </div>
+      
+      <!-- Formulario de búsqueda -->
+      <div class="search-card">
+        <form id="formBuscarReserva" class="search-form">
+          <div class="mb-3">
+            <label for="inputCodigoReserva" class="form-label">
+              <i class="fas fa-ticket-alt"></i> Código de Reserva
+            </label>
+            <input 
+              type="text" 
+              id="inputCodigoReserva" 
+              class="form-control form-control-lg" 
+              placeholder="Ej: A3K9P2" 
+              required
+              maxlength="6"
+              pattern="[A-Z0-9]{6}"
+              style="text-transform: uppercase;"
+            >
+            <small class="form-text">6 caracteres alfanuméricos</small>
+          </div>
+          
+          <div class="mb-3">
+            <label for="inputDni" class="form-label">
+              <i class="fas fa-id-card"></i> DNI del Pasajero
+            </label>
+            <input 
+              type="text" 
+              id="inputDni" 
+              class="form-control form-control-lg" 
+              placeholder="12345678" 
+              required
+              pattern="[0-9]{7,8}"
+              maxlength="8"
+            >
+            <small class="form-text">Sin puntos ni espacios</small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-lg w-100">
+            <i class="fas fa-search me-2"></i> Buscar Reserva
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensajes de estado -->
+  <div class="container mt-4">
+    <div id="loadingMsg" class="alert alert-info d-none" role="alert">
+      <div class="d-flex align-items-center">
+        <div class="spinner-border spinner-border-sm me-2" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <span>Buscando tu reserva...</span>
+      </div>
+    </div>
+
+    <div id="errorMsg" class="alert alert-danger d-none" role="alert">
+      <i class="fas fa-exclamation-circle me-2"></i>
+      <span id="errorText"></span>
+    </div>
+  </div>
+
+  <!-- Detalle de la reserva -->
+  <div id="detalleReserva" class="container mt-4 d-none">
+    <div class="card shadow-lg border-0">
+      <!-- Header -->
+      <div class="card-header header-reserva">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h3 class="mb-1">
+              <i class="fas fa-check-circle me-2"></i>
+              Reserva Confirmada
+            </h3>
+            <p class="mb-0 header-subtitle">Tu viaje está confirmado y listo para disfrutar</p>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <div class="codigo-reserva">
+              <small>Código de Reserva</small>
+              <h2 class="mb-0" id="codigoReservaDisplay">#000</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="card-body p-4">
+        <!-- Información del pasajero -->
+        <div class="seccion-info mb-4">
+          <h5 class="seccion-titulo">
+            <i class="fas fa-user me-2"></i>
+            Información del Pasajero
+          </h5>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">DNI:</span>
+                <span class="info-value" id="pasajeroDni"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value" id="pasajeroEmail"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tipo de reserva -->
+        <div class="seccion-info mb-4">
+          <h5 class="seccion-titulo">
+            <i class="fas fa-route me-2"></i>
+            Tipo de Viaje
+          </h5>
+          <div class="tipo-viaje-badge" id="tipoViajeBadge"></div>
+        </div>
+
+        <!-- Viajes -->
+        <div class="seccion-info mb-4">
+          <h5 class="seccion-titulo">
+            <i class="fas fa-bus me-2"></i>
+            Detalles de los Viajes
+          </h5>
+          
+          <!-- Viaje de Ida -->
+          <div id="viajeIdaDetalle" class="viaje-detalle-card mb-3"></div>
+          
+          <!-- Viaje de Vuelta (solo si aplica) -->
+          <div id="viajeVueltaDetalle" class="viaje-detalle-card d-none"></div>
+        </div>
+
+        <!-- Resumen de precio -->
+        <div class="precio-total-section">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h5 class="mb-0">Total Pagado</h5>
+              <small class="text-muted">Incluye todos los servicios</small>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <h3 class="mb-0 text-success fw-bold" id="precioTotal">$0</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer con acciones -->
+      <div class="card-footer bg-light">
+        <div class="d-flex justify-content-between align-items-center">
+          <button id="btnNuevaBusqueda" class="btn btn-outline-primary">
+            <i class="fas fa-search me-2"></i> Consultar Otra Reserva
+          </button>
+          <button id="btnVolver" class="btn btn-primary">
+            <i class="fas fa-home me-2"></i> Volver al Inicio
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

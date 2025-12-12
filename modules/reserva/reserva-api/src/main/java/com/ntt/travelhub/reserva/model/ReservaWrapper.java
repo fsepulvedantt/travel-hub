@@ -48,7 +48,8 @@ public class ReservaWrapper
 		attributes.put("fechaLlegada", getFechaLlegada());
 		attributes.put("mail", getMail());
 		attributes.put("dni", getDni());
-		attributes.put("idViaje", getIdViaje());
+		attributes.put("nombre", getNombre());
+		attributes.put("codigoReserva", getCodigoReserva());
 		attributes.put("idViajeIda", getIdViajeIda());
 		attributes.put("idViajeVuelta", getIdViajeVuelta());
 		attributes.put("tipoReserva", getTipoReserva());
@@ -142,10 +143,16 @@ public class ReservaWrapper
 			setDni(dni);
 		}
 
-		Long idViaje = (Long)attributes.get("idViaje");
+		String nombre = (String)attributes.get("nombre");
 
-		if (idViaje != null) {
-			setIdViaje(idViaje);
+		if (nombre != null) {
+			setNombre(nombre);
+		}
+
+		String codigoReserva = (String)attributes.get("codigoReserva");
+
+		if (codigoReserva != null) {
+			setCodigoReserva(codigoReserva);
 		}
 
 		Long idViajeIda = (Long)attributes.get("idViajeIda");
@@ -170,6 +177,16 @@ public class ReservaWrapper
 	@Override
 	public Reserva cloneWithOriginalValues() {
 		return wrap(model.cloneWithOriginalValues());
+	}
+
+	/**
+	 * Returns the codigo reserva of this reserva.
+	 *
+	 * @return the codigo reserva of this reserva
+	 */
+	@Override
+	public String getCodigoReserva() {
+		return model.getCodigoReserva();
 	}
 
 	/**
@@ -243,16 +260,6 @@ public class ReservaWrapper
 	}
 
 	/**
-	 * Returns the id viaje of this reserva.
-	 *
-	 * @return the id viaje of this reserva
-	 */
-	@Override
-	public long getIdViaje() {
-		return model.getIdViaje();
-	}
-
-	/**
 	 * Returns the id viaje ida of this reserva.
 	 *
 	 * @return the id viaje ida of this reserva
@@ -290,6 +297,16 @@ public class ReservaWrapper
 	@Override
 	public Date getModifiedDate() {
 		return model.getModifiedDate();
+	}
+
+	/**
+	 * Returns the nombre of this reserva.
+	 *
+	 * @return the nombre of this reserva
+	 */
+	@Override
+	public String getNombre() {
+		return model.getNombre();
 	}
 
 	/**
@@ -378,6 +395,16 @@ public class ReservaWrapper
 	}
 
 	/**
+	 * Sets the codigo reserva of this reserva.
+	 *
+	 * @param codigoReserva the codigo reserva of this reserva
+	 */
+	@Override
+	public void setCodigoReserva(String codigoReserva) {
+		model.setCodigoReserva(codigoReserva);
+	}
+
+	/**
 	 * Sets the company ID of this reserva.
 	 *
 	 * @param companyId the company ID of this reserva
@@ -448,16 +475,6 @@ public class ReservaWrapper
 	}
 
 	/**
-	 * Sets the id viaje of this reserva.
-	 *
-	 * @param idViaje the id viaje of this reserva
-	 */
-	@Override
-	public void setIdViaje(long idViaje) {
-		model.setIdViaje(idViaje);
-	}
-
-	/**
 	 * Sets the id viaje ida of this reserva.
 	 *
 	 * @param idViajeIda the id viaje ida of this reserva
@@ -495,6 +512,16 @@ public class ReservaWrapper
 	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		model.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	 * Sets the nombre of this reserva.
+	 *
+	 * @param nombre the nombre of this reserva
+	 */
+	@Override
+	public void setNombre(String nombre) {
+		model.setNombre(nombre);
 	}
 
 	/**

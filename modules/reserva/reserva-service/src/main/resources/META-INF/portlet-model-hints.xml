@@ -16,7 +16,8 @@
 		<field name="fechaLlegada" type="Date" />
 		<field name="mail" type="String" />
 		<field name="dni" type="String" />
-		<field name="idViaje" type="long" />
+		<field name="nombre" type="String" />
+		<field name="codigoReserva" type="String" />
 		<field name="idViajeIda" type="long" />
 		<field name="idViajeVuelta" type="long" />
 		<field name="tipoReserva" type="String" />

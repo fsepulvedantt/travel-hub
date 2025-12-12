@@ -43,6 +43,14 @@ public class ReservaRestApplication extends Application {
             long idViajeVuelta = reservaDTO.getIdViajeVuelta();
             String tipoReserva = reservaDTO.getTipoReserva();
             
+            // Log para debugging
+            System.out.println("📥 Recibiendo reserva:");
+            System.out.println("  🔹 Tipo de reserva: " + tipoReserva);
+            System.out.println("  🔹 ID Viaje Ida: " + idViajeIda);
+            System.out.println("  🔹 ID Viaje Vuelta: " + idViajeVuelta);
+            System.out.println("  🔹 Origen: " + reservaDTO.getOrigen());
+            System.out.println("  🔹 Destino: " + reservaDTO.getDestino());
+            
             // Verificar asientos disponibles para viaje de ida
             if (!_viajeLocalService.tieneAsientosDisponibles(idViajeIda)) {
                 return Response.status(Response.Status.BAD_REQUEST)
@@ -70,7 +78,7 @@ public class ReservaRestApplication extends Application {
                 reservaDTO.getFechaLlegada(),
                 reservaDTO.getMail(),
                 reservaDTO.getDni(),
-                idViajeIda, // Mantener compatibilidad con idViaje
+                reservaDTO.getNombre() != null ? reservaDTO.getNombre() : "",
                 idViajeIda,
                 idViajeVuelta,
                 tipoReserva,
@@ -84,6 +92,13 @@ public class ReservaRestApplication extends Application {
             if ("IDA_VUELTA".equals(tipoReserva) && idViajeVuelta > 0) {
                 _viajeLocalService.decrementarAsientos(idViajeVuelta);
             }
+            
+            // Log de confirmación
+            System.out.println("✅ Reserva creada exitosamente:");
+            System.out.println("  🔹 ID Reserva: " + reserva.getReservaId());
+            System.out.println("  🔹 ID Viaje Ida guardado: " + reserva.getIdViajeIda());
+            System.out.println("  🔹 ID Viaje Vuelta guardado: " + reserva.getIdViajeVuelta());
+            System.out.println("  🔹 Tipo Reserva guardado: " + reserva.getTipoReserva());
             
             ReservaDTO response = mapToDTO(reserva);
             return Response.status(Response.Status.CREATED).entity(response).build();
@@ -107,20 +122,60 @@ public class ReservaRestApplication extends Application {
         }
     }
 
+    @GET
+    @Path("/buscar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarReserva(
+            @QueryParam("codigo") String codigo,
+            @QueryParam("dni") String dni) {
+        try {
+            if (codigo == null || dni == null) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                        .entity("{\"error\": \"Se requiere código y DNI\"}").build();
+            }
+
+            // Buscar por código usando el LocalService
+            Reserva reserva = _reservaLocalService.fetchByCodigoReserva(codigo);
+            
+            if (reserva == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"error\": \"No se encontró ninguna reserva con ese código\"}").build();
+            }
+
+            // Verificar que el DNI coincida
+            if (!dni.equals(reserva.getDni())) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity("{\"error\": \"El DNI no coincide con la reserva\"}").build();
+            }
+
+            ReservaDTO response = mapToDTO(reserva);
+            return Response.ok(response).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
     @DELETE
     @Path("/{idReserva}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteReserva(@PathParam("idReserva") long idReserva) {
         try {
-            // Obtener la reserva para recuperar el idViaje antes de eliminarla
+            // Obtener la reserva para recuperar los IDs de viaje antes de eliminarla
             Reserva reserva = _reservaLocalService.getReserva(idReserva);
-            long idViaje = reserva.getIdViaje();
+            long idViajeIda = reserva.getIdViajeIda();
+            long idViajeVuelta = reserva.getIdViajeVuelta();
             
             // Eliminar la reserva
             _reservaLocalService.deleteReserva(idReserva);
             
-            // Incrementar los asientos disponibles del viaje (cancelación)
-            _viajeLocalService.incrementarAsientos(idViaje);
+            // Incrementar los asientos disponibles del viaje de ida (cancelación)
+            _viajeLocalService.incrementarAsientos(idViajeIda);
+            
+            // Si tenía viaje de vuelta, también incrementar esos asientos
+            if (idViajeVuelta > 0) {
+                _viajeLocalService.incrementarAsientos(idViajeVuelta);
+            }
             
             return Response.ok("{\"message\": \"Reserva deleted successfully\"}").build();
         } catch (Exception e) {
@@ -138,7 +193,8 @@ public class ReservaRestApplication extends Application {
         dto.setFechaLlegada(reserva.getFechaLlegada());
         dto.setMail(reserva.getMail());
         dto.setDni(reserva.getDni());
-        dto.setIdViaje(reserva.getIdViaje());
+        dto.setNombre(reserva.getNombre());
+        dto.setCodigoReserva(reserva.getCodigoReserva());
         dto.setIdViajeIda(reserva.getIdViajeIda());
         dto.setIdViajeVuelta(reserva.getIdViajeVuelta());
         dto.setTipoReserva(reserva.getTipoReserva());
