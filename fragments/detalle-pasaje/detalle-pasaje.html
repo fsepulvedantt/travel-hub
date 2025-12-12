@@ -1,0 +1,171 @@
+<div class="travel-hub-checkout-container">
+    <div class="travel-hub-checkout-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <div class="travel-hub-header-title">
+                <i class="fas fa-ticket-alt"></i>
+                <span data-lfr-editable-id="checkout-title" data-lfr-editable-type="text">Detalle de Reserva</span>
+            </div>
+            <button class="btn btn-outline-light travel-hub-btn-volver-home" id="btn-inicio">
+                <i class="fas fa-home"></i>
+                <span data-lfr-editable-id="home-btn" data-lfr-editable-type="text">Volver al inicio</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Columna Izquierda: Información de la Reserva -->
+        <div class="col-lg-7 col-md-12 mb-4">
+            <h3 class="travel-hub-section-title" data-lfr-editable-id="booking-info-title" data-lfr-editable-type="text">Información de la Reserva</h3>
+
+            <div class="travel-hub-info-section">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="travel-hub-info-field">
+                            <label data-lfr-editable-id="label-codigo-reserva" data-lfr-editable-type="text">Código de Reserva</label>
+                            <div class="travel-hub-info-value travel-hub-codigo-reserva" id="reservaId">-</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="travel-hub-info-field">
+                            <label data-lfr-editable-id="label-tipo-reserva" data-lfr-editable-type="text">Tipo de Reserva</label>
+                            <div class="travel-hub-info-value" id="tipoReserva">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Datos del Pasajero -->
+            <h3 class="travel-hub-section-title mt-4" data-lfr-editable-id="passenger-info-title" data-lfr-editable-type="text">Datos del Pasajero</h3>
+
+            <div class="travel-hub-info-section">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="travel-hub-info-field">
+                            <label data-lfr-editable-id="label-dni" data-lfr-editable-type="text">DNI</label>
+                            <div class="travel-hub-info-value" id="dni">-</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="travel-hub-info-field">
+                            <label data-lfr-editable-id="label-email" data-lfr-editable-type="text">Email</label>
+                            <div class="travel-hub-info-value" id="mail">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Detalle de los Viajes -->
+        <div class="col-lg-5 col-md-12">
+            <h3 class="travel-hub-section-title" data-lfr-editable-id="trip-details-title" data-lfr-editable-type="text">Detalle de los Viajes</h3>
+
+            <!-- Tarjeta del Viaje de Ida -->
+            <div class="card travel-hub-summary-card mb-3" id="viajeIdaCard" style="display: none;">
+                <div class="card-header travel-hub-card-header-custom">
+                    <span data-lfr-editable-id="trip-ida-header" data-lfr-editable-type="text">Viaje de Ida</span>
+                </div>
+
+                <div class="card-body travel-hub-trip-info">
+                    <div class="travel-hub-trip-route">
+                        <div class="travel-hub-route-icon">
+                            <div class="travel-hub-dot"></div>
+                            <div class="travel-hub-line"></div>
+                            <div class="travel-hub-dot"></div>
+                        </div>
+                        <div class="travel-hub-route-details flex-grow-1">
+                            <div class="travel-hub-route-cities">
+                                <span id="origenIda">-</span> — <span id="destinoIda">-</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge badge-primary" id="empresaIda">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="travel-hub-date-info">
+                                <div class="travel-hub-label-small" data-lfr-editable-id="departure-label" data-lfr-editable-type="text">Salida</div>
+                                <div class="travel-hub-date-value" id="fechaSalidaIda">-</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="travel-hub-date-info">
+                                <div class="travel-hub-label-small" data-lfr-editable-id="arrival-label" data-lfr-editable-type="text">Llegada</div>
+                                <div class="travel-hub-date-value" id="fechaLlegadaIda">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="travel-hub-info-field">
+                            <label>Precio</label>
+                            <div class="travel-hub-info-value" style="color: var(--azul-primario); font-size: 1.2rem;" id="precioIda">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta del Viaje de Vuelta -->
+            <div class="card travel-hub-summary-card mb-3" id="viajeVueltaCard" style="display: none;">
+                <div class="card-header travel-hub-card-header-custom">
+                    <span data-lfr-editable-id="trip-vuelta-header" data-lfr-editable-type="text">Viaje de Vuelta</span>
+                </div>
+
+                <div class="card-body travel-hub-trip-info">
+                    <div class="travel-hub-trip-route">
+                        <div class="travel-hub-route-icon">
+                            <div class="travel-hub-dot"></div>
+                            <div class="travel-hub-line"></div>
+                            <div class="travel-hub-dot"></div>
+                        </div>
+                        <div class="travel-hub-route-details flex-grow-1">
+                            <div class="travel-hub-route-cities">
+                                <span id="origenVuelta">-</span> — <span id="destinoVuelta">-</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge badge-primary" id="empresaVuelta">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="travel-hub-date-info">
+                                <div class="travel-hub-label-small" data-lfr-editable-id="departure-label-vuelta" data-lfr-editable-type="text">Salida</div>
+                                <div class="travel-hub-date-value" id="fechaSalidaVuelta">-</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="travel-hub-date-info">
+                                <div class="travel-hub-label-small" data-lfr-editable-id="arrival-label-vuelta" data-lfr-editable-type="text">Llegada</div>
+                                <div class="travel-hub-date-value" id="fechaLlegadaVuelta">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="travel-hub-info-field">
+                            <label>Precio</label>
+                            <div class="travel-hub-info-value" style="color: var(--azul-primario); font-size: 1.2rem;" id="precioVuelta">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje de Carga -->
+    <div id="loadingMessage" class="text-center my-5" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+        <p class="mt-3">Cargando información de la reserva...</p>
+    </div>
+
+    <!-- Mensaje de Error -->
+    <div id="errorMessage" class="alert alert-danger" role="alert" style="display: none;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="errorText">Error al cargar la reserva</span>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+:root {
+  --azul-primario: #0066cc;
+  --azul-secundario: #0052a3;
+  --azul-claro: #e8f4fd;
+  --azul-muy-claro: #f0f7ff;
+  --gris-texto: #2c3e50;
+}
+
+.travel-hub_logo {
+  max-height: 40px;
+  max-width: 70px;
+}
+
+.travel-hub_btn {
+  color: white;
+  background-color: var(--azul-primario);
+  border-radius: 3rem;
+}
+
+.travel-hub_btn:hover {
+  background-color: var(--azul-secundario);
+  color: white;
+}
+
+

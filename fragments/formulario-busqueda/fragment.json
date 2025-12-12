@@ -1,0 +1,7 @@
+{
+  "cssPath": "formulario-busqueda.css",
+  "htmlPath": "formulario-busqueda.html",
+  "jsPath": "formulario-busqueda.js",
+  "name": "Formulario Búsqueda",
+  "type": "component"
+}

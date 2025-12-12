@@ -1,0 +1,7 @@
+{
+  "cssPath": "viajes-list.css",
+  "htmlPath": "viajes-list.html",
+  "jsPath": "viajes-list.js",
+  "name": "Viajes List",
+  "type": "component"
+}

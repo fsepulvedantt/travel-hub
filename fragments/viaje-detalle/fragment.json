@@ -1,0 +1,7 @@
+{
+  "cssPath": "viaje-detalle.css",
+  "htmlPath": "viaje-detalle.html",
+  "jsPath": "viaje-detalle.js",
+  "name": "Viaje Detalle",
+  "type": "component"
+}

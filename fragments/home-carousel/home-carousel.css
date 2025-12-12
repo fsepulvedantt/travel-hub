@@ -1,0 +1,123 @@
+.travel-hub-carousel {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.travel-hub-carousel .carousel {
+    width: 100%;
+}
+
+.travel-hub-carousel .carousel-inner {
+    border-radius: 16px;
+}
+
+.travel-hub-carousel .carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+.travel-hub-carousel .carousel-item img {
+    border-radius: 16px;
+    object-fit: cover;
+    height: 450px;
+    width: 100%;
+}
+
+/* Indicadores */
+.travel-hub-carousel .carousel-indicators {
+    bottom: 20px;
+    margin-bottom: 0;
+}
+
+.travel-hub-carousel .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.travel-hub-carousel .carousel-indicators li.active {
+    width: 30px;
+    border-radius: 5px;
+    background-color: #1E88E5;
+}
+
+/* Controles de navegación */
+.travel-hub-carousel .carousel-control-prev,
+.travel-hub-carousel .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.travel-hub-carousel:hover .carousel-control-prev,
+.travel-hub-carousel:hover .carousel-control-next {
+    opacity: 1;
+}
+
+.travel-hub-carousel .carousel-control-prev {
+    left: 20px;
+}
+
+.travel-hub-carousel .carousel-control-next {
+    right: 20px;
+}
+
+.travel-hub-carousel .carousel-control-prev:hover,
+.travel-hub-carousel .carousel-control-next:hover {
+    background: #1E88E5;
+}
+
+.travel-hub-carousel .carousel-control-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1E88E5;
+}
+
+.travel-hub-carousel .carousel-control-prev:hover .carousel-control-icon,
+.travel-hub-carousel .carousel-control-next:hover .carousel-control-icon {
+    color: #ffffff;
+}
+
+/* Cursor para indicar que se puede arrastrar */
+.travel-hub-carousel .carousel-inner {
+    cursor: grab;
+}
+
+.travel-hub-carousel .carousel-inner:active {
+    cursor: grabbing;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .travel-hub-carousel .carousel-item img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .travel-hub-carousel .carousel-item img {
+        height: 250px;
+    }
+    
+    .travel-hub-carousel .carousel-control-prev,
+    .travel-hub-carousel .carousel-control-next {
+        width: 35px;
+        height: 35px;
+    }
+}

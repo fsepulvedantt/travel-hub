@@ -1,0 +1,7 @@
+{
+  "cssPath": "home-carousel.css",
+  "htmlPath": "home-carousel.html",
+  "jsPath": "home-carousel.js",
+  "name": "Home Carousel",
+  "type": "component"
+}

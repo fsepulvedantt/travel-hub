@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="viajes-container">
+  <!-- Breadcrumb / Búsqueda Info -->
+  <div class="search-info-bar">
+    <div class="search-params">
+      <i class="fas fa-route"></i>
+      <span id="rutaBusqueda">Cargando...</span>
+    </div>
+    <a href="/" class="btn-nueva-busqueda">
+      <i class="fas fa-search"></i> Nueva búsqueda
+    </a>
+  </div>
+
+  <h2>Resultados de tu búsqueda</h2>
+  
+  <div class="row">
+    <!-- Sidebar de Filtros -->
+    <div class="col-lg-3">
+      <div class="filters-section">
+        <div class="filters-header">
+          <h3><i class="fas fa-filter"></i> Filtrar y ordenar</h3>
+        </div>
+
+        <!-- Ordenamiento -->
+        <div class="filter-group">
+          <label><i class="fas fa-sort"></i> Ordenar por</label>
+          <select id="ordenamiento" class="form-control form-control-sm">
+            <option value="relevancia">Relevancia</option>
+            <option value="precio-asc">Menor precio</option>
+            <option value="precio-desc">Mayor precio</option>
+            <option value="asientos">Más asientos disponibles</option>
+            <option value="horario-salida">Horario de salida</option>
+          </select>
+        </div>
+
+        <!-- Empresa -->
+        <div class="filter-group">
+          <label><i class="fas fa-bus"></i> Empresa</label>
+          <select id="filtroEmpresa" class="form-control form-control-sm">
+            <option value="">Todas las empresas</option>
+          </select>
+        </div>
+
+        <!-- Precio -->
+        <div class="filter-group">
+          <label><i class="fas fa-dollar-sign"></i> Rango de Precio</label>
+          <div class="price-range">
+            <div class="price-inputs">
+              <div class="price-input-group">
+                <label class="price-label">Desde:</label>
+                <input type="number" id="filtroPrecioDesde" class="form-control form-control-sm" min="0" value="0" placeholder="0">
+              </div>
+              <div class="price-input-group">
+                <label class="price-label">Hasta:</label>
+                <input type="number" id="filtroPrecioHasta" class="form-control form-control-sm" min="0" placeholder="100000">
+              </div>
+            </div>
+            <div class="price-display">
+              <small>Máximo disponible: $<span id="precioMaximoDisponible">100.000</span></small>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <!-- Botón de aplicar filtros -->
+        <button id="btnBuscar" class="btn btn-primary w-100 mt-3">
+          <i class="fas fa-search"></i> Aplicar Filtros
+        </button>
+
+        <!-- Botón para limpiar filtros -->
+        <button id="btnLimpiarFiltros" class="btn btn-outline-secondary w-100 mt-2">
+          <i class="fas fa-redo"></i> Limpiar Filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenedor de resultados -->
+    <div class="col-lg-9">
+      <div id="errorMessage" class="alert alert-danger" style="display: none;" role="alert"></div>
+      
+      <div id="loadingSpinner" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-2">Buscando los mejores viajes para ti...</p>
+      </div>
+
+      <div id="viajesGrid" class="row g-4">
+        <!-- Las tarjetas se generarán dinámicamente aquí -->
+      </div>
+
+      <div id="noResultados" class="alert alert-info" style="display: none;">
+        <i class="fas fa-info-circle"></i> No se encontraron viajes para tu búsqueda. Intenta con otras fechas o destinos.
+      </div>
+    </div>
+  </div>
+</div>
+

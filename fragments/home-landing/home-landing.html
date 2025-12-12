@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="home-landing-container">
+  
+  <!-- Hero Section con Formulario -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Buscá tus pasajes en micro</h1>
+        <p class="hero-subtitle">Viajá cómodo y seguro a tu destino</p>
+      </div>
+      
+      <!-- Formulario de Búsqueda -->
+      <div class="search-card">
+        <form id="formBusqueda">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="origen">Origen*</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="origen" 
+                placeholder="Ingresá Ciudad o Terminal"
+                required
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="destino">Destino*</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="destino" 
+                placeholder="Ingresá Ciudad o Terminal"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fechaPartida">Partida*</label>
+              <input 
+                type="date" 
+                class="form-control" 
+                id="fechaPartida"
+                required
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="fechaRegreso">Regreso</label>
+              <input 
+                type="date" 
+                class="form-control" 
+                id="fechaRegreso"
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-check">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="soloIda"
+              >
+              <label class="form-check-label" for="soloIda">
+                Solo ida
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group-inline">
+              <label for="pasajeros">Pasajeros*</label>
+              <div class="pasajeros-selector">
+                <button type="button" class="btn-menos">-</button>
+                <input 
+                  type="number" 
+                  class="form-control-pasajeros" 
+                  id="pasajeros"
+                  value="1"
+                  min="1"
+                  max="10"
+                  readonly
+                >
+                <button type="button" class="btn-mas">+</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-buscar">
+            <i class="fas fa-search"></i> Buscar pasajes
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner de Ofertas -->
+  <section class="ofertas-section">
+    <div class="container">
+      <h2>Descargá nuestra app y ahorrá en tu próxima aventura</h2>
+      
+      <div class="ofertas-grid">
+        <div class="oferta-card">
+          <div class="oferta-icon">
+            <i class="fas fa-wallet"></i>
+          </div>
+          <h3>mercado pago</h3>
+          <p class="oferta-descuento">3</p>
+          <p class="oferta-desc">cuotas sin interés</p>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-icon">
+            <i class="fas fa-university"></i>
+          </div>
+          <h3>Banco Provincia</h3>
+          <p class="oferta-descuento">4</p>
+          <p class="oferta-desc">cuotas sin interés</p>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3>Banco Ciudad</h3>
+          <p class="oferta-descuento">3</p>
+          <p class="oferta-desc">cuotas sin interés</p>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <h3>NaranjaX</h3>
+          <p class="oferta-descuento">3</p>
+          <p class="oferta-desc">cuotas con interés PLAN Z</p>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-icon">
+            <i class="fas fa-money-check-alt"></i>
+          </div>
+          <h3>ICBC</h3>
+          <p class="oferta-descuento">6</p>
+          <p class="oferta-desc">cuotas sin interés</p>
+        </div>
+
+        <div class="oferta-card">
+          <div class="oferta-icon">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+          <h3>voly</h3>
+          <p class="oferta-descuento">6</p>
+          <p class="oferta-desc">cuotas sin interés</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inspiración para viajes -->
+  <section class="inspiracion-section">
+    <div class="container">
+      <h2>Inspirate para tu próximo viaje</h2>
+      
+      <div class="destinos-grid">
+        <div class="destino-card">
+          <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=400" alt="Naturaleza">
+          <div class="destino-overlay">
+            <i class="fas fa-mountain"></i>
+            <h3>Naturaleza</h3>
+            <p>Rutas únicas que conectan con paisajes inolvidables</p>
+          </div>
+        </div>
+
+        <div class="destino-card">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400" alt="Costas">
+          <div class="destino-overlay">
+            <i class="fas fa-umbrella-beach"></i>
+            <h3>Costas</h3>
+            <p>Atardeceres frente al mar y ciudades vibrantes</p>
+          </div>
+        </div>
+
+        <div class="destino-card">
+          <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=400" alt="Ciudades">
+          <div class="destino-overlay">
+            <i class="fas fa-city"></i>
+            <h3>Ciudades</h3>
+            <p>Cultura, gastronomía y experiencias urbanas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Valores de Travel Hub -->
+  <section class="valores-section">
+    <div class="container">
+      <h2>Nuestros valores</h2>
+      
+      <div class="valores-grid">
+        <div class="valor-card">
+          <div class="valor-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Cercanía</h3>
+          <p>Atención humana y soporte en cada paso del viaje</p>
+        </div>
+
+        <div class="valor-card">
+          <div class="valor-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Confianza</h3>
+          <p>Pagos seguros y notificaciones claras para tu tranquilidad</p>
+        </div>
+
+        <div class="valor-card">
+          <div class="valor-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Responsabilidad</h3>
+          <p>Compromiso con la movilidad sostenible y local</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

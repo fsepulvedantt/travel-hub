@@ -1,0 +1,281 @@
+/* Variables */
+:root {
+  --azul-primario: #0066cc;
+  --azul-secundario: #0052a3;
+  --azul-claro: #e8f4fd;
+  --azul-muy-claro: #f0f7ff;
+  --gris-texto: #2c3e50;
+  --gris-fondo: #f5f5f5;
+  --success: #2e8b57;
+  --success-claro: #e6f4ee;
+  --warn: #f0ad4e;
+  --warn-claro: #fff4e0;
+  --alert: #d9534f;
+  --alert-claro: #fdecea;
+}
+
+/* Clase contenedor fragmento */
+.fragment_215 {
+  background-color: var(--gris-fondo);
+  margin: 0.5rem;
+}
+
+/* Mensajes */
+/** Mensaje de Información **/
+.message-state {
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 2px solid var(--azul-claro);
+}
+
+.message-state p {
+  color: var(--azul-secundario)
+}
+
+/** Mensaje de Error **/
+.error-state {
+  background-color: var(--alert-claro);
+  border: 2px solid var(--alert);
+}
+
+.error-state p {
+  color: var(--alert);
+}
+
+/* Contendor del Detalle */
+.travel-main-fragment {
+  display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+
+.travel-card-container {
+ display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.travel-purchase-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+/* Card del Viaje */
+.travel-detail-fragment {
+  background: white;
+  padding: 24px;
+	min-width:400px;
+	max-width:500px;
+	border: 3px solid white;
+	border-radius: 20px;
+	
+  transition: 
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.travel-detail-fragment:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px var(--azul-claro);
+  border-color: var(--azul-primario);
+}
+
+/* Titulo de la card*/
+.travel-detail-title {
+  font-size: 2rem;
+	margin-bottom: 1.5rem;
+  color: var(--gris-texto);
+	text-align:center;
+}
+
+/* Contenedor Info Card */
+.trip-info-section {
+  margin-bottom: 20px;
+}
+
+/* Titulos Info Card */
+.trip-route-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.route-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.route-city {
+  font-size: 18px;
+  font-weight: 700px;
+  color: #1a1a1a;
+}
+
+.trip-schedule-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.schedule-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-label {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.schedule-date {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+.schedule-time {
+  font-size: 15px;
+  color: #333;
+}
+
+.trip-service-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-top: 16px;
+  border-top: 1px solid var(--azul-primario);
+}
+
+.service-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.service-type {
+  font-size: 14px;
+  color: #666;
+}
+
+.service-duration {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.duration-text {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.view-route-link {
+  font-size: 14px;
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.view-route-link:hover {
+  text-decoration: underline;
+}
+
+/* Detalle de la compra */
+.purchase-detail-section {
+}
+
+.purchase-detail-section-total {
+  background: #fff;
+  padding: 20px 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
+}
+
+.price-list {
+  margin-bottom: 16px;
+}
+
+.price-row {
+  display: flex;
+	justify-content: flex-end;
+  padding-top: 12px;
+}
+
+.price-row:last-child {
+	border-top: 2px solid var(--azul-primario);
+	
+}
+
+.price-label {
+  font-size: 15px;
+  color: #333;
+}
+
+.price-value {
+  font-size: 2rem;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.total-label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.total-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.currency {
+  font-size: 14px;
+  color: #666;
+}
+
+.amount {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.text-right {
+  align-items: flex-end;
+  text-align: right;
+}
