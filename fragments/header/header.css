@@ -22,45 +22,4 @@
   color: white;
 }
 
-.travel-hub_span {
-  color: var(--azul-secundario);
-}
 
-/* Estilos para el modal */
-#modalConsultarPasaje .modal-header {
-  background-color: var(--azul-primario);
-  color: white;
-}
-
-#modalConsultarPasaje .modal-header .close {
-  color: white;
-  opacity: 1;
-}
-
-#modalConsultarPasaje .modal-header .close:hover {
-  color: var(--azul-claro);
-}
-
-#modalConsultarPasaje .form-control:focus {
-  border-color: var(--azul-primario);
-  box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
-}
-
-/* Backdrop para modal */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1040;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
-}
-
-.modal-backdrop.show {
-  opacity: 0.5;
-}
-
-.modal.show {
-  display: block;
-}

@@ -72,7 +72,7 @@
     // Obtener viajes de sessionStorage
     const viajeIda = JSON.parse(sessionStorage.getItem('viajeIda'));
     const viajeVuelta = urlParams.viajeIdVuelta ? JSON.parse(sessionStorage.getItem('viajeVuelta')) : null;
-    
+
     // Determinar tipo de reserva: si hay viajeIdVuelta en URL, es IDA_VUELTA
     const tipoReserva = (viajeVuelta || urlParams.viajeIdVuelta) ? 'IDA_VUELTA' : 'IDA';
 
@@ -150,7 +150,7 @@
     `;
 
     document.getElementById('rutaResumen').innerHTML = resumenHTML;
-    
+
     // Ocultar el elemento precioResumen ya que ahora lo mostramos en rutaResumen
     const precioResumenElement = document.getElementById('precioResumen');
     if (precioResumenElement) {
@@ -253,7 +253,7 @@
       // Crear reserva
       const viajeIda = viajeInfo.viajeIda;
       const viajeVuelta = viajeInfo.viajeVuelta;
-      
+
       const reservaData = {
         idViajeIda: parseInt(viajeInfo.viajeIdIda),
         idViajeVuelta: viajeInfo.viajeIdVuelta ? parseInt(viajeInfo.viajeIdVuelta) : 0,
@@ -266,7 +266,7 @@
         mail: mail,
         dni: dni
       };
-      
+
       console.log('📤 Enviando reserva al backend:', reservaData);
       console.log('🔍 Tipo de reserva:', viajeInfo.tipoReserva);
       console.log('✈️ ID Viaje Ida:', viajeInfo.viajeIdIda);
@@ -304,7 +304,7 @@
   // Mostrar modal de éxito
   function mostrarExito(codigoReserva) {
     document.getElementById('codigoReserva').textContent = codigoReserva;
-    
+
     // Mostrar modal personalizado
     const modal = document.getElementById('modalExito');
     modal.style.display = 'flex';
@@ -316,7 +316,7 @@
     const errorDiv = document.getElementById('errorMsg');
     errorDiv.textContent = mensaje;
     errorDiv.style.display = 'block';
-    
+
     // Scroll al error
     errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }

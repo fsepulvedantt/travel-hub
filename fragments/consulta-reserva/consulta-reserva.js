@@ -263,7 +263,7 @@
   });
 
   btnVolver.addEventListener('click', () => {
-    window.location.href = '/web/travelhub';
+    window.location.href = '/';
   });
 
   // Verificar si hay código en la URL
