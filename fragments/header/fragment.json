@@ -1,0 +1,7 @@
+{
+  "cssPath": "header.css",
+  "htmlPath": "header.html",
+  "jsPath": "header.js",
+  "name": "Header",
+  "type": "component"
+}

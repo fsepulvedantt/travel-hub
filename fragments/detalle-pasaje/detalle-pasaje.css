@@ -1,4 +1,3 @@
-/* CSS */
 :root {
   --azul-primario: #0066cc;
   --azul-secundario: #0052a3;
@@ -17,7 +16,7 @@
 
 /* Encabezado */
 .travel-hub-checkout-header {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
   color: white;
   padding: 20px 30px;
   border-radius: 8px;
@@ -46,7 +45,7 @@
 
 .travel-hub-btn-volver-home:hover {
   background: rgba(255, 255, 255, 0.9);
-  color: #10b981;
+  color: var(--azul-primario);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -127,6 +126,7 @@
 .travel-hub-trip-route {
   display: flex;
   gap: 15px;
+  align-items: flex-start;
 }
 
 .travel-hub-route-icon {
@@ -155,21 +155,11 @@
   flex: 1;
 }
 
-.travel-hub-route-text {
-  font-size: 0.85rem;
-  color: #6b7280;
-  margin-bottom: 5px;
-}
-
 .travel-hub-route-cities {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--gris-texto);
   margin-bottom: 10px;
-}
-
-.travel-hub-trip-dates {
-  text-align: right;
 }
 
 .travel-hub-date-info {
@@ -189,154 +179,8 @@
   font-weight: 500;
 }
 
-.travel-hub-price-info strong {
-  font-size: 1.3rem;
-  color: var(--gris-texto);
-}
-
-/* Sección de Costos */
-.travel-hub-cost-section {
-  background: var(--azul-muy-claro);
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: 1px solid var(--azul-claro);
-}
-
-.travel-hub-cost-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  color: #4b5563;
-  font-size: 0.95rem;
-}
-
-.travel-hub-cost-item:not(:last-child) {
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.travel-hub-total-section {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 0;
-  margin-top: 15px;
-  border-top: 2px solid #d1d5db;
-  font-size: 1.1rem;
-}
-
-.travel-hub-total-amount {
-  color: #10b981;
-  font-size: 1.4rem;
-}
-
-/* Sección de Pago */
-.travel-hub-payment-section {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  margin-bottom: 20px;
-}
-
-.travel-hub-payment-info {
-  background: var(--azul-muy-claro);
-  padding: 15px;
-  border-radius: 6px;
-  margin-top: 15px;
-}
-
-.travel-hub-payment-detail {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.travel-hub-payment-detail i {
-  font-size: 2rem;
-  color: var(--azul-primario);
-}
-
-.travel-hub-payment-type {
-  font-weight: 600;
-  color: var(--gris-texto);
-  font-size: 1rem;
-}
-
-.travel-hub-payment-card {
-  color: #6b7280;
-  font-size: 0.9rem;
-  margin-top: 3px;
-}
-
-.travel-hub-badge-lg {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.travel-hub-badge-lg i {
-  margin-right: 8px;
-}
-
-/* Botón Volver al Inicio Grande */
-.travel-hub-btn-volver-home-large {
-  background: var(--azul-primario);
-  border: none;
-  padding: 15px 30px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  color: white;
-}
-
-.travel-hub-btn-volver-home-large:hover {
-  background: var(--azul-secundario);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
-  color: white;
-}
-
-.travel-hub-btn-volver-home-large i {
-  margin-right: 10px;
-}
-
-/* Diseño Responsivo */
-@media (max-width: 991px) {
-  .travel-hub-trip-route {
-    flex-direction: column;
-  }
-
-  .travel-hub-trip-dates {
-    text-align: left;
-    margin-top: 15px;
-  }
-
-  .travel-hub-price-info {
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 768px) {
-  .travel-hub-checkout-header {
-    padding: 15px 20px;
-  }
-
-  .travel-hub-header-title {
-    font-size: 1.2rem;
-  }
-
-  .travel-hub-btn-volver-home {
-    padding: 6px 15px;
-    font-size: 0.9rem;
-  }
-
-  .travel-hub-info-section {
-    padding: 20px;
-  }
-
-  .travel-hub-payment-detail {
-    flex-direction: column;
-    text-align: center;
-  }
+/* Spinner de carga */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }

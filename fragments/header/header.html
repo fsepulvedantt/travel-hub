@@ -1,0 +1,42 @@
+<div class="d-flex p-3 justify-content-between align-items-center">
+    <h3 class="ml-6">
+        <img data-lfr-editable-id="th_logo" data-lfr-editable-type="image" class="travel-hub_logo mr-2" src="[resources:logo_travelHub.jpg]" alt="Travel hub logo">
+        Travel <span class="travel-hub_span">Hub</span>
+    </h3>
+    <div class="mr-6">
+        <button class="travel-hub_btn btn m-2" id="btnConsultarPasaje">
+            Consultar pasaje
+        </button>
+    </div>
+</div>
+
+<!-- Modal Consultar Pasaje -->
+<div class="modal fade" id="modalConsultarPasaje" tabindex="-1" role="dialog" aria-labelledby="modalConsultarPasajeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConsultarPasajeLabel">Consultar Pasaje</h5>
+                <button type="button" class="close" id="btnCerrarModal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formConsultarPasaje">
+                    <div class="form-group">
+                        <label for="nroReserva">Número de Reserva</label>
+                        <input type="text" class="form-control" id="nroReserva" placeholder="Ingrese el número de reserva" required>
+                        <small class="form-text text-muted">Ingrese el número de reserva que recibió al realizar su compra.</small>
+                    </div>
+                    <div id="mensajeError" class="alert alert-danger d-none" role="alert"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btnCancelar">Cancelar</button>
+                <button type="button" class="btn travel-hub_btn" id="btnBuscarReserva">
+                    <span id="btnTexto">Buscar</span>
+                    <span id="btnSpinner" class="spinner-border spinner-border-sm d-none ml-2" role="status" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
