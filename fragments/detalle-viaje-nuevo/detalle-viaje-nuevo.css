@@ -1,0 +1,439 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --azul-primario: #0066cc;
+    --azul-secundario: #0052a3;
+    --azul-hover: #004999;
+    --azul-claro: #e8f4fd;
+    --gris-texto: #2c3e50;
+    --gris-suave: #6c757d;
+    --gris-fondo: #f8f9fa;
+    --blanco: #ffffff;
+    --sombra-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+    --sombra-hover: 0 8px 24px rgba(0, 102, 204, 0.15);
+    --radio: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--gris-fondo);
+    color: var(--gris-texto);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Estados de carga y error */
+.message-state {
+    padding: 1.5rem;
+    border-radius: var(--radio);
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+    background: var(--blanco);
+    box-shadow: var(--sombra-card);
+}
+
+.message-state.loading {
+    border-left: 4px solid var(--azul-primario);
+}
+
+.message-state.error {
+    border-left: 4px solid #dc3545;
+    color: #dc3545;
+}
+
+.message-state i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Layout principal */
+.travel-main-fragment {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 992px) {
+    .travel-main-fragment {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+/* Tarjetas de viaje */
+.travel-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.travel-detail-fragment {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.travel-detail-fragment:hover {
+    box-shadow: var(--sombra-hover);
+    transform: translateY(-4px);
+}
+
+/* Encabezado de tarjeta */
+.travel-header {
+    background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+    color: var(--blanco);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.travel-header i {
+    font-size: 1.5rem;
+}
+
+.travel-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Contenido de tarjeta */
+.travel-content {
+    padding: 1.5rem;
+}
+
+/* Ruta (Origen-Destino) */
+.route-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gris-fondo);
+}
+
+.route-point {
+    flex: 1;
+    text-align: center;
+}
+
+.route-point.origin {
+    text-align: left;
+}
+
+.route-point.destination {
+    text-align: right;
+}
+
+.route-label {
+    font-size: 0.75rem;
+    color: var(--gris-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.route-city {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gris-texto);
+    display: block;
+}
+
+.route-arrow {
+    flex: 0 0 auto;
+    color: var(--azul-primario);
+    font-size: 2rem;
+    margin: 0 1rem;
+}
+
+/* Horarios */
+.schedule-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--gris-fondo);
+}
+
+.schedule-block {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.schedule-icon {
+    background: var(--azul-claro);
+    color: var(--azul-primario);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.schedule-info {
+    flex: 1;
+}
+
+.schedule-label {
+    font-size: 0.75rem;
+    color: var(--gris-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.schedule-date {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gris-texto);
+    display: block;
+}
+
+.schedule-time {
+    font-size: 0.875rem;
+    color: var(--gris-suave);
+}
+
+/* Información del servicio */
+.service-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--gris-fondo);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.service-company {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.service-icon {
+    background: var(--azul-primario);
+    color: var(--blanco);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.service-details h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gris-texto);
+    margin: 0 0 0.25rem 0;
+}
+
+.service-type {
+    font-size: 0.875rem;
+    color: var(--gris-suave);
+}
+
+.service-duration {
+    text-align: right;
+}
+
+.duration-badge {
+    background: var(--azul-claro);
+    color: var(--azul-primario);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Precio individual */
+.price-section {
+    text-align: right;
+}
+
+.price-label {
+    font-size: 0.875rem;
+    color: var(--gris-suave);
+    margin-bottom: 0.25rem;
+}
+
+.price-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--azul-primario);
+}
+
+/* Resumen de compra */
+.purchase-summary {
+    background: var(--blanco);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-card);
+    position: sticky;
+    top: 2rem;
+}
+
+.summary-header {
+    background: var(--gris-fondo);
+    padding: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.summary-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gris-texto);
+    margin: 0;
+}
+
+.summary-content {
+    padding: 1.5rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gris-fondo);
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 0.875rem;
+    color: var(--gris-suave);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.summary-amount {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gris-texto);
+}
+
+.total-row {
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--gris-fondo);
+}
+
+.total-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gris-texto);
+}
+
+.total-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--azul-primario);
+}
+
+/* Botón continuar */
+.btn-continue {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+    color: var(--blanco);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-continue:hover {
+    background: linear-gradient(135deg, var(--azul-secundario) 0%, var(--azul-hover) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+}
+
+.btn-continue:active {
+    transform: translateY(0);
+}
+
+.btn-continue i {
+    font-size: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .route-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .route-arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
+    }
+
+    .route-point.origin,
+    .route-point.destination {
+        text-align: center;
+    }
+
+    .schedule-section {
+        grid-template-columns: 1fr;
+    }
+
+    .service-section {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .service-duration {
+        text-align: center;
+    }
+}
+
+.hidden {
+    display: none;
+}
