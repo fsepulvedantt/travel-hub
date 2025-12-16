@@ -11,6 +11,14 @@
 	border-radius: 2rem;
 }
 
+.travel-hub_legend{
+  background-color: var(--azul-primario);
+	padding: 1rem;
+	color: white;
+	border-top-left-radius: 2rem;
+	border-top-right-radius: 2rem;
+}
+
 .travel-hub_input{
   background-color: white;
 }

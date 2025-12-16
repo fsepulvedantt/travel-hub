@@ -1,12 +1,12 @@
-<div class="fragment_105 m-4 p-4">
+<div class="fragment_105 m-4">
     <form id="formBusquedaViaje">
-        <div>
+        <div class="travel-hub_legend">
             <legend>
                 Buscá tus pasajes en micro
             </legend>
         </div>
 
-        <div class="d-flex flex-column form-inputs">
+        <div class="d-flex flex-column form-inputs p-4">
             <div class="mb-3">
                 <label for="inputOrigen" class="form-label">Origen*</label>
                 <input type="text" class="form-control travel-hub_input" id="inputOrigen" required>
@@ -32,10 +32,11 @@
                 <label for="inputPasajeros" class="form-label">Pasajeros*</label>
                 <input type="number" class="form-control travel-hub_input" id="inputPasajeros" min="1" value="1" required>
             </div>
+            <button type="submit" class="btn-buscar btn">
+                Buscar Pasajes
+            </button>
         </div>
-        <button type="submit" class="btn-buscar btn">
-            Buscar Pasajes
-        </button>
+
     </form>
 
     <!-- Contenedor para mensajes de validación -->
