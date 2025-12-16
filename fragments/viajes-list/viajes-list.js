@@ -106,7 +106,6 @@ async function cargarFiltrosDisponibles() {
     filtroPrecioHasta.value = precioMaximo;
     precioMaximoDisponible.textContent = precioMaximo.toLocaleString('es-AR');
 
-    console.log('Filtros cargados:', { empresas, precioMaximo });
   } catch (error) {
     console.error('Error al cargar filtros:', error);
   }
@@ -230,19 +229,16 @@ async function cargarViajes() {
     }
 
     const viajes = await response.json();
-    console.log('✅ Viajes obtenidos del API:', viajes.length);
-    console.log('Parámetros de búsqueda:', searchParams);
+
 
     mostrarLoading(false);
 
     if (!viajes || viajes.length === 0) {
-      console.log('❌ No hay viajes en la BD');
       noResultados.classList.remove('d-none');
       return;
     }
 
     const tipoReserva = searchParams.tipoReserva;
-    console.log('Tipo de reserva:', tipoReserva);
 
     // Filtrar viajes de ida
     const viajesIda = viajes.filter(viaje => {
@@ -266,19 +262,14 @@ async function cargarViajes() {
 
         coincideFecha = fechaBuscada === fechaViajeStr;
 
-        if (!coincideFecha) {
-          console.log('❌ Viaje ' + viaje.origen + '→' + viaje.destino + ' no coincide en fecha. Buscada: ' + fechaBuscada + ', Viaje: ' + fechaViajeStr);
-        }
+
       }
 
       const resultado = coincideOrigen && coincideDestino && coincideEmpresa && coincidePrecio && coincideFecha;
-      if (!resultado && viaje.origen === searchParams.origen && viaje.destino === searchParams.destino) {
-        console.log('❌ Viaje filtrado:', { viaje: viaje.origen + '→' + viaje.destino, coincideOrigen, coincideDestino, coincideEmpresa, coincidePrecio, coincideFecha });
-      }
+
       return resultado;
     });
 
-    console.log('📊 Viajes de ida filtrados: ' + viajesIda.length);
 
     // Si es ida y vuelta, también filtrar viajes de vuelta
     let viajesVuelta = [];
@@ -305,19 +296,15 @@ async function cargarViajes() {
 
           coincideFecha = fechaBuscada === fechaViajeStr;
 
-          if (!coincideFecha) {
-            console.log('❌ Viaje vuelta ' + viaje.origen + '→' + viaje.destino + ' no coincide en fecha. Buscada: ' + fechaBuscada + ', Viaje: ' + fechaViajeStr);
-          }
+
         }
 
         return coincideOrigen && coincideDestino && coincideEmpresa && coincidePrecio && coincideFecha;
       });
 
-      console.log('📊 Viajes de vuelta filtrados: ' + viajesVuelta.length);
     }
 
     if (viajesIda.length === 0 || (tipoReserva === 'IDA_VUELTA' && viajesVuelta.length === 0)) {
-      console.log('❌ No hay resultados suficientes:', { viajesIda: viajesIda.length, viajesVuelta: viajesVuelta.length, tipoReserva: tipoReserva });
       noResultados.classList.remove('d-none');
       return;
     }
@@ -342,7 +329,7 @@ async function cargarViajes() {
       // Event listeners para solo ida
       const radiosIda = viajesGrid.querySelectorAll('input[name="viajeida"]');
       const tarjetasIda = viajesGrid.querySelectorAll('.viaje-ida-card');
-      
+
       // Click en el radio button
       radiosIda.forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -355,25 +342,25 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       // Click en toda la tarjeta
       tarjetasIda.forEach(tarjeta => {
         tarjeta.addEventListener('click', (e) => {
           // No hacer nada si se clickeó directamente el radio button
           if (e.target.classList.contains('viaje-radio')) return;
-          
+
           const radio = tarjeta.querySelector('.viaje-radio');
           radio.checked = true;
           radio.dispatchEvent(new Event('change'));
         });
-        
+
         // Efecto hover
         tarjeta.addEventListener('mouseenter', () => {
           tarjeta.style.backgroundColor = '#f8f9fa';
           tarjeta.style.borderColor = '#0d6efd';
           tarjeta.style.borderWidth = '2px';
         });
-        
+
         tarjeta.addEventListener('mouseleave', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -476,7 +463,7 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       // Click en toda la tarjeta de ida
       tarjetasIda.forEach(tarjeta => {
         tarjeta.addEventListener('click', (e) => {
@@ -485,7 +472,7 @@ async function cargarViajes() {
           radio.checked = true;
           radio.dispatchEvent(new Event('change'));
         });
-        
+
         tarjeta.addEventListener('mouseenter', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -494,7 +481,7 @@ async function cargarViajes() {
             tarjeta.style.borderWidth = '2px';
           }
         });
-        
+
         tarjeta.addEventListener('mouseleave', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -504,7 +491,7 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       // Click en toda la tarjeta de vuelta
       tarjetasVuelta.forEach(tarjeta => {
         tarjeta.addEventListener('click', (e) => {
@@ -513,7 +500,7 @@ async function cargarViajes() {
           radio.checked = true;
           radio.dispatchEvent(new Event('change'));
         });
-        
+
         tarjeta.addEventListener('mouseenter', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -522,7 +509,7 @@ async function cargarViajes() {
             tarjeta.style.borderWidth = '2px';
           }
         });
-        
+
         tarjeta.addEventListener('mouseleave', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
