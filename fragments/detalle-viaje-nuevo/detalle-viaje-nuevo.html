@@ -1,0 +1,193 @@
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
+
+<div class="fragment_215">
+    <div class="container">
+        <!-- Estado de carga -->
+        <div id="loadingState" class="message-state loading">
+            <i class="bi bi-hourglass-split"></i>
+            <p style="margin: 0; font-size: 1.125rem; font-weight: 500;">Cargando información del viaje...</p>
+        </div>
+
+        <!-- Estado de error -->
+        <div id="errorState" class="message-state error hidden">
+            <i class="bi bi-exclamation-triangle"></i>
+            <p style="margin: 0; font-size: 1.125rem; font-weight: 500;">Error al cargar la información del viaje</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.875rem;">Por favor, intente nuevamente más tarde</p>
+        </div>
+
+        <!-- Contenido principal -->
+        <div id="mainContent" class="travel-main-fragment hidden">
+            <!-- Tarjetas de viaje -->
+            <div class="travel-card-container">
+                <!-- Viaje de Ida -->
+                <div id="viajeIda" class="travel-detail-fragment hidden">
+                    <div class="travel-header">
+                        <i class="bi bi-arrow-right-circle"></i>
+                        <h2>Viaje de Ida</h2>
+                    </div>
+
+                    <div class="travel-content">
+                        <!-- Ruta -->
+                        <div class="route-section">
+                            <div class="route-point origin">
+                                <span class="route-label">Origen</span>
+                                <span class="route-city" id="origenIda">-</span>
+                            </div>
+                            <i class="bi bi-arrow-right route-arrow"></i>
+                            <div class="route-point destination">
+                                <span class="route-label">Destino</span>
+                                <span class="route-city" id="destinoIda">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Horarios -->
+                        <div class="schedule-section">
+                            <div class="schedule-block">
+                                <div class="schedule-icon">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div class="schedule-info">
+                                    <span class="schedule-label">Salida</span>
+                                    <span class="schedule-date" id="fechaSalidaIda">-</span>
+                                    <span class="schedule-time" id="horaSalidaIda">-</span>
+                                </div>
+                            </div>
+
+                            <div class="schedule-block">
+                                <div class="schedule-icon">
+                                    <i class="bi bi-calendar-event"></i>
+                                </div>
+                                <div class="schedule-info">
+                                    <span class="schedule-label">Llegada</span>
+                                    <span class="schedule-date" id="fechaLlegadaIda">-</span>
+                                    <span class="schedule-time" id="horaLlegadaIda">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Servicio -->
+                        <div class="service-section">
+                            <div class="service-company">
+                                <div class="service-icon">
+                                    <i class="bi bi-bus-front"></i>
+                                </div>
+                                <div class="service-details">
+                                    <h3 id="empresaIda">-</h3>
+                                    <span class="service-type">Servicio Común</span>
+                                </div>
+                            </div>
+                            <div class="service-duration">
+                                <span class="duration-badge">
+                                    <i class="bi bi-clock"></i>
+                                    <span id="duracionIda">-</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Precio -->
+                        <div class="price-section">
+                            <div class="price-label">Precio del pasaje</div>
+                            <div class="price-value" id="precioIda">ARS 0,00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Viaje de Vuelta -->
+                <div id="viajeVuelta" class="travel-detail-fragment hidden">
+                    <div class="travel-header">
+                        <i class="bi bi-arrow-left-circle"></i>
+                        <h2>Viaje de Vuelta</h2>
+                    </div>
+
+                    <div class="travel-content">
+                        <!-- Ruta -->
+                        <div class="route-section">
+                            <div class="route-point origin">
+                                <span class="route-label">Origen</span>
+                                <span class="route-city" id="origenVuelta">-</span>
+                            </div>
+                            <i class="bi bi-arrow-right route-arrow"></i>
+                            <div class="route-point destination">
+                                <span class="route-label">Destino</span>
+                                <span class="route-city" id="destinoVuelta">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Horarios -->
+                        <div class="schedule-section">
+                            <div class="schedule-block">
+                                <div class="schedule-icon">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div class="schedule-info">
+                                    <span class="schedule-label">Salida</span>
+                                    <span class="schedule-date" id="fechaSalidaVuelta">-</span>
+                                    <span class="schedule-time" id="horaSalidaVuelta">-</span>
+                                </div>
+                            </div>
+
+                            <div class="schedule-block">
+                                <div class="schedule-icon">
+                                    <i class="bi bi-calendar-event"></i>
+                                </div>
+                                <div class="schedule-info">
+                                    <span class="schedule-label">Llegada</span>
+                                    <span class="schedule-date" id="fechaLlegadaVuelta">-</span>
+                                    <span class="schedule-time" id="horaLlegadaVuelta">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Servicio -->
+                        <div class="service-section">
+                            <div class="service-company">
+                                <div class="service-icon">
+                                    <i class="bi bi-bus-front"></i>
+                                </div>
+                                <div class="service-details">
+                                    <h3 id="empresaVuelta">-</h3>
+                                    <span class="service-type">Servicio Común</span>
+                                </div>
+                            </div>
+                            <div class="service-duration">
+                                <span class="duration-badge">
+                                    <i class="bi bi-clock"></i>
+                                    <span id="duracionVuelta">-</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Precio -->
+                        <div class="price-section">
+                            <div class="price-label">Precio del pasaje</div>
+                            <div class="price-value" id="precioVuelta">ARS 0,00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumen de compra -->
+            <div class="purchase-summary">
+                <div class="summary-header">
+                    <h2><i class="bi bi-receipt"></i> Resumen de compra</h2>
+                </div>
+                <div class="summary-content">
+                    <div id="summaryItems">
+                        <!-- Se llenan dinámicamente -->
+                    </div>
+
+                    <div class="total-row summary-row">
+                        <span class="total-label">Total</span>
+                        <span class="total-amount" id="totalAmount">ARS 0,00</span>
+                    </div>
+
+                    <button id="btnContinuar" class="btn-continue">
+                        <span>Continuar con la reserva</span>
+                        <i class="bi bi-arrow-right-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
