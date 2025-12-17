@@ -7,13 +7,26 @@
         </div>
 
         <div class="d-flex flex-column form-inputs p-4">
-            <div class="mb-3">
+            <!-- Origen con autocompletado -->
+            <div class="mb-3 autocomplete-wrapper">
                 <label for="inputOrigen" class="form-label">Origen*</label>
-                <input type="text" class="form-control travel-hub_input" id="inputOrigen" required>
+                <input type="text" class="form-control travel-hub_input" id="inputOrigen" required autocomplete="off">
+                <div class="autocomplete-dropdown" id="dropdownOrigen"></div>
             </div>
-            <div class="mb-3">
+
+            <!-- Destino con autocompletado -->
+            <div class="mb-3 autocomplete-wrapper">
                 <label for="inputDestino" class="form-label">Destino*</label>
-                <input type="text" class="form-control travel-hub_input" id="inputDestino" required>
+                <input type="text" class="form-control travel-hub_input" id="inputDestino" required autocomplete="off">
+                <div class="autocomplete-dropdown" id="dropdownDestino"></div>
+            </div>
+
+            <!-- Checkbox Solo Ida -->
+            <div class="mb-3">
+                <div class="custom-checkbox-wrapper">
+                    <input type="checkbox" id="checkboxSoloIda" class="custom-checkbox-input">
+                    <label for="checkboxSoloIda" class="custom-checkbox-label">Solo ida</label>
+                </div>
             </div>
 
             <div class="d-flex justify-content-around">
@@ -30,13 +43,13 @@
 
             <div class="mb-3">
                 <label for="inputPasajeros" class="form-label">Pasajeros*</label>
-                <input type="number" class="form-control travel-hub_input" id="inputPasajeros" min="1" value="1" required>
+                <input type="number" class="form-control travel-hub_input" id="inputPasajeros" min="1" value="1" aria-valuemax="4" required>
             </div>
+
             <button type="submit" class="btn-buscar btn">
                 Buscar Pasajes
             </button>
         </div>
-
     </form>
 
     <!-- Contenedor para mensajes de validación -->
