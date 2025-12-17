@@ -1,5 +1,125 @@
 const API_BASE_URL = window.location.origin + '/o/viajes';
 
+//-----------------------
+// PARTE NUEVA ORDENAMIENTO
+
+// Configuración de ordenamiento
+const sortConfig = {
+  relevancia: {
+    icon: 'fa-star',
+    text: 'Relevancia',
+    name: 'relevancia',
+    defaultOrder: 'desc',
+    orderIcon: { asc: 'fa-arrow-up-short-wide', desc: 'fa-arrow-down-wide-short' }
+  },
+  precio: {
+    icon: 'fa-dollar-sign',
+    text: 'Precio',
+    name: 'precio',
+    defaultOrder: 'asc',
+    orderIcon: { asc: 'fa-arrow-up-short-wide', desc: 'fa-arrow-down-wide-short' }
+  },
+  asientos: {
+    icon: 'fa-chair',
+    text: 'Asientos disponibles',
+    name: 'asientos',
+    defaultOrder: 'desc',
+    orderIcon: { asc: 'fa-arrow-up-short-wide', desc: 'fa-arrow-down-wide-short' }
+  },
+  horario: {
+    icon: 'fa-clock',
+    text: 'Horario de salida',
+    name: 'horario',
+    defaultOrder: 'desc',
+    orderIcon: { asc: 'fa-arrow-up-short-wide', desc: 'fa-arrow-down-wide-short' }
+  }
+};
+
+let currentSortType = 'relevancia';
+let currentSortOrder = 'desc';
+
+const sortTypeBtn = document.getElementById('sortTypeBtn');
+const sortDropdown = document.getElementById('sortDropdown');
+const sortOrderBtn = document.getElementById('sortOrderBtn');
+const sortOrderIcon = document.getElementById('sortOrderIcon');
+const sortTypeText = document.getElementById('sortTypeText');
+
+// Toggle dropdown
+sortTypeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  sortDropdown.classList.toggle('show');
+});
+
+// Cerrar dropdown al hacer click fuera
+document.addEventListener('click', () => {
+  sortDropdown.classList.remove('show');
+});
+
+// Seleccionar tipo de ordenamiento
+document.querySelectorAll('.sort-option').forEach(option => {
+  option.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    // Remover active de todas las opciones
+    document.querySelectorAll('.sort-option').forEach(opt => opt.classList.remove('active'));
+    option.classList.add('active');
+
+    // Actualizar tipo de orden
+    currentSortType = option.dataset.sort;
+    const config = sortConfig[currentSortType];
+
+    // Establecer orden por defecto
+    currentSortOrder = config.defaultOrder;
+
+    // Actualizar UI
+    const iconClass = config.icon;
+    sortTypeBtn.querySelector('i:first-child').className = `fas ${iconClass}`;
+    sortTypeText.textContent = config.text;
+    sortOrderIcon.className = `fas ${config.orderIcon[currentSortOrder]}`;
+
+    // Cerrar dropdown
+    sortDropdown.classList.remove('show');
+
+    // Aplicar ordenamiento
+    aplicarOrdenamiento();
+  });
+});
+
+// Cambiar dirección de orden
+sortOrderBtn.addEventListener('click', () => {
+  currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+  const config = sortConfig[currentSortType];
+  sortOrderIcon.className = `fas ${config.orderIcon[currentSortOrder]}`;
+
+  // Aplicar ordenamiento
+  aplicarOrdenamiento();
+});
+
+function aplicarOrdenamiento() {
+  console.log(`Ordenando por: ${currentSortType} - ${currentSortOrder}`);
+
+  // Aquí iría tu lógica de ordenamiento existente
+  // Por ejemplo, llamar a cargarViajes() con los parámetros actuales
+
+  // Mapeo a los valores originales de tu código
+  let ordenamientoValue;
+  if (currentSortType === 'relevancia') {
+    ordenamientoValue = 'relevancia';
+  } else if (currentSortType === 'precio') {
+    ordenamientoValue = currentSortOrder === 'asc' ? 'precio-asc' : 'precio-desc';
+  } else if (currentSortType === 'asientos') {
+    ordenamientoValue = 'asientos';
+  } else if (currentSortType === 'horario') {
+    ordenamientoValue = 'horario-salida';
+  }
+
+  console.log(`Valor para la API: ${ordenamientoValue}`);
+  // Aquí llamarías a tu función cargarViajes() con ordenamientoValue
+  cargarViajes();
+}
+
+//------------------------
+
 // Función para normalizar texto (quitar acentos, convertir a minúsculas)
 function normalizarTexto(texto) {
   if (!texto) return '';
@@ -20,7 +140,6 @@ const filtroEmpresa = fragmentElement.querySelector('#filtroEmpresa');
 const filtroPrecioDesde = fragmentElement.querySelector('#filtroPrecioDesde');
 const filtroPrecioHasta = fragmentElement.querySelector('#filtroPrecioHasta');
 const precioMaximoDisponible = fragmentElement.querySelector('#precioMaximoDisponible');
-const ordenamiento = fragmentElement.querySelector('#ordenamiento');
 const rutaBusqueda = fragmentElement.querySelector('#rutaBusqueda');
 
 // Obtener parámetros de la URL
@@ -47,17 +166,30 @@ function ordenarViajes(viajes, tipoOrdenamiento) {
     case 'precio-desc':
       return viajesCopia.sort((a, b) => b.precio - a.precio);
 
-    case 'asientos':
+    case 'asientos-asc':
+      return viajesCopia.sort((a, b) => a.asientosDisponibles - b.asientosDisponibles);
+
+    case 'asientos-desc':
       return viajesCopia.sort((a, b) => b.asientosDisponibles - a.asientosDisponibles);
 
-    case 'horario-salida':
+    case 'horario-asc':
       return viajesCopia.sort((a, b) => {
+        console.log(a);
+        console.log(b);
         const timestampA = typeof a.fechaSalida === 'string' ? parseInt(a.fechaSalida) : a.fechaSalida;
         const timestampB = typeof b.fechaSalida === 'string' ? parseInt(b.fechaSalida) : b.fechaSalida;
         return timestampA - timestampB;
       });
 
-    case 'relevancia':
+    case 'horario-desc':
+      return viajesCopia.sort((a, b) => {
+        const timestampA = typeof a.fechaSalida === 'string' ? parseInt(a.fechaSalida) : a.fechaSalida;
+        const timestampB = typeof b.fechaSalida === 'string' ? parseInt(b.fechaSalida) : b.fechaSalida;
+        return timestampB - timestampA;
+      });
+
+    case 'relevancia-asc':
+    case 'relevancia-desc':
     default:
       return viajesCopia;
   }
@@ -171,7 +303,7 @@ function crearTarjetaViaje(viaje, tipo) {
                 <i class="bi bi-${tipo === 'ida' ? 'arrow-right' : 'arrow-left'}-circle"></i> ${tipoLabel}
               </h6>
               <p class="mb-1"><strong>${viaje.origen} → ${viaje.destino}</strong></p>
-              <p class="mb-0"><span class="badge bg-info">${viaje.empresa}</span></p>
+              <p class="mb-0"><span class="bg-info badge">${viaje.empresa}</span></p>
             </div>
             <div class="col-md-4">
               <small class="text-muted d-block mb-1"><i class="bi bi-calendar-event"></i> Salida</small>
@@ -310,8 +442,8 @@ async function cargarViajes() {
     }
 
     // Aplicar ordenamiento
-    const viajesIdaOrdenados = ordenarViajes(viajesIda, ordenamiento.value);
-    const viajesVueltaOrdenados = tipoReserva === 'IDA_VUELTA' ? ordenarViajes(viajesVuelta, ordenamiento.value) : [];
+    const viajesIdaOrdenados = ordenarViajes(viajesIda, currentSortType + '-' + currentSortOrder);
+    const viajesVueltaOrdenados = tipoReserva === 'IDA_VUELTA' ? ordenarViajes(viajesVuelta, currentSortType + '-' + currentSortOrder) : [];
 
     // Renderizar según tipo de reserva
     if (tipoReserva === 'IDA') {
@@ -338,7 +470,7 @@ async function cargarViajes() {
             const viaje = viajesIdaOrdenados.find(v => v.viajeId == viajeId);
             sessionStorage.setItem('viajeIda', JSON.stringify(viaje));
             sessionStorage.setItem('tipoReserva', 'IDA');
-            window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeId}`;
+            window.location.href = `/detalle-viaje?viajeIdIda=${viajeId}`;
           }
         });
       });
@@ -375,7 +507,7 @@ async function cargarViajes() {
       viajesGrid.innerHTML = `
         <div class="col-12">
           <div class="card shadow-sm mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header gradient-background text-white">
               <h5 class="mb-0"><i class="bi bi-arrow-left-right"></i> Selecciona tus viajes de Ida y Vuelta</h5>
             </div>
             <div class="card-body">
@@ -401,7 +533,7 @@ async function cargarViajes() {
               
               <hr>
               <div class="text-end">
-                <button id="btnContinuarReserva" class="btn btn-primary btn-lg" disabled>
+                <button id="btnContinuarReserva" class="btn btn-primary" disabled>
                   <i class="bi bi-check-circle"></i> Continuar con la Reserva
                 </button>
               </div>
@@ -525,7 +657,7 @@ async function cargarViajes() {
           sessionStorage.setItem('viajeIda', JSON.stringify(viajeIdaSeleccionado));
           sessionStorage.setItem('viajeVuelta', JSON.stringify(viajeVueltaSeleccionado));
           sessionStorage.setItem('tipoReserva', 'IDA_VUELTA');
-          window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
+          window.location.href = `/detalle-viaje?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
         }
       });
     }
@@ -570,6 +702,3 @@ cargarFiltrosDisponibles().then(() => {
   mostrarInfoBusqueda();
   cargarViajes();
 });
-
-// Event listener para cambiar ordenamiento
-ordenamiento.addEventListener('change', cargarViajes);

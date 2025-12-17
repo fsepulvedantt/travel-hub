@@ -118,6 +118,9 @@
                 const idaId = viajeIda.viajeId;
                 const vueltaId = viajeVuelta ? viajeVuelta.viajeId : null;
 
+                sessionStorage.removeItem('viajeIda');
+                sessionStorage.removeItem('viajeVuelta');
+
                 if (vueltaId) {
                     window.location.href = `/formulario-reserva?viajeIdIda=${idaId}&viajeIdVuelta=${vueltaId}`;
                 } else {
