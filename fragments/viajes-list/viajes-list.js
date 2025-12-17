@@ -342,7 +342,7 @@ async function cargarViajes() {
       // Event listeners para solo ida
       const radiosIda = viajesGrid.querySelectorAll('input[name="viajeida"]');
       const tarjetasIda = viajesGrid.querySelectorAll('.viaje-ida-card');
-      
+
       // Click en el radio button
       radiosIda.forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -351,29 +351,29 @@ async function cargarViajes() {
             const viaje = viajesIdaOrdenados.find(v => v.viajeId == viajeId);
             sessionStorage.setItem('viajeIda', JSON.stringify(viaje));
             sessionStorage.setItem('tipoReserva', 'IDA');
-            window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeId}`;
+            window.location.href = `/detalle-viaje?viajeIdIda=${viajeId}`;
           }
         });
       });
-      
+
       // Click en toda la tarjeta
       tarjetasIda.forEach(tarjeta => {
         tarjeta.addEventListener('click', (e) => {
           // No hacer nada si se clickeó directamente el radio button
           if (e.target.classList.contains('viaje-radio')) return;
-          
+
           const radio = tarjeta.querySelector('.viaje-radio');
           radio.checked = true;
           radio.dispatchEvent(new Event('change'));
         });
-        
+
         // Efecto hover
         tarjeta.addEventListener('mouseenter', () => {
           tarjeta.style.backgroundColor = '#f8f9fa';
           tarjeta.style.borderColor = '#0d6efd';
           tarjeta.style.borderWidth = '2px';
         });
-        
+
         tarjeta.addEventListener('mouseleave', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -401,7 +401,7 @@ async function cargarViajes() {
                   ${viajesIdaOrdenados.map(viaje => crearTarjetaViaje(viaje, 'ida')).join('')}
                 </div>
               </div>
-              
+
               <!-- Viajes de Vuelta -->
               <div class="mb-3">
                 <h6 class="text-success mb-3 pb-2 border-bottom">
@@ -411,7 +411,7 @@ async function cargarViajes() {
                   ${viajesVueltaOrdenados.map(viaje => crearTarjetaViaje(viaje, 'vuelta')).join('')}
                 </div>
               </div>
-              
+
               <hr>
               <div class="text-end">
                 <button id="btnContinuarReserva" class="btn btn-primary btn-lg" disabled>
@@ -476,7 +476,7 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       // Click en toda la tarjeta de ida
       tarjetasIda.forEach(tarjeta => {
         tarjeta.addEventListener('click', (e) => {
@@ -485,7 +485,7 @@ async function cargarViajes() {
           radio.checked = true;
           radio.dispatchEvent(new Event('change'));
         });
-        
+
         tarjeta.addEventListener('mouseenter', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -494,7 +494,7 @@ async function cargarViajes() {
             tarjeta.style.borderWidth = '2px';
           }
         });
-        
+
         tarjeta.addEventListener('mouseleave', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -504,7 +504,7 @@ async function cargarViajes() {
           }
         });
       });
-      
+
       // Click en toda la tarjeta de vuelta
       tarjetasVuelta.forEach(tarjeta => {
         tarjeta.addEventListener('click', (e) => {
@@ -513,7 +513,7 @@ async function cargarViajes() {
           radio.checked = true;
           radio.dispatchEvent(new Event('change'));
         });
-        
+
         tarjeta.addEventListener('mouseenter', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -522,7 +522,7 @@ async function cargarViajes() {
             tarjeta.style.borderWidth = '2px';
           }
         });
-        
+
         tarjeta.addEventListener('mouseleave', () => {
           const radio = tarjeta.querySelector('.viaje-radio');
           if (!radio.checked) {
@@ -538,7 +538,7 @@ async function cargarViajes() {
           sessionStorage.setItem('viajeIda', JSON.stringify(viajeIdaSeleccionado));
           sessionStorage.setItem('viajeVuelta', JSON.stringify(viajeVueltaSeleccionado));
           sessionStorage.setItem('tipoReserva', 'IDA_VUELTA');
-          window.location.href = `/web/travelhub/formulario-reserva?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
+          window.location.href = `/detalle-viaje?viajeIdIda=${viajeIdaSeleccionado.viajeId}&viajeIdVuelta=${viajeVueltaSeleccionado.viajeId}`;
         }
       });
     }
