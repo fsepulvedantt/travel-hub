@@ -13,9 +13,12 @@
   --gris-texto: #2c3e50;
 }
 
+.gradient-background {
+  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
+}
+
 /* Search Info Bar */
 .search-info-bar {
-  background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
   color: white;
   padding: 1.5rem;
   border-radius: 0.75rem;
@@ -57,11 +60,107 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.viajes-container h2 {
+/* Nuevo contenedor para título y ordenamiento */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2rem;
+}
+
+.results-header h2 {
+  margin: 0;
   color: var(--gris-texto);
   font-weight: 700;
   font-size: 1.75rem;
+}
+
+/* Controles de ordenamiento */
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-btn {
+  background: white;
+  border: 2px solid var(--azul-primario);
+  color: var(--azul-primario);
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.sort-btn:hover {
+  background: var(--azul-muy-claro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
+}
+
+.sort-btn.active {
+  background: var(--azul-primario);
+  color: white;
+}
+
+.sort-btn i {
+  font-size: 1.1rem;
+}
+
+/* Dropdown personalizado para tipo de orden */
+.sort-dropdown {
+  position: relative;
+}
+
+.sort-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: white;
+  border: 2px solid var(--azul-primario);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  display: none;
+}
+
+.sort-dropdown-menu.show {
+  display: block;
+}
+
+.sort-option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--azul-claro);
+}
+
+.sort-option:last-child {
+  border-bottom: none;
+}
+
+.sort-option:hover {
+  background: var(--azul-muy-claro);
+}
+
+.sort-option.active {
+  background: var(--azul-claro);
+  color: var(--azul-primario);
+  font-weight: 600;
+}
+
+.sort-option i {
+  color: var(--azul-primario);
+  width: 20px;
 }
 
 .filters-section {
@@ -195,6 +294,9 @@
   background: linear-gradient(135deg, var(--azul-primario) 0%, var(--azul-secundario) 100%);
   border: none;
   color: white;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .filters-section .btn-primary:hover {
@@ -231,7 +333,7 @@
 }
 
 .d-flex.justify-content-between .badge {
-  background: var(--azul-primario) !important;
+  background: var(--azul-secundario) !important;
   color: white !important;
   font-size: 0.85rem;
   padding: 0.5rem 0.75rem;
@@ -358,7 +460,7 @@
   .card {
     min-height: auto;
   }
-  
+
   #viajesIdaContainer,
   #viajesVueltaContainer {
     max-height: 400px;
@@ -411,7 +513,7 @@
     font-size: 1.1rem;
   }
 
-  .card-body > div {
+  .card-body>div {
     padding: 0.75rem;
     margin-bottom: 0.5rem;
   }
